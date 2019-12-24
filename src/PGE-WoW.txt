@@ -13,29 +13,30 @@ All projects are in 1 solution: PGE.
 The reason why the whole solution is called PGE is that the main project here is PGE and the other
 projects are side projects needed to be created for PGE during development. They are different projects
 so can be built separately but dependencies should be considered.
-Example: if someone wants to build CConsole, it has to get PFL.lib prior to building.
+Example: if someone wants to build CConsole, it has to get or build PFL.lib prior to building CConsole.
 
 Project dependency tree:
   - PFL (.lib)
     - CConsole (.lib)
       - PGE (.lib)
+        - gfxcore2  (.dll)
         - ELTE-FAIL (.exe)
         - UnitTests (.exe)
 
 Build order is from top left to bottom right.
 So CConsole depends on PFL, PGE depends on CConsole and PFL, etc.
-ELTE-FAIL and UnitTests can be built in parallel since they have the same dependencies.
+ELTE-FAIL, gfxcore2 and UnitTests can be built in parallel since they have the same dependencies.
 
 
 We have the following repos:
-- rPFL
-- rConsole
-- rPGE
-- rELTE-FAIL
-- rUnitTests
-- rVS2012-PGE-sln (for solution and other textfiles like this txt)
+- PFL
+- Console
+- PGE
+- gfxcore2
+- ELTE-FAIL
+- PGE-misc (for solution and other textfiles like this txt)
 
-So as seen above, every project has its own repository.
+So as seen above, almost every project has its own repository. Exception is the UnitTests project, it lies in the same repo as PGE.
 
 
 ---
