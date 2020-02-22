@@ -3,7 +3,6 @@ Repo containing PGE solution keeping together the following projects:
  - CConsole
  - PFL
  - PGE
- - UnitTests (for PGE)
  - gfxcore2
  - ELTE-FAIL
  
