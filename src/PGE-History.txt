@@ -442,7 +442,6 @@ MEDIUM PRIORITY
         load only once and return it always (like textures), load always (like objects in proofps engine), load only once and make a copy if already loaded (this just saves file reading).
 
 LOW PRIORITY
- - FIX: [1] "PRREObject3DManager.cpp(276):    TPRREuint*  pColorIndices;      /**< Pointer to color indices. TODO: maybe can be removed as pVertexIndices is enough. */"
  - FIX: [2] "PRREWindow.cpp(1271): // TODO: always add clipchildren and clipsiblings"
  - FIX: [1] "PGESysCFG.cpp(318): // TODO: at some time, we may return 0 here ... because at this point the cfg is deleted, so not"
  - FIX: [1] "CConsole.cpp(27):// todo: revise these warnings"
@@ -462,7 +461,6 @@ LOW PRIORITY
  - RFR: [1] Object3DManager: is double createFromFile() really needed for method overriding?
  - RFR: [2] Object3DManager::loadOBJ(): after reading the file, instead of memcpy()-ing from filebuffer to lines[], lines[i] should be properly set to point into filebuffer properly!
  - RFR: [4] use std::algorithm anywhere possible, for like counting number of specific elements in a container, etc ...
- - RFR: [4] Object3DManager: make that giant selectVertexTransferMode() to use bitmasking, each bit of an int should have a meaning, this means the transfer mode enum should be also redefined: 0, 1, 2, 4, 8, etc ...
  - RFR: [1] PGESysCFG: use vectors instead of malloc-realloc
  - RFR: [1] create alternative to strClr() and the other 2 funcs which do not modify the source but malloc new destination. getDir() and getFilename() can use these
  - RFR: [2] PRREVector, PRREColor, etc ... after writing operator<<(), why can't it be used for assertEquals()?!
