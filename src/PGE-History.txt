@@ -420,8 +420,6 @@ LOW PRIORITY
 TOP PRIORITY
 [month]
  - DOC: how this is working, some flowcharts, how coordinates get transformed (example) etc.
- - RFR: PRREScreen::applyDisplaySettings() should be modified that upon successful apply, FindAdvancedPixelFormat() should be called
-		for the given DC, so no need for additional call to applyDisplaySettings() just for querying available advanced pixel formats.
  - RFR: [prev]move geometry out of object3d (into something like mesh3d: vertices, normals, transfer mode, etc)
  - RFR: move vertex transfer mode stuff out of object3dmanager into separate class
 
