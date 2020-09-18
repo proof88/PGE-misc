@@ -404,6 +404,9 @@ MEDIUM PRIORITY
  - FTR: [prev]timer and benchmark classes
  - FTR: [month] occlusion culling
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
+ - FTR: [2x40] unfortunately, loading OBJ format mesh makes vertex data redundant, meaning that even though only N vertices are defined for a submesh,
+               still we make as many vertices as the number of faces*3, meaning that there is no shared vertex at all in our geometry, so
+               indexed rendering and array locking is unable to show performance benefits!
  - FTR: [prev]performance demo 1
         based on my engine verseny task 3, 2008
 
