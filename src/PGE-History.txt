@@ -462,7 +462,7 @@ LOW PRIORITY
         Of course the actual game should also call Deinitialize().
 
  - RFR: [1] "PRREObject3DManager.cpp(1134):            break;  // todo: maybe this check should be done before the switch"
- - RFR: [1] "PRREObject3DManager.cpp(1309):    nMinIndex = UINT_MAX;  // todo: should make macros like PRRE_UINT_MAX into prretypes.h"
+ - RFR: [1] "PRREObject3DManager.cpp(1309):    nMinVertexIndex = UINT_MAX;  // todo: should make macros like PRRE_UINT_MAX into prretypes.h"
  - RFR: [1] "PR00FsReducedRenderingEngine.cpp(242): // todo: move this to hardwareinfo"
  - RFR: [1] Object3DManager: is double createFromFile() really needed for method overriding?
  - RFR: [2] Object3DManager::loadOBJ(): after reading the file, instead of memcpy()-ing from filebuffer to lines[], lines[i] should be properly set to point into filebuffer properly!
