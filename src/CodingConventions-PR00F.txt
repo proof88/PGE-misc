@@ -153,8 +153,9 @@
 
  D - minimize including headers in header files when possible. Use the following techniques to minimize includes:
      - if a header is only included because a class name is used, then dont include the header, instead forward declare the named class;
+       Then the header of the used class can be included in the cpp file later;
      - use minimized STL headers if applicable, like iosfwd instead of iostream, etc.
-     - see CppHeaderFileGuidelines.pdf
+     - see CppHeaderFileGuidelines.pdf (David Kieras, EECS Dept., University of Michigan)
 
  E - MyClass.cpp should include MyClass.h first, then all the other needed headers (only exception is the precompiled header mentioned in next point);
 
@@ -162,6 +163,11 @@
 	 Precompiled headers must be the first included headers in .cpp files.
 	 If precompiled header is at different level directory-wise, you have to make sure its location is also updated in cpp file properties:
      you can set the precompiled headers per each cpp file: right click on cpp > Properties > C/C++ > Precompiled Headers > Precompiled Header File should be relative path.
+
+ G - after applying rules E and F, other headers include order should be the following:
+     - standard C/CPP header files in alphabetical order,
+     - other 3rd party header files,
+     - then all other header files part of the project, try to include them in alphabetical order too.
 
 
 4. Strict coding

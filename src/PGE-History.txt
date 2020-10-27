@@ -409,9 +409,16 @@ MEDIUM PRIORITY
                indexed rendering and array locking is unable to show performance benefits!
  - FTR: [prev]performance demo 1
         based on my engine verseny task 3, 2008
+ - FTR: [2] HardwareInfo, TextureManager: add checks of NPOT texture support and texture rectangle support into HWInfo.
+        Add error to TexMgr when trying to create textures when src image is NPOT or non-square if relevant extension is not supported.
+ - FTR: [2] FiledManager: add a mode which spececifies how to treat files to be loaded:
+        load only once and return it always (like textures), load always (like objects in proofps engine), load only once and make a copy if already loaded (this just saves file reading).
 
 LOW PRIORITY
-
+ - FTR: [1] modify PRREFiledManager to allow file formats to be registered (like extensions w/ description).
+        A given filename may be checked against the registered extensions prior loading it. This allows less code if many file formats are supported.
+ - FTR: [2] "PRREManager.cpp(316): // TODO: dont know if the manageds should be simply attached which modify their pparent"
+ - FTR: [8] "PRREObject3DManager.cpp(1136): // todo: should call this in loop, do multiple batches based on the implementation-dependent values"
 
 
 
@@ -434,10 +441,7 @@ MEDIUM PRIORITY
  - FTR: [8] PRREWindow implementation should be selected based on target OS. Basically for 2 OS-es: Win, Linux.
         PRRE should pass the actual implementation to PRREScreen.
         In the end, no more public-facing functions with HWND, HDC, etc. in PRREWindow and PRREScreen, also win headers won't be needed to be included there.
- - FTR: [2] HardwareInfo, TextureManager: add checks of NPOT texture support and texture rectangle support into HWInfo.
-        Add error to TexMgr when trying to create textures when src image is NPOT or non-square if relevant extension is not supported.
- - FTR: [2] FiledManager: add a mode which spececifies how to treat files to be loaded:
-        load only once and return it always (like textures), load always (like objects in proofps engine), load only once and make a copy if already loaded (this just saves file reading).
+
 
 LOW PRIORITY
  - FIX: [2] "PRREWindow.cpp(1271): // TODO: always add clipchildren and clipsiblings"
@@ -451,10 +455,6 @@ LOW PRIORITY
         each manager could pass a param probably to Console::getConsole(), and based on that, the returned Console instance will already be
         specific to the manager, thus logged text would be already tagged with the manager's ID. Based on that, it would be easy to turn on/off
         logging per manager.
- - FTR: [1] modify PRREFiledManager to allow file formats to be registered (like extensions w/ description).
-        A given filename may be checked against the registered extensions prior loading it. This allows less code if many file formats are supported.
- - FTR: [2] "PRREManager.cpp(316): // TODO: dont know if the manageds should be simply attached which modify their pparent"
- - FTR: [8] "PRREObject3DManager.cpp(1136): // todo: should call this in loop, do multiple batches based on the implementation-dependent values"
  - FTR: [1] CConsole should count how many times it had been initialized. At Deinitialize(), it should lower this number, and do the actual deinit only if this reaches 0.
         This way everybody can call Deinitialize() without causing loss of logs in other systems. Example: PGE can call Deinitialize() without fearing of the actual game using PGE loses logging functionalities.
         Of course the actual game should also call Deinitialize().
