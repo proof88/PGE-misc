@@ -429,11 +429,18 @@ LOW PRIORITY
 
 TOP PRIORITY
 [month]
- - DOC: how this is working, some flowcharts, how coordinates get transformed (example) etc.
+ - DOC: merge the remaining 2 .doc files in Docs directory (PRRE.docx and PGE.docx);
+ - DOC: convert the final .docx file to .md;
+ - DOC: set the .md file as doxy mainpage;
+ - DOC: extend the .md documentation with example on how coordinates are transformed (I remember I have some calculations in textbook, make photo),
+        flowchart can be added also about the graphics pipeline as understood;
 
 MEDIUM PRIORITY
  - FIX: [2] go thru the entire code and handle every GL creation functions in a way that there would be no problem on OUT OF MEMORY error
  - FIX: [2] go thru the entire code and make sure every malloc(), calloc(), and new results in non-NULL and if there is a NULL, the system doesn't crash
+
+ - RFR: [2] determine if we really need the gl extension func prototypes in prreglextfuncs.h, because glext.h already have them if relevant defines are enabled;
+        PREREQUISITE OF GOING CROSSPLATFORM;
 
  - FTR: [month] Linux should be supported. Find a tool which can compile it to linux (like CodeBlocks) or setup VS for it with another compiler
         Android is the primary target.
@@ -446,7 +453,7 @@ MEDIUM PRIORITY
 LOW PRIORITY
  - FIX: [2] "PRREWindow.cpp(1271): // TODO: always add clipchildren and clipsiblings"
  - FIX: [1] "PGESysCFG.cpp(318): // TODO: at some time, we may return 0 here ... because at this point the cfg is deleted, so not"
- - FIX: [1] "CConsole.cpp(27):// todo: revise these warnings"
+ - FIX: [1] "CConsole.cpp(27): // todo: revise these warnings"
 
  - FTR: [1] CConsole: add an option for verbose logging mode. Without it, mostly just warnings and errors go to the console.
  - FTR: [3] CConsole: add an option for per manager logging mode.
@@ -468,7 +475,6 @@ LOW PRIORITY
  - RFR: [1] PGESysCFG: use vectors instead of malloc-realloc
  - RFR: [1] create alternative to strClr() and the other 2 funcs which do not modify the source but malloc new destination. getDir() and getFilename() can use these
  - RFR: [2] PRREVector, PRREColor, etc ... after writing operator<<(), why can't it be used for assertEquals()?!
- - RFR: [2] determine if we really need the gl extension func prototypes in prreglextfuncs.h, because glext.h already have them if relevant defines are enabled
  - RFR: [2] "PRREObject3DManager.cpp(1339):    TODO: maybe the whole getConsole() stuff should be removed from everywhere because CConsole is a singleton stuff after all."
  - RFR: [1] PFL: "PFL.cpp(86):    // todo: into new function from here ###"
  - RFR: [2] go over the entire PRRE code and check if any public classes has functional protected functions defined (expect ctors), if so, check if those could be also moved to the Impl class.
