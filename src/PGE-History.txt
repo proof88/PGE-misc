@@ -427,14 +427,6 @@ LOW PRIORITY
 ###########################################################################################################################################
 [4 months]
 
-TOP PRIORITY
-[month]
- - DOC: merge the remaining 2 .doc files in Docs directory (PRRE.docx and PGE.docx);
- - DOC: convert the final .docx file to .md;
- - DOC: set the .md file as doxy mainpage;
- - DOC: extend the .md documentation with example on how coordinates are transformed (I remember I have some calculations in textbook, make photo),
-        flowchart can be added also about the graphics pipeline as understood;
-
 MEDIUM PRIORITY
  - FIX: [2] go thru the entire code and handle every GL creation functions in a way that there would be no problem on OUT OF MEMORY error
  - FIX: [2] go thru the entire code and make sure every malloc(), calloc(), and new results in non-NULL and if there is a NULL, the system doesn't crash
