@@ -430,6 +430,10 @@ LOW PRIORITY
 MEDIUM PRIORITY
  - FIX: [2] go thru the entire code and handle every GL creation functions in a way that there would be no problem on OUT OF MEMORY error
 
+ Material::AllocateArrays() - should this stay public? Should not allocate again if already allocated. Should have return value.
+ Mesh3DManager::CreateMaterialForMesh() should return value. It should check if mesh already has material!
+ Decide how to handle new in ctors when creating pimpl instances of the object being created!
+
  - RFR: [2] determine if we really need the gl extension func prototypes in prreglextfuncs.h, because glext.h already have them if relevant defines are enabled;
         PREREQUISITE OF GOING CROSSPLATFORM;
 
