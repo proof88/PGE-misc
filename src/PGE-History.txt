@@ -382,6 +382,10 @@ MEDIUM PRIORITY
 
  - FTR: [2x40] Material should know almost everything that the .mtl format knows (used for .obj).
          
+ - FTR: [40] would be better to get rid of error codes and use exceptions instead. Error handling would be much cleaner in a lot of places.
+        For example, PRRE initialization is a joke. Initializing its managers would be 10 lines instead of current ~50 lines without isInitialized().
+        Their ctors should throw something upon initialization failure. Get rid of these isInitialized() stuff as a first step!
+
  - FTR: [month]dynamic lights: there could be a lot of created but the max current renderer lights should be the number predefined (maybe 8? or hw could be queried?)
         - AMDs valahol irta, hogy a light ambient ill diffuse paraméterei az árnyékos ill fény felõli színek (vagy fordítva)
 
@@ -430,9 +434,10 @@ LOW PRIORITY
 MEDIUM PRIORITY
  - FIX: [2] go thru the entire code and handle every GL creation functions in a way that there would be no problem on OUT OF MEMORY error
 
- Material::AllocateArrays() - should this stay public? Should not allocate again if already allocated. Should have return value.
- Mesh3DManager::CreateMaterialForMesh() should return value. It should check if mesh already has material!
- Decide how to handle new in ctors when creating pimpl instances of the object being created!
+ - FIX: memory allocation failure handling:
+        Material::AllocateArrays() - should this stay public? Should not allocate again if already allocated. Should have return value.
+        Mesh3DManager::CreateMaterialForMesh() should return value. It should check if mesh already has material!
+        Decide how to handle new in ctors when creating pimpl instances for the objects being created!
 
  - RFR: [2] determine if we really need the gl extension func prototypes in prreglextfuncs.h, because glext.h already have them if relevant defines are enabled;
         PREREQUISITE OF GOING CROSSPLATFORM;
