@@ -435,7 +435,6 @@ MEDIUM PRIORITY
  - FIX: [2] go thru the entire code and handle every GL creation functions in a way that there would be no problem on OUT OF MEMORY error
 
  - FIX: memory allocation failure handling:
-        Material::AllocateArrays() - should this stay public? Should not allocate again if already allocated. Should have return value.
         Mesh3DManager::CreateMaterialForMesh() should return value. It should check if mesh already has material!
         Decide how to handle new in ctors when creating pimpl instances for the objects being created!
 
