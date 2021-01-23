@@ -385,6 +385,14 @@ MEDIUM PRIORITY
  - FTR: [40] would be better to get rid of error codes and use exceptions instead. Error handling would be much cleaner in a lot of places.
    RFR  For example, PRRE initialization is a joke. Initializing its managers would be 10 lines instead of current ~50 lines without isInitialized().
         Their ctors should throw something upon initialization failure. Get rid of these isInitialized() stuff as a first step!
+        Also, dont forget to read the codingconventions txt file, it has a section for exceptions!
+        Thus, API doc of functions should be updated about exceptions, noexcept(false) and noexcept(true) should be used to mark functions that
+        definitely throw and caller should prepare, or definitely not throw.
+        All ctors where following text is there, should be marked according to the comment:
+        "/* TODO: mark this as noexcept(false) when using newer compiler! */"
+
+- FTR: would be better if the API would be more RAII-compliant, so exceptions would be thrown to the user, not NULLPTR in case of error,
+       so that user would be able to write cleaner RAII code.
 
  - RFR: PRREMesh3DManager::ConvertToBox() and similar functions should assign vertex position, texcoords and normal data to vertices.
         I would rather store these in a constant buffer like a struct holding arrays or something and simply assign these to the
@@ -408,6 +416,18 @@ LOW PRIORITY
 
 TOP PRIORITY
  - DOC: update the doc with frustum culling example
+
+ - for the new Cpp11 compiler, following changes in the code can be made:
+    - szükségtelen ctorokat nem kell privátba rakni, helyette = delete;
+    - const konténereket lehet helyben is inicializálni {}-vel (Initializer lists);
+    - final keyword;
+    - override keyword;
+    - megnézni h move ctor-t lehet-e alkalmazni akárhol is;
+    - constexpr;
+    - nullptr instead of NULL or ((void*)0) or 0;
+    - for (int& x : my_array) style looping for easier reading (Range-based for loop);
+    - enum class instead of enums;
+    - minden castolás lehetõleg static_cast legyen, ne c-style cast!
 
 MEDIUM PRIORITY
  - FTR: [month]frustum calculating based on matrices. Is a 3D point within the view frustum?
@@ -441,6 +461,7 @@ MEDIUM PRIORITY
  - FIX: [2] go thru the entire code and handle every GL creation functions in a way that there would be no problem on OUT OF MEMORY error
 
  - FIX: Decide how to handle new in ctors when creating pimpl instances for the objects being created!
+        Exception thrown by new should be propagated to the outer ctor.
 
  - RFR: [2] determine if we really need the gl extension func prototypes in prreglextfuncs.h, because glext.h already have them if relevant defines are enabled;
         PREREQUISITE OF GOING CROSSPLATFORM;

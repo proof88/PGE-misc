@@ -298,3 +298,84 @@
  H - Singleton pimpl instead of interface.
      Sometimes you'd choose interface style for your class because it should be used as a singleton entity but on the other hand you'd like your class to be deriveable.
      In this case, simply use the pimpl idiom while the class remains as a singleton.
+
+
+6. Exceptions
+=============
+
+ A - Exception transparency:
+     "Note that the constructor re-throws a caught exception. The intent is to make vector transparent to exceptions so that the user can determine the exact cause of a problem.
+     All standard-library containers have this property. Exception transparency is often the best policy for templates and other ‘‘thin’’ layers of software.
+     This is in contrast to major parts of a system (‘‘modules’’) that generally need to take responsibility for all exceptions thrown. That is, the implementer of such a module
+     must be able to list every exception that the module can throw. Achieving this may involve grouping exceptions, mapping exceptions from lower-level routines into the module’s
+     own exceptions, or exception specification" (https://www.stroustrup.com/except.pdf).
+
+ B - About exceptions in constructors:
+     "when an exception is thrown from a constructor, sub-objects (such as bases) that have already been completely constructed will be properly destroyed" (https://www.stroustrup.com/except.pdf).
+     
+     "The two-phase construction approach leads to more complicated invariants and typically to less elegant, more error-prone, and harder-to-maintain code. Consequently, the
+     language-supported ‘‘constructor approach’’ should be preferred to the ‘‘init()-function approach’’ whenever feasible. That is, resources should be acquired in constructors
+     whenever delayed resource acquisition isn’t mandated by the inherent semantics of a class.
+     Having a separate init() function is an opportunity to
+      (1) forget to call init(),
+      (2) call init() more than once,
+      (3) forget to test on the success of init(),
+      (4) forget that init() might throw an exception, and
+      (5) use the object before calling init().
+     Constructors and exceptions were introduced into C++ to prevent such problems." (https://www.stroustrup.com/except.pdf)
+
+     "If a constructor throws an exception, the object’s destructor is not run. If your object has already done something that needs to be undone (...), this “stuff that needs to be undone”
+     must be remembered by a data member inside the object." (https://isocpp.org/wiki/faq/exceptions#selfcleaning-members)
+     For example, if constructor already allocated some memory on the heap, then an exception happens, the constructor is responsible for freeing that allocated memory up, and the best way
+     to do that if a smart pointer or something similar was used, so that no explicit deallocation in the catch block is needed for that since the smart pointer's destructor will be called
+     automatically anyway during the stack unwinding process.
+
+     "To handle exceptions arising in from the initialization list C++ provides function try block."
+     "Since there is no way to know how farther in the initialization list the exception occurred, any member or base class sub-objets created so far are destroyed before entering inside
+     the handler. Moreover, the non-static members or base class can’t be accessed, thus you can’t attempt any sort of recovery. This is the intentional behavior."
+     (https://medium.com/cpp-station/exception-handling-in-constructors-26bf4c811b46)
+
+     Based on all above info, I will mark my constructors instantiating their internal impl parts explicitly as noexcept(false), to make sure whoever wants to use these classes is aware
+     of that fact that try-catch should be used when using these classes. This approach is independent of the fact whether I catch the exception of creating impl object in the constructor
+     or not, since even if I'm catching the exception I will re-throw it for sure!
+
+     Functions that definitely do not throw any kind of exceptions, should be marked with noexcept(true), API doc should mention their nothrow guarantee.
+     Functions not marked with noexcept specifier might throw, their documentation should state their exception-safety guarantee: basic or strong, as explained later.
+
+ C - About exceptions in destructors: do not throw exceptions in destructors, except if you catch them WITHIN the destructor. Don't allow exceptions to escape from destructors or
+     memory-deallocation functions.
+     One major reason for this is that if an exception occurs anywhere and stack unwinding (i.e. destroying local objects before exiting the scope) is happening right
+     before entering the exception handling catch block, an object destructor throwing an exception can lead to a state where an exception is raised even before properly handling
+     the previous exception, and also resources might had been leaked since the stack unwinding process was not properly finished. Even a throwing destructor can lead to
+     partially destructed objects since in case of inheritance, where the order of destructor calls is from most derived class towards the base class, any exception thrown during these calls
+     will leave the object partially destroyed.
+     
+     "C++ specifications state that you should never throw an exception before any existing exception has been handled. This means that the stack unwinding process should never throw an exception"
+     (https://stackoverflow.com/questions/2331316/what-is-stack-unwinding).
+     
+     "A delete expression can throw, if the destructor itself throws, or a destructor of a sub object. But you should avoid throwing in a destructor."
+     (https://stackoverflow.com/questions/35571298/in-what-context-does-the-delete-operator-throw-an-error)
+
+ D - Exception safety:
+     "An operation on an object is said to be exception safe if that operation leaves the object in a valid state when the operation is terminated by throwing an exception."
+     Clearly an exception thrown by the constructor means that object is not constructed, therefore we don't talk about exception safety in case of constructors.
+     
+     "C++ standard library provides a set of exception-safety guarantees that share the burden of producing correct programs between implementers of the standard library and users of the standard library:
+     ‘‘Basic guarantee for all operations:’’ The basic invariants of the standard library are maintained, and no resources, such as memory, are leaked.
+     ‘‘Strong guarantee for key operations:’’ In addition to providing the basic guarantee, either the operation succeeds, or has no effects. This guarantee is provided for key library operations, such as
+                                              push_back(), single-element insert() on a list , and uninitialized_copy().
+     ‘‘Nothrow guarantee for some operations:’’ In addition to providing the basic guarantee, some operations are guaranteed not to throw an exception. This guarantee is provided for a few simple operations,
+                                                such as swap() and pop_back()." (https://www.stroustrup.com/except.pdf)
+
+     The last guarantee is the strongest.
+     A class "preventing itself from being partially constructed or partially destroyed" is also a must-have to say the class is exception-safe.
+     (https://docs.microsoft.com/en-us/cpp/cpp/errors-and-exception-handling-modern-cpp?view=msvc-160)
+
+ E - exceptions vs assertions:
+     "Use assert statements to test for conditions during development that should never be true if all your code is correct. There's no point in handling such an error by using an exception, because
+     the error indicates that something in the code has to be fixed. It doesn't represent a condition that the program has to recover from at run time. (...)
+     Use exceptions to check error conditions that might occur at run time even if your code is correct, for example, "file not found" or "out of memory."
+     Exceptions can handle these conditions, even if the recovery just outputs a message to a log and ends the program." (https://docs.microsoft.com/en-us/cpp/cpp/errors-and-exception-handling-modern-cpp?view=msvc-160)
+
+ F - Misc:
+     "Throw exceptions by value, catch them by reference. Don’t catch what you can't handle." (https://docs.microsoft.com/en-us/cpp/cpp/errors-and-exception-handling-modern-cpp?view=msvc-160)
