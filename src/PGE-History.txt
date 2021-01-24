@@ -460,12 +460,6 @@ LOW PRIORITY
 MEDIUM PRIORITY
  - FIX: [2] go thru the entire code and handle every GL creation functions in a way that there would be no problem on OUT OF MEMORY error
 
- - FIX: Decide how to handle new in ctors when creating pimpl instances for the objects being created!
-        Exception thrown by new should be propagated to the outer ctor.
-
- - RFR: [2] determine if we really need the gl extension func prototypes in prreglextfuncs.h, because glext.h already have them if relevant defines are enabled;
-        PREREQUISITE OF GOING CROSSPLATFORM;
-
  - FTR: [month] Linux should be supported. Find a tool which can compile it to linux (like CodeBlocks) or setup VS for it with another compiler
         Android is the primary target.
         OpenGL ES should be also supported for mobile devices (Android smartphones).
@@ -486,21 +480,15 @@ LOW PRIORITY
         each manager could pass a param probably to Console::getConsole(), and based on that, the returned Console instance will already be
         specific to the manager, thus logged text would be already tagged with the manager's ID. Based on that, it would be easy to turn on/off
         logging per manager.
+ - RFR: [2] "PRREObject3DManager.cpp(1339):    TODO: maybe the whole getConsole() stuff should be removed from everywhere because CConsole is a singleton stuff after all."
  - FTR: [1] CConsole should count how many times it had been initialized. At Deinitialize(), it should lower this number, and do the actual deinit only if this reaches 0.
         This way everybody can call Deinitialize() without causing loss of logs in other systems. Example: PGE can call Deinitialize() without fearing of the actual game using PGE loses logging functionalities.
         Of course the actual game should also call Deinitialize().
 
- - RFR: [1] "PRREObject3DManager.cpp(1134):            break;  // todo: maybe this check should be done before the switch"
- - RFR: [1] "PRREObject3DManager.cpp(1309):    nMinVertexIndex = UINT_MAX;  // todo: should make macros like PRRE_UINT_MAX into prretypes.h"
- - RFR: [1] "PR00FsReducedRenderingEngine.cpp(242): // todo: move this to hardwareinfo"
- - RFR: [1] Object3DManager: is double createFromFile() really needed for method overriding?
- - RFR: [2] Object3DManager::loadOBJ(): after reading the file, instead of memcpy()-ing from filebuffer to lines[], lines[i] should be properly set to point into filebuffer properly!
  - RFR: [4] use std::algorithm anywhere possible, for like counting number of specific elements in a container, etc ...
  - RFR: [1] PGESysCFG: use vectors instead of malloc-realloc/new-delete
  - RFR: [1] create alternative to strClr() and the other 2 funcs which do not modify the source but malloc new destination. getDir() and getFilename() can use these
  - RFR: [2] PRREVector, PRREColor, etc ... after writing operator<<(), why can't it be used for assertEquals()?!
- - RFR: [2] "PRREObject3DManager.cpp(1339):    TODO: maybe the whole getConsole() stuff should be removed from everywhere because CConsole is a singleton stuff after all."
- - RFR: [1] PFL: "PFL.cpp(86):    // todo: into new function from here ###"
  - RFR: [2] go over the entire PRRE code and check if any public classes has functional protected functions defined (expect ctors), if so, check if those could be also moved to the Impl class.
             Example: Mesh3DManager has protected ConvertTo...() functions, most probably these should go into the impl class.
  - RFR: [2] go over the entire PRRE code and check if any void functions that could have reasonable return value could actually by changed to return value and if so, do it!
