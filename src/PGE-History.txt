@@ -80,6 +80,7 @@ MEDIUM PRIORITY
         - wind, rain, dynamic weather and time-of-day changes
 
 LOW PRIORITY
+ - TST: [2] PGEWorld, PGEWorldWeather, PGEWorldTime: unit tests
 
 
 
@@ -381,6 +382,8 @@ MEDIUM PRIORITY
     Note: multitexturing & lights: texturing/multitexturing; LightRenderer; Tutorials/tutor; nehe lessons: 7, 8, 20, 22, 32,
 
  - FTR: [2x40] Material should know almost everything that the .mtl format knows (used for .obj).
+
+ - RFR: PRREObject3D.cpp(772): // TODO: nope, we shouldnt specify color this way because glColor4f() is called per-vertex anyway later
          
  - FTR: [40] would be better to get rid of error codes and use exceptions instead. Error handling would be much cleaner in a lot of places.
    RFR  For example, PRRE initialization is a joke. Initializing its managers would be 10 lines instead of current ~50 lines without isInitialized().
@@ -391,8 +394,8 @@ MEDIUM PRIORITY
         All ctors where following text is there, should be marked according to the comment:
         "/* TODO: mark this as noexcept(false) when using newer compiler! */"
 
-- FTR: would be better if the API would be more RAII-compliant, so exceptions would be thrown to the user, not NULLPTR in case of error,
-       so that user would be able to write cleaner RAII code.
+ - FTR: would be better if the API would be more RAII-compliant, so exceptions would be thrown to the user, not NULLPTR in case of error,
+        so that user would be able to write cleaner RAII code.
 
  - RFR: PRREMesh3DManager::ConvertToBox() and similar functions should assign vertex position, texcoords and normal data to vertices.
         I would rather store these in a constant buffer like a struct holding arrays or something and simply assign these to the
@@ -428,6 +431,7 @@ TOP PRIORITY
     - for (int& x : my_array) style looping for easier reading (Range-based for loop);
     - enum class instead of enums;
     - minden castolás lehetõleg static_cast legyen, ne c-style cast!
+    - std::extent can be used to get num of elements of basic arrays
 
 MEDIUM PRIORITY
  - FTR: [month]frustum calculating based on matrices. Is a 3D point within the view frustum?
@@ -445,10 +449,17 @@ MEDIUM PRIORITY
         load only once and return it always (like textures), load always (like objects in proofps engine), load only once and make a copy if already loaded (this just saves file reading).
 
 LOW PRIORITY
+ - RFR: [4] use std::algorithm anywhere possible, for like counting number of specific elements in a container, etc ...
+ - RFR: [1] PGESysCFG: use vectors instead of malloc-realloc/new-delete
+ - RFR: [1] PFL/PGESysCfg: create alternative to strClr() and the other 2 funcs which do not modify the source but malloc new destination. getDir() and getFilename() can use these
+ - RFR: [2] PRREVector, PRREColor, etc ... after writing operator<<(), why can't it be used for assertEquals()?!
  - FTR: [1] modify PRREFiledManager to allow file formats to be registered (like extensions w/ description).
         A given filename may be checked against the registered extensions prior loading it. This allows less code if many file formats are supported.
  - FTR: [2] "PRREManager.cpp(316): // TODO: dont know if the manageds should be simply attached which modify their pparent"
  - FTR: [8] "PRREObject3DManager.cpp(1136): // todo: should call this in loop, do multiple batches based on the implementation-dependent values"
+ - FTR: [1] CConsole should count how many times it had been initialized. At Deinitialize(), it should lower this number, and do the actual deinit only if this reaches 0.
+        This way everybody can call Deinitialize() without causing loss of logs in other systems. Example: PGE can call Deinitialize() without fearing of the actual game using PGE loses logging functionalities.
+        Of course the actual game should also call Deinitialize().
 
 
 
@@ -460,6 +471,11 @@ LOW PRIORITY
 MEDIUM PRIORITY
  - FIX: [2] go thru the entire code and handle every GL creation functions in a way that there would be no problem on OUT OF MEMORY error
 
+ - RFR: [2] go over the entire PRRE code and check if any public classes has functional protected functions defined (expect ctors), if so, check if those could be also moved to the Impl class.
+            Example: Mesh3DManager has protected ConvertTo...() functions, most probably these should go into the impl class.
+ - RFR: [2] go over the entire PRRE code and check if any void functions that could have reasonable return value could actually by changed to return value and if so, do it!
+            Example: void SetVertexTransferMode().
+
  - FTR: [month] Linux should be supported. Find a tool which can compile it to linux (like CodeBlocks) or setup VS for it with another compiler
         Android is the primary target.
         OpenGL ES should be also supported for mobile devices (Android smartphones).
@@ -469,8 +485,6 @@ MEDIUM PRIORITY
 
 
 LOW PRIORITY
- - FIX: [2] "PRREWindow.cpp(1271): // TODO: always add clipchildren and clipsiblings"
- - FIX: [1] "PGESysCFG.cpp(318): // TODO: at some time, we may return 0 here ... because at this point the cfg is deleted, so not"
  - FIX: [1] "CConsole.cpp(27): // todo: revise these warnings"
 
  - FTR: [1] CConsole: add an option for verbose logging mode. Without it, mostly just warnings and errors go to the console.
@@ -481,19 +495,6 @@ LOW PRIORITY
         specific to the manager, thus logged text would be already tagged with the manager's ID. Based on that, it would be easy to turn on/off
         logging per manager.
  - RFR: [2] "PRREObject3DManager.cpp(1339):    TODO: maybe the whole getConsole() stuff should be removed from everywhere because CConsole is a singleton stuff after all."
- - FTR: [1] CConsole should count how many times it had been initialized. At Deinitialize(), it should lower this number, and do the actual deinit only if this reaches 0.
-        This way everybody can call Deinitialize() without causing loss of logs in other systems. Example: PGE can call Deinitialize() without fearing of the actual game using PGE loses logging functionalities.
-        Of course the actual game should also call Deinitialize().
-
- - RFR: [4] use std::algorithm anywhere possible, for like counting number of specific elements in a container, etc ...
- - RFR: [1] PGESysCFG: use vectors instead of malloc-realloc/new-delete
- - RFR: [1] create alternative to strClr() and the other 2 funcs which do not modify the source but malloc new destination. getDir() and getFilename() can use these
- - RFR: [2] PRREVector, PRREColor, etc ... after writing operator<<(), why can't it be used for assertEquals()?!
- - RFR: [2] go over the entire PRRE code and check if any public classes has functional protected functions defined (expect ctors), if so, check if those could be also moved to the Impl class.
-            Example: Mesh3DManager has protected ConvertTo...() functions, most probably these should go into the impl class.
- - RFR: [2] go over the entire PRRE code and check if any void functions that could have reasonable return value could actually by changed to return value and if so, do it!
-            Example: void SetVertexTransferMode().
- - TST: [2] PGEWorld, PGEWorldWeather, PGEWorldTime: unit tests
 
 
 
