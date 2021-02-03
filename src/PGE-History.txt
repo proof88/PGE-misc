@@ -472,7 +472,7 @@ MEDIUM PRIORITY
  - RFR: [2] go over the entire PRRE code and check if any public classes has functional protected functions defined (expect ctors), if so, check if those could be also moved to the Impl class.
             Example: Mesh3DManager has protected ConvertTo...() functions, most probably these should go into the impl class.
  - RFR: [2] go over the entire PRRE code and check if any void functions that could have reasonable return value could actually by changed to return value and if so, do it!
-            Example: void SetVertexTransferMode().
+            Example: void setVertexTransferMode().
 
  - FTR: [month] Linux should be supported. Find a tool which can compile it to linux (like CodeBlocks) or setup VS for it with another compiler
         Android is the primary target.
