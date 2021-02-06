@@ -397,11 +397,9 @@ MEDIUM PRIORITY
  - FTR: would be better if the API would be more RAII-compliant, so exceptions would be thrown to the user, not NULLPTR in case of error,
         so that user would be able to write cleaner RAII code.
 
- - RFR: PRREMesh3DManager::ConvertToBox() and similar functions should assign vertex position, texcoords and normal data to vertices.
+ - RFR: PRREMesh3DManager::convertToBox() and similar functions should assign vertex position, texcoords and normal data to vertices.
         I would rather store these in a constant buffer like a struct holding arrays or something and simply assign these to the
         recently allocated memory areas for less lines of code!
-
- - FIX: PRREMesh3DManager::ConvertToBox() and similar functions should have return value true/false!
 
  - FTR: [month]dynamic lights: there could be a lot of created but the max current renderer lights should be the number predefined (maybe 8? or hw could be queried?)
         - AMDs valahol irta, hogy a light ambient ill diffuse paraméterei az árnyékos ill fény felõli színek (vagy fordítva)
@@ -430,7 +428,7 @@ TOP PRIORITY
     - nullptr instead of NULL or ((void*)0) or 0;
     - for (int& x : my_array) style looping for easier reading (Range-based for loop);
     - enum class instead of enums;
-    - minden castolás lehetõleg static_cast legyen, ne c-style cast!
+    - minden castolás lehetõleg static_cast vagy dynamic_cast legyen, ne c-style cast!
     - std::extent can be used to get num of elements of basic arrays
 
 MEDIUM PRIORITY
