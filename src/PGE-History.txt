@@ -418,6 +418,8 @@ LOW PRIORITY
 TOP PRIORITY
  - DOC: update the doc with frustum culling example
 
+ - FIX: PRRETextureMaanger::setDefaultAnisoFilteringMode(): // TODO: should check for max aniso filter level same way as texture does!
+
  - for the new Cpp11 compiler, following changes in the code can be made:
     - szükségtelen ctorokat nem kell privátba rakni, helyette = delete;
     - const konténereket lehet helyben is inicializálni {}-vel (Initializer lists);

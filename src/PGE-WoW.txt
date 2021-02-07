@@ -90,6 +90,6 @@ I) adding support for a new TC (texture compression) in PRRE
 		 tex128x128x24_cmpAUTO and tex128x128x32_cmpAUTO cases.
 		 testGetUsedTextureMemory() should be also updated when the compression ratio is different than the already checked ratios (1:4, 1:8) for the cmpAUTO cases
 		 mentioned above.
-	5. - update relevant comments regarding to the TC. For example, if borders are supported by the TC or not: PRRETextureManager::SetDefaultCompressionMode().
+	5. - update relevant comments regarding to the TC. For example, if borders are supported by the TC or not: PRRETextureManager::setDefaultCompressionMode().
 
 II) ...
