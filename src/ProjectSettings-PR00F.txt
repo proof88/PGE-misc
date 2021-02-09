@@ -34,6 +34,10 @@ C/C++                                | DEBUG                                    
 ========================================================================================================================
   General                                                                               
     - Warning Level                  | Level4 (/W4)                                     | Level3 (/W3)
+      Note that we cannot set it to max level (/Wall) because std and system headers emit warnings that I could not
+      disable with #pragma warning push-pop method just for the includes, however this will need to be revised with
+      newer Visual Studio!
+    - Treat Warnings As Errors       | Yes (/WX)                                        | <Same>
   ----------------------------------------------------------------------------------------------------------------------
   Optimization                                                                          
     - Optimization                   | Disabled                                         | Maximize Speed (/O2)
