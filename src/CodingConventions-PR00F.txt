@@ -146,7 +146,7 @@
  A - put each class declaration into separate header files, use 1 file for multiple classes only when it makes sense to put them together into 1 file
 
  B - make separate .cpp file for each header file for class definitions. This is very important if we are making a library, to ensure everything will go into
-     the generated static library, so no unresolved external symbol problem will happen when we try to use the library from some other program. See also 5A.
+     the generated static library, so no unresolved external symbol problem will happen when we try to use the library from some other program. See also 6A.
 
  C - file names should properly suggest their content. When containing a class, the file name should be the class name, for example:
      MyClass.h and MyClass.cpp contain the declaration and definition of MyClass.
@@ -170,8 +170,8 @@
      - then all other header files part of the project, try to include them in alphabetical order too.
 
 
-4. Strict coding
-================
+4. Strict coding - General
+==========================
 
  A - use precision specifier letters as much as you can in floating-point literals, like:
      
@@ -212,29 +212,45 @@
 
  F - make functions inline ONLY WHEN the function is small AND doesn't call another function!
 
- G - structs should be used as simple data containers without own functionality, so put only data members into them.
+ K - never put "using namespace" statement into a header file!
+
+
+5. Strict coding - Classes
+==========================
+
+ A - structs should be used as simple data containers without own functionality, so put only data members into them.
      Exception: simple ctors can be allowed just to initialize the members with PREDEFINED values (no dynamic memory allocation, etc...).
 
- H - don't forget to make private not only the ctor/dtor of singleton classes but also the copy ctor and assignment operator.
-     This also applies to non-singleton classes which doesn't support copying / assigning yet.
+ B - don't forget to make private the copy ctor and assignment operators of classes which don't support copying / assigning yet.
+     Ctor and dtor should be also private in case of singletons.
+     
      private:
          ClassXYZ(const ClassXYZ&) {}; 
          ClassXYZ& operator=(const ClassXYZ&) { return *this; };
+     
+     Since C++11, these can be also deleted with " = delete".
+     Since C++11, move ctor and move assignment operator can be also deleted if not needed.
 
- I - use the "explicit" keyword for 1-param non-copy ctors, for example:
+ C - use the "explicit" keyword for 1-param non-copy ctors, for example:
      class XYZ
      {
          explicit XYZ(int count) { ... }
      }
 
- J - always declare dtors virtual!
+     This way mistakes from implicit conversions can be avoided.
 
- K - never put "using" statement into a header file!
+ D - always declare dtors virtual!
 
- X - comments MUST BE UPDATED RIGHT AFTER modifying a function, etc.
+ E - dynamic_cast can be used to cast down in the class hierarchy but always think about if it can be avoided by re-thinking the polymorphism.
+
+ F - friend classes: "The rule of thumb: If public is too weak and private is too strong, you need some form of selected access: either protected or
+     friend (the package access specifier in Java serves the same kind of role)." "In general, you should strive for strong cohesion and weak coupling.
+     This is why friend is so little used, it is recommended to reduce coupling between classes. However, there are situations where strong coupling
+     gives better encapsulation. In those cases, you probably need a friend."
+     https://stackoverflow.com/questions/6718209/when-should-you-use-friend-classes
 
 
-5. In case of API development
+6. In case of API development
 =============================
 
  A - to ensure everything goes into the generated lib file, create cpp files for each header file (3B) and put all implementation into the cpp file.
@@ -248,11 +264,11 @@
      call its methods: you call a method which may end up in another method in practice.
 
  D - if a library we are using in external program changes, it's better to do a clean rebuild to avoid strange problems (~fragile binary interface problem).
-     We dont have to do full rebuild if the Pimpl idiom (5F) is used.
+     We dont have to do full rebuild if the Pimpl idiom (6F) is used.
 
  E - if we are creating a base class and some other class may be derived from our base class, the derived class may override some methods in the base class
      which can change the behavior of the base class itself - if the derived overrides a method that is actually used in the base class by some other method
-     (~fragile base class problem). This can be avoided for published classes if the Pimpl idiom (5F) is used.
+     (~fragile base class problem). This can be avoided for published classes if the Pimpl idiom (6F) is used.
 
  F - the Pimpl idiom: http://c2.com/cgi/wiki?PimplIdiom .
      - change the class by putting all the private members into another class, this will be the implementation class defined in the cpp file hidden from outside world;
@@ -300,7 +316,7 @@
      In this case, simply use the pimpl idiom while the class remains as a singleton.
 
 
-6. Exceptions
+7. Exceptions
 =============
 
  A - Exception transparency:
