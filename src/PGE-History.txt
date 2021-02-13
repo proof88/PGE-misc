@@ -469,6 +469,8 @@ LOW PRIORITY
 [4 months]
 
 MEDIUM PRIORITY
+ - FIX: "Memory usage of owned managed objects are NOT calculated here." this is written in Managed::getUsedSystemMemory(), however PRREMesh3D calculates with owned subobjects!
+
  - RFR: [2] go over the entire PRRE code and check if any public classes has functional protected functions defined (expect ctors), if so, check if those could be also moved to the Impl class.
             Example: Mesh3DManager has protected ConvertTo...() functions, most probably these should go into the impl class.
 
