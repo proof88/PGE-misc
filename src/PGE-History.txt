@@ -431,7 +431,8 @@ TOP PRIORITY
     - for (int& x : my_array) style looping for easier reading (Range-based for loop);
     - enum class instead of enums;
     - minden castolás lehetõleg static_cast vagy dynamic_cast legyen, ne c-style cast!
-    - std::extent can be used to get num of elements of basic arrays
+    - std::extent can be used to get num of elements of basic arrays;
+    - FIX: [1] "CConsole.cpp(27): // todo: revise these warnings"
 
 MEDIUM PRIORITY
  - FTR: [month]frustum calculating based on matrices. Is a 3D point within the view frustum?
@@ -478,8 +479,6 @@ MEDIUM PRIORITY
 
 
 LOW PRIORITY
- - FIX: [1] "CConsole.cpp(27): // todo: revise these warnings"
-
  - FTR: [1] CConsole: add an option for verbose logging mode. Without it, mostly just warnings and errors go to the console.
  - FTR: [3] CConsole: add an option for per manager logging mode.
         How to do it? Probably we should stick to the already used method: all managers have their own getConsole() function which by default could be
