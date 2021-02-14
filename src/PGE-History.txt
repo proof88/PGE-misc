@@ -471,9 +471,6 @@ LOW PRIORITY
 MEDIUM PRIORITY
  - FIX: "Memory usage of owned managed objects are NOT calculated here." this is written in Managed::getUsedSystemMemory(), however PRREMesh3D calculates with owned subobjects!
 
- - RFR: [2] go over the entire PRRE code and check if any public classes has functional protected functions defined (expect ctors), if so, check if those could be also moved to the Impl class.
-            Example: Mesh3DManager has protected ConvertTo...() functions, most probably these should go into the impl class.
-
  - FTR: [month] Linux should be supported. Find a tool which can compile it to linux (like CodeBlocks) or setup VS for it with another compiler
         Android is the primary target.
         OpenGL ES should be also supported for mobile devices (Android smartphones).
