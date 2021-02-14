@@ -469,8 +469,6 @@ LOW PRIORITY
 [4 months]
 
 MEDIUM PRIORITY
- - FIX: "Memory usage of owned managed objects are NOT calculated here." this is written in Managed::getUsedSystemMemory(), however PRREMesh3D calculates with owned subobjects!
-
  - FTR: [month] Linux should be supported. Find a tool which can compile it to linux (like CodeBlocks) or setup VS for it with another compiler
         Android is the primary target.
         OpenGL ES should be also supported for mobile devices (Android smartphones).

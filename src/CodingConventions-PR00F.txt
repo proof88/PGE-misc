@@ -40,10 +40,6 @@
      */
 
  B - class definitions in header files:
-     - comment before class definition should contain API usage by the class, for example:
-       This class doesn't use any API directly.
-       This class directly uses OpenGL.
-
      - member definition order (from left to right):
        - public, protected, private;
        - static, non-static;
