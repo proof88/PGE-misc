@@ -469,6 +469,11 @@ LOW PRIORITY
 ###########################################################################################################################################
 [4 months]
 
+ - FIX: add getCompressionMode() to Texture;
+ - FIX: expand TextureManager::WriteListCallback() by printing texture.getCompressionMode();
+
+ - FTR: add way to calculate total used video memory per all Object3D (geometry) and total used texture memory per textures;
+
 MEDIUM PRIORITY
  - FTR: [month] Linux should be supported. Find a tool which can compile it to linux (like CodeBlocks) or setup VS for it with another compiler
         Android is the primary target.
