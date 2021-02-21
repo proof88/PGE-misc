@@ -270,54 +270,7 @@ LOW PRIORITY
 
 
 ###########################################################################################################################################
-0.8 - reached on Month Day, Year
-###########################################################################################################################################
-
-TOP PRIORITY
-
-MEDIUM PRIORITY
- - FTR: [month] add support for loading/saving from/to: tga, png, jpg (thru external lib)
- - FTR: [month] window::takescreenshot() -> Screen
- - FTR: [prev] simple fog, volumetric fog
- - FTR: [month] particle class, point sprites
- - FTR: [prev]oldschool frame buffer copying basic motion blur (~proofps)
- - FTR: [month] terrain based on heightmap, autoshade, height calculation at any given point, varying detailed drawing
-        - Doom3 forrásból: cross-blended terrain textures need to modulate the color by the vertex color to smoothly blend between two textures
- - FTR: [month] feature demo 1:
-        - Lágymányos: real data based terrain, trees and buildings should be at their respective places approximately
-        - player should be able to go into at least 1 building because of the dynamic shadows within the building (not implemented yet at this point)
-        - water: simple water texture scrolling is enough for now
-        - terrain is a heightmap and shadowed
-        - detail mapping almost everywhere
-        - simple skybox
-        - trees may be animated (slowly moving branches and/or leaves)
-
-LOW PRIORITY
-
-
-
-###########################################################################################################################################
-0.7 - reached on Month Day, Year - some refactoring, 3DS, animation
-###########################################################################################################################################
-
-TOP PRIORITY
-
-MEDIUM PRIORITY
-
- - FTR: [month] support for a format that supports model animation, like 3ds
- - FTR: [prev] modell animation: per-vertex
-
-LOW PRIORITY
-
- - FTR: [4] PRREObject3DManager::SetMinimalIndexStorageEnabled(true) should work, currently unimplemented:
-        - PRREObject3D::PRREObject3DImpl::getSizeofIndexType() should be instance member, not static;
-        - PRREObject3D::PRREObject3DImpl::getSizeofIndexType() should always ret sizeof(TPRREuint) if PRREObject3DManager::isMinimalIndexStorageEnabled() is true;
-        - setting subobject->p->nIndicesType in createBox(), createPlane() and loadOBJ() should be to GL_UNSIGNED_INT if PRREObject3DManager::isMinimalIndexStorageEnabled() is true;
-
-
-
-###########################################################################################################################################
-0.6 - reached on Month Day, Year - finalized sprites, further performance optimisation, fast performance demo
+x.x - reached on Month Day, Year - further performance optimisation, fast performance demo
 ###########################################################################################################################################
 
 TOP PRIORITY
@@ -347,14 +300,14 @@ LOW PRIORITY
 
 
 ###########################################################################################################################################
-0.5 - reached on Month Day, Year - target here is to be able to pick objects, put 2D sprites onto the screen, have a GUI
+x.x - reached on Month Day, Year - target here is to be able to pick objects, put 2D sprites onto the screen, have a GUI
 ###########################################################################################################################################
 [3 months]
 
 TOP PRIORITY
 
 MEDIUM PRIORITY
- - FTR: [month] finish sprite system
+ - FTR: [month] sprite system
  - FTR: [month] picking
  - FTR: [prev] GUI
    - text
@@ -369,58 +322,57 @@ LOW PRIORITY
 
 
 
-
 ###########################################################################################################################################
-0.4 - reached on Month Day, Year - target here is to be able to do multitexturing and handling lights correctly
+x.x - reached on Month Day, Year
 ###########################################################################################################################################
-[3 months]
 
 TOP PRIORITY
- - DOC: update the doc with lights example
 
 MEDIUM PRIORITY
-    Note: multitexturing & lights: texturing/multitexturing; LightRenderer; Tutorials/tutor; nehe lessons: 7, 8, 20, 22, 32,
-
- - FTR: [2x40] Material should know almost everything that the .mtl format knows (used for .obj).
-
- - RFR: PRREObject3D.cpp(772): // TODO: nope, we shouldnt specify color this way because glColor4f() is called per-vertex anyway later
-         
- - FTR: [40] would be better to get rid of error codes and use exceptions instead. Error handling would be much cleaner in a lot of places.
-   RFR  For example, PRRE initialization is a joke. Initializing its managers would be 10 lines instead of current ~50 lines without isInitialized().
-        Their ctors should throw something upon initialization failure. Get rid of these isInitialized() stuff as a first step!
-        Also, dont forget to read the codingconventions txt file, it has a section for exceptions!
-        Thus, API doc of functions should be updated about exceptions, noexcept(false) and noexcept(true) should be used to mark functions that
-        definitely throw and caller should prepare, or definitely not throw.
-        All ctors where following text is there, should be marked according to the comment:
-        "/* TODO: mark this as noexcept(false) when using newer compiler! */"
-
- - FTR: would be better if the API would be more RAII-compliant, so exceptions would be thrown to the user, not NULLPTR in case of error,
-        so that user would be able to write cleaner RAII code.
-
- - RFR: PRREMesh3DManager::convertToBox() and similar functions should assign vertex position, texcoords and normal data to vertices.
-        I would rather store these in a constant buffer like a struct holding arrays or something and simply assign these to the
-        recently allocated memory areas for less lines of code!
-
- - FTR: [month]dynamic lights: there could be a lot of created but the max current renderer lights should be the number predefined (maybe 8? or hw could be queried?)
-        - AMDs valahol irta, hogy a light ambient ill diffuse paraméterei az árnyékos ill fény felõli színek (vagy fordítva)
-
- - FTR: [2x40] add .mtl support to .obj loading.
-        go over .obj format and check if the current loading is ok or not.
+ - FTR: [month] add support for loading/saving from/to: tga, png, jpg (thru external lib)
+ - FTR: [month] window::takescreenshot() -> Screen
+ - FTR: [prev] simple fog, volumetric fog
+ - FTR: [month] particle class, point sprites
+ - FTR: [prev]oldschool frame buffer copying basic motion blur (~proofps)
+ - FTR: [month] terrain based on heightmap, autoshade, height calculation at any given point, varying detailed drawing
+        - Doom3 forrásból: cross-blended terrain textures need to modulate the color by the vertex color to smoothly blend between two textures
+ - FTR: [month] feature demo 1:
+        - Lágymányos: real data based terrain, trees and buildings should be at their respective places approximately
+        - player should be able to go into at least 1 building because of the dynamic shadows within the building (not implemented yet at this point)
+        - water: simple water texture scrolling is enough for now
+        - terrain is a heightmap and shadowed
+        - detail mapping almost everywhere
+        - simple skybox
+        - trees may be animated (slowly moving branches and/or leaves)
 
 LOW PRIORITY
 
 
+
 ###########################################################################################################################################
-0.3 - reached on Month Day, Year - target here is the performance optimisations based on view frustum culling and occlusion culling
+x.x - reached on Month Day, Year - some refactoring, 3DS, animation, ability to run on Linux, smartphone/desktop
 ###########################################################################################################################################
-[3 months]
 
 TOP PRIORITY
- - DOC: update the doc with frustum culling example
 
- - FIX: PRRETextureMaanger::setDefaultAnisoFilteringMode(): // TODO: should check for max aniso filter level same way as texture does!
+MEDIUM PRIORITY
+
+ - FTR: [month] support for a format that supports model animation, like 3ds
+ - FTR: [prev] modell animation: per-vertex
+
+ - FTR: [month] Linux should be supported. Find a tool which can compile it to linux (like CodeBlocks) or setup VS for it with another compiler
+        Android is the primary target.
+        OpenGL ES should be also supported for mobile devices (Android smartphones).
+ - FTR: [8] PRREWindow implementation should be selected based on target OS. Basically for 2 OS-es: Win, Linux.
+        PRRE should pass the actual implementation to PRREScreen.
+        In the end, no more public-facing functions with HWND, HDC, etc. in PRREWindow and PRREScreen, also win headers won't be needed to be included there.
 
  - for the new Cpp11 compiler, following changes in the code can be made:
+    - std::chrono;
+    - shared ptrs, for example:
+      - for pImpls, so that no explicit delete call is required for them in dtors;
+      - for reference counting, e.g. in material the texture pointer, so when a material
+        is deleted, it will automatically realize when if the texture should be also deleted or not yet;
     - szükségtelen ctorokat nem kell privátba rakni, helyette = delete;
     - const konténereket lehet helyben is inicializálni {}-vel (Initializer lists);
     - final keyword;
@@ -434,56 +386,138 @@ TOP PRIORITY
     - std::extent can be used to get num of elements of basic arrays;
     - FIX: [1] "CConsole.cpp(27): // todo: revise these warnings"
 
-MEDIUM PRIORITY
- - FTR: [month]frustum calculating based on matrices. Is a 3D point within the view frustum?
- - FTR: [prev]timer and benchmark classes
- - FTR: [month] occlusion culling
- - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
- - FTR: [2x40] unfortunately, loading OBJ format mesh makes vertex data redundant, meaning that even though only N vertices are defined for a submesh,
-               still we make as many vertices as the number of faces*3, meaning that there is no shared vertex at all in our geometry, so
-               indexed rendering and array locking is unable to show performance benefits!
- - FTR: [prev]performance demo 1
-        based on my engine verseny task 3, 2008
- - FTR: [2] HardwareInfo, TextureManager: add checks of NPOT texture support and texture rectangle support into HWInfo.
-        Add error to TexMgr when trying to create textures when src image is NPOT or non-square if relevant extension is not supported.
- - FTR: [2] FiledManager: add a mode which spececifies how to treat files to be loaded:
-        load only once and return it always (like textures), load always (like objects in proofps engine), load only once and make a copy if already loaded (this just saves file reading).
+ - RFR: probably with new compiler, initializer list way of initializing objects is easier, so:
+        PRREMesh3DManager::convertToBox() and similar functions should assign vertex position, texcoords and normal data to vertices.
+        I would rather store these in a constant buffer like a struct holding arrays or something and simply assign these to the
+        recently allocated memory areas for less lines of code!
+
+ - FTR: [40] would be better to get rid of error codes and use exceptions instead. Error handling would be much cleaner in a lot of places.
+   RFR  For example, PRRE initialization is a joke. Initializing its managers would be 10 lines instead of current ~50 lines without isInitialized().
+        Their ctors should throw something upon initialization failure. Get rid of these isInitialized() stuff as a first step!
+        Also, dont forget to read the codingconventions txt file, it has a section for exceptions!
+        Thus, API doc of functions should be updated about exceptions, noexcept(false) and noexcept(true) should be used to mark functions that
+        definitely throw and caller should prepare, or definitely not throw.
+        All ctors where following text is there, should be marked according to the comment:
+        "/* TODO: mark this as noexcept(false) when using newer compiler! */"
+
+ - FTR: would be better if the API would be more RAII-compliant, so exceptions would be thrown to the user, not NULLPTR in case of error,
+        so that user would be able to write cleaner RAII code.
 
 LOW PRIORITY
- - RFR: [4] use std::algorithm anywhere possible, for like counting number of specific elements in a container, etc ...
+
+ - FTR: [4] PRREObject3DManager::SetMinimalIndexStorageEnabled(true) should work, currently unimplemented:
+        - PRREObject3D::PRREObject3DImpl::getSizeofIndexType() should be instance member, not static;
+        - PRREObject3D::PRREObject3DImpl::getSizeofIndexType() should always ret sizeof(TPRREuint) if PRREObject3DManager::isMinimalIndexStorageEnabled() is true;
+        - setting subobject->p->nIndicesType in createBox(), createPlane() and loadOBJ() should be to GL_UNSIGNED_INT if PRREObject3DManager::isMinimalIndexStorageEnabled() is true;
+
+ - FTR: [2] FiledManager: add a mode which spececifies how to treat files to be loaded:
+        load only once and return it always (like textures), load always (like objects in proofps engine), load only once and make a copy if already loaded (this just saves file reading).
+ - FTR: [1] modify PRREFiledManager to allow file formats to be registered (like extensions w/ description).
+        A given filename may be checked against the registered extensions prior loading it. This allows less code if many file formats are supported.
  - RFR: [1] PGESysCFG: use vectors instead of malloc-realloc/new-delete
  - RFR: [1] PFL/PGESysCfg: create alternative to strClr() and the other 2 funcs which do not modify the source but malloc new destination. getDir() and getFilename() can use these
  - RFR: [2] PRREVector, PRREColor, etc ... after writing operator<<(), why can't it be used for assertEquals()?!
- - FTR: [1] modify PRREFiledManager to allow file formats to be registered (like extensions w/ description).
-        A given filename may be checked against the registered extensions prior loading it. This allows less code if many file formats are supported.
  - FTR: [2] "PRREManager.cpp(316): // TODO: dont know if the manageds should be simply attached which modify their pparent"
+
+
+
+###########################################################################################################################################
+0.4 - reached on Month Day, Year - target here is to be able to do multitexturing and handling lights correctly
+###########################################################################################################################################
+[2 months]
+
+TOP PRIORITY
+ - DOC: update the doc with lights example
+
+ - FIX: PRRETextureManager::setDefaultAnisoFilteringMode(): // TODO: should check for max aniso filter level same way as texture does!
+
+ - FTR: [2] HardwareInfo, TextureManager: add checks of NPOT texture support and texture rectangle support into HWInfo.
+        Add error to TexMgr when trying to create textures when src image is NPOT or non-square if relevant extension is not supported.
+
+MEDIUM PRIORITY
+    Note: multitexturing & lights: texturing/multitexturing; LightRenderer; Tutorials/tutor; nehe lessons: 7, 8, 20, 22, 32,
+
+ - FTR: [2x40] Material should know almost everything that the .mtl format knows (used for .obj).  
+
+ - RFR: PRREObject3D.cpp(772): // TODO: nope, we shouldnt specify color this way because glColor4f() is called per-vertex anyway later
+
+ - FTR: [month]dynamic lights: there could be a lot of created but the max current renderer lights should be the number predefined (maybe 8? or hw could be queried?)
+        - AMDs valahol irta, hogy a light ambient ill diffuse paraméterei az árnyékos ill fény felõli színek (vagy fordítva)
+
+ - FTR: [2x40] add .mtl support to .obj loading.
+        go over .obj format and check if the current loading is ok or not.
+
+ - FTR: [prev]timer and benchmark classes
+
+LOW PRIORITY
+
+
+
+###########################################################################################################################################
+0.3 - reached on Month Day, Year - target here is the performance optimisations based on view frustum culling and occlusion culling
+###########################################################################################################################################
+[finish: Apr 2021]
+
+TOP PRIORITY
+ - git tag!!! (CConsole, PFL, PGE, gfxcore2)
+ - move computers to new crib and set them up for usage
+ - DOC: update the doc with frustum culling example (calculation, etc.)
+ - DOC: record benchmark results in public shared google sheet
+
+MEDIUM PRIORITY
+ - FTR: [month] occlusion culling
+        - API to enable/disable per Object3D, and it would also have default setting based on circumstances like object vertex number;
+        - this also has effect on draw order, as occluders (where test is false) need to be drawn 1st, and the rest as 2nd.
+
+ - FTR: [month]frustum calculating based on matrices. Is a 3D point within the view frustum?
+        - frustum culling should be automatic but it should have on/off switch!
+
+ - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
+        - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:
+          - do not bind texture if it is already bound to TMU;
+
+ - FTR: probably we should also group objects based on their texture map usage, so object with same textures should be rendered
+        after each other to minimize texture binds!
+
+ - FTR: a renderer class should sum the following values during 1 frame render:
+        - number of vertices rendered, or thrown away due to culling;
+        - number of objects renderer, or thrown away due to culling;
+        - number of texture binds;
+
+ - FTR: [2x40] unfortunately, loading OBJ format mesh makes vertex data redundant, meaning that even though only N vertices are defined for a submesh,
+               still we make as many vertices as the number of faces*3, meaning that there is no shared vertex at all in our geometry, so
+               indexed rendering and array locking is unable to show performance benefits!
+
  - FTR: [8] "PRREObject3DManager.cpp(1136): // todo: should call this in loop, do multiple batches based on the implementation-dependent values"
- - FTR: [1] CConsole should count how many times it had been initialized. At Deinitialize(), it should lower this number, and do the actual deinit only if this reaches 0.
-        This way everybody can call Deinitialize() without causing loss of logs in other systems. Example: PGE can call Deinitialize() without fearing of the actual game using PGE loses logging functionalities.
-        Of course the actual game should also call Deinitialize().
 
+LOW PRIORITY
+
+ 
 
 
 ###########################################################################################################################################
-0.2 - reached on Month Day, Year - main target here is to be able to build for Linux and fix bugs / refactor existing 0.1 codebase
+0.2 - reached on Month Day, Year - main target here is to refactor existing 0.1 codebase, fix some bugs and extend API, and generate doc., 1st perf. demo
 ###########################################################################################################################################
-[4 months]
+[finish: Feb 2021]
+
+TOP PRIORITY
+ - git tag!!! (CConsole, PFL, PGE, gfxcore2)
 
  - FIX: add getCompressionMode() to Texture;
  - FIX: expand TextureManager::WriteListCallback() by printing texture.getCompressionMode();
 
  - FTR: add way to calculate total used video memory per all Object3D (geometry) and total used texture memory per textures;
 
-MEDIUM PRIORITY
- - FTR: [month] Linux should be supported. Find a tool which can compile it to linux (like CodeBlocks) or setup VS for it with another compiler
-        Android is the primary target.
-        OpenGL ES should be also supported for mobile devices (Android smartphones).
- - FTR: [8] PRREWindow implementation should be selected based on target OS. Basically for 2 OS-es: Win, Linux.
-        PRRE should pass the actual implementation to PRREScreen.
-        In the end, no more public-facing functions with HWND, HDC, etc. in PRREWindow and PRREScreen, also win headers won't be needed to be included there.
+ - FTR: [prev]performance demo 1
+        based on my engine verseny task 3, 2008
 
+MEDIUM PRIORITY
+ - DOC: how to autogenerate doc to github online w/ doxygen?
 
 LOW PRIORITY
+ - FTR: [1] CConsole should count how many times it had been initialized. At Deinitialize(), it should lower this number, and do the actual deinit only if this reaches 0.
+        This way everybody can call Deinitialize() without causing loss of logs in other systems. Example: PGE can call Deinitialize() without fearing of the actual game using PGE loses logging functionalities.
+        Of course the actual game should also call Deinitialize().
  - FTR: [1] CConsole: add an option for verbose logging mode. Without it, mostly just warnings and errors go to the console.
  - FTR: [3] CConsole: add an option for per manager logging mode.
         How to do it? Probably we should stick to the already used method: all managers have their own getConsole() function which by default could be
