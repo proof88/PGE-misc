@@ -503,11 +503,6 @@ LOW PRIORITY
 TOP PRIORITY
  - git tag!!! (CConsole, PFL, PGE, gfxcore2)
 
- - FIX: add getCompressionMode() to Texture;
- - FIX: expand TextureManager::WriteListCallback() by printing texture.getCompressionMode();
-
- - FTR: add way to calculate total used video memory per all Object3D (geometry) and total used texture memory per textures;
-
  - FTR: [prev]performance demo 1
         based on my engine verseny task 3, 2008
 
