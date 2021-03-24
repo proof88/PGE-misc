@@ -418,6 +418,8 @@ LOW PRIORITY
  - RFR: [1] PFL/PGESysCfg: create alternative to strClr() and the other 2 funcs which do not modify the source but malloc new destination. getDir() and getFilename() can use these
  - RFR: [2] PRREVector, PRREColor, etc ... after writing operator<<(), why can't it be used for assertEquals()?!
  - FTR: [2] "PRREManager.cpp(316): // TODO: dont know if the manageds should be simply attached which modify their pparent"
+ - RFR: PRREManaged's getManagedConsole() should be renamed to getConsole(), however a lot of calls will be ambiguous in classes
+        that are derived from both Managed and Manager ... virtual inheritance did not help for some reason either ....
 
 
 
@@ -510,18 +512,10 @@ MEDIUM PRIORITY
  - DOC: how to autogenerate doc to github online w/ doxygen?
 
 LOW PRIORITY
+ - RFR: getLoggingModuleName() should be static, so it would be easy to set module logging on/off even without having an object yet e.g. texture!
  - FTR: [1] CConsole should count how many times it had been initialized. At Deinitialize(), it should lower this number, and do the actual deinit only if this reaches 0.
         This way everybody can call Deinitialize() without causing loss of logs in other systems. Example: PGE can call Deinitialize() without fearing of the actual game using PGE loses logging functionalities.
         Of course the actual game should also call Deinitialize().
- - FTR: [1] CConsole: add an option for verbose logging mode. Without it, mostly just warnings and errors go to the console.
- - FTR: [3] CConsole: add an option for per manager logging mode.
-        How to do it? Probably we should stick to the already used method: all managers have their own getConsole() function which by default could be
-        simply replaced by Console::getConsole() due to the fact console is singleton. But we keep these individual functions, so
-        each manager could pass a param probably to Console::getConsole(), and based on that, the returned Console instance will already be
-        specific to the manager, thus logged text would be already tagged with the manager's ID. Based on that, it would be easy to turn on/off
-        logging per manager.
- - RFR: [2] "PRREObject3DManager.cpp(1339):    TODO: maybe the whole getConsole() stuff should be removed from everywhere because CConsole is a singleton stuff after all."
-
 
 
 
