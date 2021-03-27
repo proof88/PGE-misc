@@ -512,12 +512,9 @@ MEDIUM PRIORITY
  - DOC: how to autogenerate doc to github online w/ doxygen?
 
 LOW PRIORITY
- - RFR: getLoggingModuleName() should be static, so it would be easy to set module logging on/off even without having an object yet e.g. texture!
  - FTR: [1] CConsole should count how many times it had been initialized. At Deinitialize(), it should lower this number, and do the actual deinit only if this reaches 0.
         This way everybody can call Deinitialize() without causing loss of logs in other systems. Example: PGE can call Deinitialize() without fearing of the actual game using PGE loses logging functionalities.
         Of course the actual game should also call Deinitialize().
-
-
 
 ###########################################################################################################################################
 0.1 - reached on April 20, 2019 - main target here is to be able to run PR00FPS and GGame with this new engine
