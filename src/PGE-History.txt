@@ -505,9 +505,6 @@ LOW PRIORITY
 TOP PRIORITY
  - git tag!!! (CConsole, PFL, PGE, gfxcore2)
 
- - FTR: [prev]performance demo 1
-        based on my engine verseny task 3, 2008
-
 MEDIUM PRIORITY
  - DOC: how to autogenerate doc to github online w/ doxygen?
 
