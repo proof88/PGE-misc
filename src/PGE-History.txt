@@ -505,9 +505,6 @@ LOW PRIORITY
 TOP PRIORITY
  - git tag!!! (CConsole, PFL, PGE, gfxcore2)
 
-MEDIUM PRIORITY
- - DOC: how to autogenerate doc to github online w/ doxygen?
-
 ###########################################################################################################################################
 0.1 - reached on April 20, 2019 - main target here is to be able to run PR00FPS and GGame with this new engine
 ###########################################################################################################################################
