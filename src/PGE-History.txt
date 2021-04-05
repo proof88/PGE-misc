@@ -498,12 +498,8 @@ LOW PRIORITY
 
 
 ###########################################################################################################################################
-0.2 - reached on Month Day, Year - main target here is to refactor existing 0.1 codebase, fix some bugs and extend API, and generate doc., 1st perf. demo
+0.2 - reached on March 31, 2021 - refactor, hardening, bug fixes, documentation, 1st performance demo
 ###########################################################################################################################################
-[finish: Feb 2021]
-
-TOP PRIORITY
- - git tag!!! (CConsole, PFL, PGE, gfxcore2)
 
 ###########################################################################################################################################
 0.1 - reached on April 20, 2019 - main target here is to be able to run PR00FPS and GGame with this new engine
