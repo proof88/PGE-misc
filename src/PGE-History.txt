@@ -464,15 +464,25 @@ TOP PRIORITY
  - git tag!!! (CConsole, PFL, PGE, gfxcore2)
  - move computers to new crib and set them up for usage
  - DOC: update the doc with frustum culling example (calculation, etc.)
+ - DOC: update the doc with occlusion culling details
  - DOC: record benchmark results in public shared google sheet
 
 MEDIUM PRIORITY
- - FTR: [month] occlusion culling
+ - FTR: bounding box class
+
+ - FTR: octree
+
+ - FTR: bounding volume hierarchy
+
+ - FTR: [month] simple occlusion culling
         - API to enable/disable per Object3D, and it would also have default setting based on circumstances like object vertex number;
         - this also has effect on draw order, as occluders (where test is false) need to be drawn 1st, and the rest as 2nd.
 
+ - FTR: occlusion culling with bounding volume hierarchy
+
  - FTR: [month]frustum calculating based on matrices. Is a 3D point within the view frustum?
         - frustum culling should be automatic but it should have on/off switch!
+        - hierarchical frustum culling
 
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
         - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:
