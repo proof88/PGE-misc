@@ -378,12 +378,13 @@ MEDIUM PRIORITY
     - final keyword;
     - override keyword;
     - megnézni h move ctor-t lehet-e alkalmazni akárhol is;
+    - std::reference_wrapper;
     - constexpr;
     - nullptr instead of NULL or ((void*)0) or 0;
     - for (int& x : my_array) style looping for easier reading (Range-based for loop);
     - enum class instead of enums;
     - minden castolás lehetõleg static_cast vagy dynamic_cast legyen, ne c-style cast!
-    - std::extent can be used to get num of elements of basic arrays;
+    - std::extent can be used to get num of elements of basic C-style arrays;
     - FIX: [1] "CConsole.cpp(27): // todo: revise these warnings"
 
  - RFR: probably with new compiler, initializer list way of initializing objects is easier, so:
@@ -468,6 +469,12 @@ TOP PRIORITY
  - DOC: record benchmark results in public shared google sheet
 
 MEDIUM PRIORITY
+ - FIX: add test for PRREAxisAlignedBoundingBox() default ctor
+
+ - FIX: add parent to octree nodes
+
+ - FIX: memory allocations in octree should handle failure cases too!
+
  - FTR: bounding volume hierarchy
 
  - FTR: [month] simple occlusion culling
