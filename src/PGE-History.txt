@@ -470,8 +470,6 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FIX: memory allocations in octree and BVH should handle failure cases too!
-
  - FTR: [month] simple occlusion culling
         - API to enable/disable per Object3D, and it would also have default setting based on circumstances like object vertex number;
         - this also has effect on draw order, as occluders (where test is false) need to be drawn 1st, and the rest as 2nd.
