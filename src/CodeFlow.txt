@@ -69,7 +69,7 @@ RendererHWfixedPipe::RenderScene()
     Draw3DObjects()
         push()
             for all non-sticked objects ...
-                ApplyTransformations()
+                Draw_ApplyTransformations()
                 Draw() 1. VERTEX SPECIFICATION
         pop()
 
@@ -83,7 +83,7 @@ RendererHWfixedPipe::RenderScene()
 	    /* legacy 2D code begins */
 	    push()
             for all sticked objects ...
-                ApplyTransformations()
+                Draw_ApplyTransformations()
                 Draw() 1. VERTEX SPECIFICATION
         pop()
 		/* legacy 2D code ends */
@@ -112,7 +112,7 @@ minden objektumra
         minden alobjektumra
             vertexek lemásolása  1. VERTEX SPECIFICATION
             minden vertexre
-                ApplyTransformations()  2.1 VERTEX PROCESSING 1ST PART
+                Draw_ApplyTransformations()  2.1 VERTEX PROCESSING 1ST PART
             rajzolási mód
             -> pont
                 minden háromszögre
