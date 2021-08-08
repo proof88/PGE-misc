@@ -470,9 +470,38 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: [month] simple occlusion culling
-        - API to enable/disable per Object3D, and it would also have default setting based on circumstances like object vertex number;
-        - this also has effect on draw order, as occluders (where test is false) need to be drawn 1st, and the rest as 2nd.
+ - RFR: in PRRERendererHWfixedPipeImpl::Draw3DObjects_Sync_OcclusionQuery(), separate private functions should be written for gl state changes
+        done in switch (iRenderPass)
+
+ - FTR: API to enable/disable occlusion query per object
+        - even though it is set automatically based on how complex the object is;
+        - write separate function for object complexity judgement;
+        - unit test should be written for it (although as I remember I already put some kind of test, please check!)
+
+ - FTR: although API already exists for set occluder state on or off, it should be also automatically selected based on object size, see:
+        PURE-occluder-selection.xlsx
+        - unit test should be also written for it!
+
+ - FTR: if blending is set to true, object's occluder state should be set to false!
+        If occluder state is set to true for a blended object, it should be rejected, stay occludee and blended.
+        - unit test both!
+
+ - FTR: as described in PRRERendererHWfixedPipeImpl::Draw3DObjects(), Object3DManager should maintain different ordering of objects,
+        so the renderer can iterate over the objects in arbitrary order e.g. occluder/occludee, blending, etc.
+
+ - FTR: before rendering, occluders should be sorted based on distance from camera, from nearest to farest.
+        This should be done also for opaque occludees.
+        Transparent occludees should be sorted from farest to nearest.
+        This should be applied to all rendering paths: Draw3DObjects_Legacy() and Draw3DObjects_Sync_OcclusionQuery().
+        The sort algorithm should not depend on the traditional distance calculation, it should be the "DotProduct with Cam Fw" technique, see:
+        PURE-Object-Distance-Sorting.xlsx
+        https://community.khronos.org/t/sorting-objects-by-distance-for-correct-blending/49579
+        - unit test should be also written for it!
+ 
+ - DOC: update doc with API updates explained above!
+        - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
+
+ - FTR: rendering path executed by PRRERendererHWfixedPipeImpl::RenderScene() should be somehow selectable.
 
  - FTR: occlusion culling with bounding volume hierarchy
 
@@ -480,13 +509,20 @@ MEDIUM PRIORITY
         - frustum culling should be automatic but it should have on/off switch!
         - hierarchical frustum culling
 
- - FTR: as described in PRRERendererHWfixedPipeImpl::Draw3DObjects(), Object3DManager should maintain different ordering of objects,
-        so the renderer can iterate over the objects in arbitrary order e.g. occluder/occludee, blending, etc.
-
  - FTR: Object3D::Draw() should have bool return value, false would indicate some condition failed, leading to not drawing anything,
         and this could be unit tested too.
         Or, should it return number of drawn vertices?
         Probably TransferVertices() should also have this feature ...
+
+ - FTR: Mesh3D getVerticesCount() and similar methods should have a form like getTotalVerticesCount() or similar because now there is
+        no simple way to get the number of vertices owned by a level-1 mesh, just manually summing the number of vertices of its submeshes!!!
+
+ - RFR: check why PRREObject3DManager::createCloned(PRREObject3D& referredobj) cannot have const ref to the given referredobj?
+
+ - FIX: the pBoundingBox Object3D instance should NOT be owned by Object3DManager because that way user can accidentally delete it,
+        change its position, etc. After create, it should be moved to the responsibility of the Object3D instance for which it was created.
+        Since that Object3D instance is also a Manager, it could manager it (even though it is not subobject). Or simply, pBoundingBox
+        should just doesn't have any manager owning it ... who cares? Nobody wants to manage it. Object3D dtor will delete it anyway.
 
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
         - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:
