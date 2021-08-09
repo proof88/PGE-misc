@@ -470,8 +470,7 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - RFR: in PRRERendererHWfixedPipeImpl::Draw3DObjects_Sync_OcclusionQuery(), separate private functions should be written for gl state changes
-        done in switch (iRenderPass)
+ - FTR: implement simple async occlusion query stuff.
 
  - FTR: API to enable/disable occlusion query per object
         - even though it is set automatically based on how complex the object is;
@@ -498,6 +497,9 @@ MEDIUM PRIORITY
         https://community.khronos.org/t/sorting-objects-by-distance-for-correct-blending/49579
         - unit test should be also written for it!
  
+ - FIX: in some camera positions in EV2008P03, big bricked wall can disappear earlier than it should!
+        Such camera position is: [742, 460, 3702]. This happens with Draw3DObjects_Sync_OcclusionQuery() so this is not an async problem!
+
  - DOC: update doc with API updates explained above!
         - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
 
