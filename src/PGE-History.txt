@@ -475,21 +475,21 @@ MEDIUM PRIORITY
 
  - FIX: sometimes ReleasePR00FPS build ran from VS hangs during the PR00FPS loading screen ... should try debug it with full console log!
 
+ - FTR: although API already exists for set occluder state on or off, it should be also automatically selected based on object size, see:
+        PURE-occluder-selection.xlsx
+        - unit test should be also written for it!
+
+ - FTR: as described in PRRERendererHWfixedPipeImpl::Draw3DObjects(), Object3DManager should maintain different ordering of objects,
+        so the renderer can iterate over the objects in arbitrary order e.g. occluder/occludee, blending, etc.
+ 
  - FTR: API to enable/disable occlusion query per object
         - even though it is set automatically based on how complex the object is;
         - write separate function for object complexity judgement;
         - unit test should be written for it (although as I remember I already put some kind of test, please check!)
 
- - FTR: although API already exists for set occluder state on or off, it should be also automatically selected based on object size, see:
-        PURE-occluder-selection.xlsx
-        - unit test should be also written for it!
-
  - FTR: if blending is set to true, object's occluder state should be set to false!
         If occluder state is set to true for a blended object, it should be rejected, stay occludee and blended.
         - unit test both!
-
- - FTR: as described in PRRERendererHWfixedPipeImpl::Draw3DObjects(), Object3DManager should maintain different ordering of objects,
-        so the renderer can iterate over the objects in arbitrary order e.g. occluder/occludee, blending, etc.
 
  - FTR: before rendering, occluders should be sorted based on distance from camera, from nearest to farest.
         This should be done also for opaque occludees.
@@ -505,7 +505,7 @@ MEDIUM PRIORITY
 
  - FTR: rendering path executed by PRRERendererHWfixedPipeImpl::RenderScene() should be somehow selectable.
 
- - FTR: occlusion culling with bounding volume hierarchy
+ - FTR: CHC: occlusion culling with bounding volume hierarchy
 
  - FTR: [month]frustum calculating based on matrices. Is a 3D point within the view frustum?
         - frustum culling should be automatic but it should have on/off switch!
