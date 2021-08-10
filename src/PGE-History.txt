@@ -470,7 +470,10 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: implement simple async occlusion query stuff.
+ - FIX: in some camera positions in EV2008P03, big bricked wall can disappear earlier than it should!
+        Such camera position is: [742, 460, 3702]. This happens with Draw3DObjects_Sync_OcclusionQuery() so this is not an async problem!
+
+ - FIX: sometimes ReleasePR00FPS build ran from VS hangs during the PR00FPS loading screen ... should try debug it with full console log!
 
  - FTR: API to enable/disable occlusion query per object
         - even though it is set automatically based on how complex the object is;
@@ -496,11 +499,6 @@ MEDIUM PRIORITY
         PURE-Object-Distance-Sorting.xlsx
         https://community.khronos.org/t/sorting-objects-by-distance-for-correct-blending/49579
         - unit test should be also written for it!
- 
- - FIX: in some camera positions in EV2008P03, big bricked wall can disappear earlier than it should!
-        Such camera position is: [742, 460, 3702]. This happens with Draw3DObjects_Sync_OcclusionQuery() so this is not an async problem!
-
- - FIX: sometimes ReleasePR00FPS build ran from VS hangs during the PR00FPS loading screen ... should try debug it with full console log!
 
  - DOC: update doc with API updates explained above!
         - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
