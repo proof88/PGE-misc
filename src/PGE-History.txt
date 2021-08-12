@@ -470,9 +470,6 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FIX: in some camera positions in EV2008P03, big bricked wall can disappear earlier than it should!
-        Such camera position is: [742, 460, 3702]. This happens with Draw3DObjects_Sync_OcclusionQuery() so this is not an async problem!
-
  - FIX: sometimes ReleasePR00FPS build ran from VS hangs during the PR00FPS loading screen ... should try debug it with full console log!
 
  - FTR: although API already exists for set occluder state on or off, it should be also automatically selected based on object size, see:
