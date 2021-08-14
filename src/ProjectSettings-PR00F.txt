@@ -42,6 +42,16 @@ C/C++                                | DEBUG                                    
   Optimization                                                                          
     - Optimization                   | Disabled                                         | Maximize Speed (/O2)
     - Enable Intrinsic Functions     | No                                               | Yes (/Oi)
+    - Whole Program Optimization     | No                                               | No
+      (explicitly set to No as it    |                                                  |
+      caused problems e.g. strange   |                                                  |
+      failures in unit tests.        |                                                  |
+      Link Time Code Generation uses |                                                  |
+      this, now I exit using this,   |                                                  |
+      probably will retry with newer |                                                  |
+      compiler later).               |                                                  |
+      https://stackoverflow.com/questions/18048705/possible-vs2012-compiler-bug-maybe-in-whole-program-optimization
+      https://developercommunity.visualstudio.com/t/incorrect-linking-with-whole-program-optimization/819713
   ----------------------------------------------------------------------------------------------------------------------
   Preprocessor
     - Preprocessor definition        |                                                  |
@@ -97,6 +107,10 @@ LINKER (in case of exe/dll output)   | DEBUG                                    
   Optimization
     - References                     | -                                                | Yes (/OPT:REF)
     - Enable COMDAT folding          | -                                                | Yes (/OPT:ICF)
+    - Link Time Code Generation      | -                                                | Yes (/LTCG) 
+      (although I might not use it   |                                                  |
+       now as Whole Program Opt. is  |                                                  |
+       disabled, I keep this one on) |                                                  |
   ----------------------------------------------------------------------------------------------------------------------
   Command Line
     - Additional options             | opengl32.lib glu32.lib dwmapi.lib PGE.lib        | <Same>
