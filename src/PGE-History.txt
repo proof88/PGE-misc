@@ -472,7 +472,9 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FIX: sometimes ReleasePR00FPS build ran from VS hangs during the PR00FPS loading screen ... should try debug it with full console log!
+ - FIX: occlusion culling bounding box rendering should be done differently, maybe after everything is already rendered.
+
+ - FIX: why bounding box of robots in proofps not aligned with the object???
 
  - FTR: although API already exists for set occluder state on or off, it should be also automatically selected based on object size, see:
         PURE-occluder-selection.xlsx
