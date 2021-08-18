@@ -472,27 +472,29 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FIX: occlusion culling bounding box color is random, not always green, I think because I forgot to disable texturing before rendering them?
-
- - FIX: occlusion culling bounding box rendering should be done differently, maybe after everything is already rendered.
-
- - RFR: pBoundingBox creation should be extracted into separate function, so no code redundancy between Object3DManager:: createCloned() and createFromFile().
-
  - FTR: although API already exists for set occluder state on or off, it should be also automatically selected based on object size, see:
         PURE-occluder-selection.xlsx
         - unit test should be also written for it!
+
+        After this change, we should expect non-occluders' bounding box turn red if they are actually occluded by any occluder!
+ 
+ - RFR: pBoundingBox creation should be extracted into separate function, so no code redundancy between Object3DManager:: createCloned() and createFromFile().
 
  - FTR: as described in PRRERendererHWfixedPipeImpl::Draw3DObjects(), Object3DManager should maintain different ordering of objects,
         so the renderer can iterate over the objects in arbitrary order e.g. occluder/occludee, blending, etc.
  
  - FTR: API to enable/disable occlusion query per object
         - even though it is set automatically based on how complex the object is;
+        - set variables back to their default values such as bOccluded = false whenever the setting is changed!
         - write separate function for object complexity judgement;
         - unit test should be written for it (although as I remember I already put some kind of test, please check!)
 
  - FTR: if blending is set to true, object's occluder state should be set to false!
         If occluder state is set to true for a blended object, it should be rejected, stay occludee and blended.
         - unit test both!
+
+ - FTR: In EV2008Release, without rendering bounding boxes, the sync renderer with early z-only pass did 400-600 fps from any camera position!
+        Only bug is that it may hide an object when we are inside in its bounding box and not a single pixel passes the query since bounding box depth is already in depth buffer.
 
  - FTR: before rendering, occluders should be sorted based on distance from camera, from nearest to farest.
         This should be done also for opaque occludees.
