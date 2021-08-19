@@ -472,15 +472,6 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: API to enable/disable occlusion query per object
-        - even though it is set automatically based on how complex the object is;
-        - function should be in PRREObject3D, so Object3DManagerImpl::PrepareObjectForOcclusionQuery() should be moved
-          to Object3D as public function with different name but same behavior, Object3DManagerImpl should invoke it;
-          - given argument is bool for state setting;
-          - Object3DManagerImpl should invoke it with true when needed, Object3D's dtor should invoke it with false!
-        - set variables back to their default values such as bOccluded = false whenever the setting is changed!
-        - unit test should be written for it (although as I remember I already put some kind of test, please check!)
-
  - FTR: although API already exists for set occluder state on or off, it should be also automatically selected based on object size, see:
         PURE-occluder-selection.xlsx
         - unit test should be also written for it!
