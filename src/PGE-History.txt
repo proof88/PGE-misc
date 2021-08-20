@@ -464,7 +464,8 @@ LOW PRIORITY
 TOP PRIORITY
  - VERSION UPDATE:
    - git tag!!! (CConsole, PFL, PGE, gfxcore2);
-   - PRRE_VERSION macro.
+   - PRRE_VERSION macro;
+   - DOC project version.
  - move computers to new crib and set them up for usage
  - DOC: update the doc with frustum culling example (calculation, etc.)
  - DOC: update the doc with occlusion culling details
