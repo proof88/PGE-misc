@@ -519,11 +519,6 @@ MEDIUM PRIORITY
 
  - RFR: check why PRREObject3DManager::createCloned(PRREObject3D& referredobj) cannot have const ref to the given referredobj?
 
- - FIX: the pBoundingBox Object3D instance should NOT be owned by Object3DManager because that way user can accidentally delete it,
-        change its position, etc. After create, it should be moved to the responsibility of the Object3D instance for which it was created.
-        Since that Object3D instance is also a Manager, it could manager it (even though it is not subobject). Or simply, pBoundingBox
-        should just doesn't have any manager owning it ... who cares? Nobody wants to manage it. Object3D dtor will delete it anyway.
-
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
         - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:
           - do not bind texture if it is already bound to TMU;
