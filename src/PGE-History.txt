@@ -517,7 +517,9 @@ MEDIUM PRIORITY
  - FTR: Mesh3D getVerticesCount() and similar methods should have a form like getTotalVerticesCount() or similar because now there is
         no simple way to get the number of vertices owned by a level-1 mesh, just manually summing the number of vertices of its submeshes!!!
 
- - RFR: check why PRREObject3DManager::createCloned(PRREObject3D& referredobj) cannot have const ref to the given referredobj?
+ - RFR: when creating bounding box object for a new object, AND this new object is actually a cloned object (PRREObject3DManager::createCloned()),
+        the bounding box object should be also rather cloned, this way we could get rid of the overhead of uploading geometry of bounding box to host memory,
+        for example in PR00FPS when they firing rockets, rockets also has bounding box, so it makes FPS jitter;
 
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
         - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:

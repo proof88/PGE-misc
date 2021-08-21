@@ -19,7 +19,8 @@ Project dependency tree:
   - PFL (.lib)
     - CConsole (.lib)
       - PGE (.lib)
-        - gfxcore2  (.dll)
+        - gfxcore2  (.dll) (notice multiple runnables explained later in 1))
+        - GGame     (.exe) (not published on GitHub so it might be absent)
         - ELTE-FAIL (.exe)
         - UnitTests (.exe)
 
@@ -35,6 +36,8 @@ We have the following repos:
 - gfxcore2
 - ELTE-FAIL
 - PGE-misc (for solution and other textfiles like this txt)
+- PR00FPS (legacy Delphi project from 2007, not part of the solution)
+- proof88.github.io - online form of documentation
 
 So as seen above, almost every project has its own repository. Exception is the UnitTests project, it lies in the same repo as PGE.
 
@@ -42,7 +45,24 @@ So as seen above, almost every project has its own repository. Exception is the 
 ---
 
 
-Documentation
+1) Different Runnables
+
+A project may have multiple configurations, that could mean not only Release and Debug outputs but also executing different runnables.
+Currently the only project having multible runnables is gfxcore2:
+ - configurations with name EV2008P03* will build gfxcore2.dll, copy it to EV2008P03 sample directory and run EV2008P03 sample;
+   - both Debug and Release versions of this configuration will do these same actions, but obviously compiler and linker settings are different according to name;
+ - configurations DebugPR00FPS and ReleasePR00FPS will build gfxcore2.dll, copy it to PR00FPS directory and run PR00FPS;
+   - Debug and Release settings for compiler and linker obviously don't affect the existing legacy PR00FPS build since that is a Delphi project, we leave it untouched,
+     so if you want Debug or Release build of the legacy PR00FPS, you need to solve that from Delphi.
+
+Even though EV2008P03Debug, EV2008P03Release, DebugPR00FPS and ReleasePR00FPS are valid project configurations for other projects such as UnitTests, there they
+act like the project's simple Debug or Release configuration: build&run the given project, not a sample runnable or PR00FPS.
+
+
+---
+
+
+2) Documentation
 
 Documentation can be generated with Doxygen (https://www.doxygen.nl/index.html).
 There are multiple project files that can be used with Doxygen in PGE\PGE\Docs\ directory:
@@ -60,23 +80,28 @@ symbols such as all Impl classes. This is not affecting the quality of the exter
 to hide as much internal stuff as we can. These warnings are not present with the PURE_Doxyfile_internal since there
 we don't want to hide any internal stuff.
 
+As you can see, all stuff required to generate either internal or external documentation is in PGE directory.
+
+However, there is a separate repo called proof88.github.io, which contains generated internal documentation.
+The content is updated at every major PGE or PRRE version release and available online at: https://proof88.github.io/pure-doc/index.html .
+
 
 ---
 
 
-1) PRREallHeaders.h and PGEallHeaders.h should be included in EVERY SINGLE PRRE header file
+3) PRREallHeaders.h and PGEallHeaders.h should be included in EVERY SINGLE PRRE header file
 
-2) PRREallHeaders.h and PGEallHeaders.h MUSTN'T include anything
+4) PRREallHeaders.h and PGEallHeaders.h MUSTN'T include anything
 
-3) include/internal/PRREpragmas.h and PGEpragmas.h MUSTN'T be included in any header files.
+5) include/internal/PRREpragmas.h and PGEpragmas.h MUSTN'T be included in any header files.
    They should be included in cpp files only.
 
-4) We have EXTERNAL and INTERNAL header files.
+6) We have EXTERNAL and INTERNAL header files.
    EXTERNAL headers are public, meaning that they will be delivered
 	to API-users as well, so they should contain as minimal info about internals as they can.
    INTERNAL headers are private headers, used for compiling the library, etc. They MUSTN'T be included in EXTERNAL headers.
 
-5) PGEconsts.h and PRREconsts.h are INTERNAL headers thus MUSTN'T be included in EXTERNAL headers.
+7) PGEconsts.h and PRREconsts.h are INTERNAL headers thus MUSTN'T be included in EXTERNAL headers.
 
 
 ---
