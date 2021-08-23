@@ -473,18 +473,10 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: although API already exists for set occluder state on or off, it should be also automatically selected based on object size, see:
-        PURE-occluder-selection.xlsx
-        - unit test should be also written for it!
-
-        After this change, we should expect non-occluders' bounding box turn red if they are actually occluded by any occluder!
- 
  - FTR: as described in PRRERendererHWfixedPipeImpl::Draw3DObjects(), Object3DManager should maintain different ordering of objects,
         so the renderer can iterate over the objects in arbitrary order e.g. occluder/occludee, blending, etc.
 
- - FTR: if blending is set to true, object's occluder state should be set to false!
-        If occluder state is set to true for a blended object, it should be rejected, stay occludee and blended.
-        - unit test both!
+ - FTR: make sure that when iterating over occluders during rendering, their blending state is also checked, and if needed, skipped in the occluder loop!
 
  - FTR: In EV2008Release, without rendering bounding boxes, the sync renderer with early z-only pass did 400-600 fps from any camera position!
         Only bug is that it may hide an object when we are inside in its bounding box and not a single pixel passes the query since bounding box depth is already in depth buffer.
@@ -497,6 +489,8 @@ MEDIUM PRIORITY
         PURE-Object-Distance-Sorting.xlsx
         https://community.khronos.org/t/sorting-objects-by-distance-for-correct-blending/49579
         - unit test should be also written for it!
+
+ - FTR: there should be public API to enable/disable those public static constants starting with OQ in PRRERendererHWfixedPipeImpl;
 
  - DOC: update doc with API updates explained above!
         - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
@@ -520,6 +514,7 @@ MEDIUM PRIORITY
  - RFR: when creating bounding box object for a new object, AND this new object is actually a cloned object (PRREObject3DManager::createCloned()),
         the bounding box object should be also rather cloned, this way we could get rid of the overhead of uploading geometry of bounding box to host memory,
         for example in PR00FPS when they firing rockets, rockets also has bounding box, so it makes FPS jitter;
+        Actually it is causing FPS drops heavily in PR00FPS when snails are firing rockets now ...
 
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
         - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:
