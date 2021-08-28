@@ -529,6 +529,8 @@ MEDIUM PRIORITY
         - number of texture binds;
 
  - FTR: maybe all managers should do dynamic cast in overridden Attach() to see if the managed to be attached has the expected type/derived level!
+ - FTR: override all functions inherited from Managed or Manager base class where covariant return type could bring some advantage, for example:
+        any derived Managed classes can override base getManager() by returning instance of Manager type derived from base Manager;
 
  - FTR: [2x40] unfortunately, loading OBJ format mesh makes vertex data redundant, meaning that even though only N vertices are defined for a submesh,
                still we make as many vertices as the number of faces*3, meaning that there is no shared vertex at all in our geometry, so
