@@ -63,6 +63,13 @@ C/C++                                | DEBUG                                    
     - Runtime Library                | Multi-threaded Debug (/MTd)                      | Multi-threaded (/MT)
     - Enable Function-Level Linking  | -                                                | Yes (/Gy)
   ----------------------------------------------------------------------------------------------------------------------
+  Language                           | Yes (/GR)                                        | Yes (/GR)
+    - Enable Run-Time Type           |                                                  |
+      Information                    |                                                  |
+      Although it is on by default,  |                                                  |
+      I set it explicitly enabled    |                                                  |
+      since dynamic_cast needs it!   |                                                  |
+  ----------------------------------------------------------------------------------------------------------------------
   Precompiled header (optional)
     - Precompiled Header             | Use (/Yu)                                        | <Same>
       Note: project setting here is always "Use" if using precompiled header.           |

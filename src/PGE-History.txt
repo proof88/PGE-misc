@@ -528,6 +528,8 @@ MEDIUM PRIORITY
         - number of objects renderer, or thrown away due to culling;
         - number of texture binds;
 
+ - FTR: maybe all managers should do dynamic cast in overridden Attach() to see if the managed to be attached has the expected type/derived level!
+
  - FTR: [2x40] unfortunately, loading OBJ format mesh makes vertex data redundant, meaning that even though only N vertices are defined for a submesh,
                still we make as many vertices as the number of faces*3, meaning that there is no shared vertex at all in our geometry, so
                indexed rendering and array locking is unable to show performance benefits!
