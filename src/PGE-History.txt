@@ -452,6 +452,43 @@ MEDIUM PRIORITY
 
  - FTR: [prev]timer and benchmark classes
 
+ - FTR: a PRREManaged instance might have multiple utiliser instances, i.e. PRREManaged::getUtiliser() should return a set of managed instances.
+        A use case for this is the Material-Texture relationship, as PRREMaterial utilizes PRRETexture, but 1 PRRETexture instance can be utilised by multiple PRREMaterial instances.
+        PRREManaged::SetUtilizer() also changes, either with added bool param to add/remove, or create 2 new functions instead: AddUtiliser() and RemoveUtiliser().
+
+- Optimizations around Occlusion Testing:
+
+ - RFR: when creating bounding box object for a new object, AND this new object is actually a cloned object (PRREObject3DManager::createCloned()),
+   OPT  the bounding box object should be also rather cloned, this way we could get rid of the overhead of uploading geometry of bounding box to host memory,
+        for example in PR00FPS when they firing rockets, rockets also has bounding box, so it makes FPS jitter;
+        Actually it is causing FPS drops heavily in PR00FPS when snails are firing rockets now ...
+        I think it should be enough to NOT create bounding box when cloning an object, and in rendering a check should be added: if we are cloned, pRefersTo's pBoundingBox should be drawn.
+        Some side stuff should be also done: SetOcclusionTested() should ignore true for cloned object if pRefersTo is not occlusion tested either.
+
+ - FTR: On the long run, it would be good to get rid of the need of renderer periodically calling PRREObject3DManager::UpdateOccluderStates() because when having many
+   OPT  objects it can add some delay while most of the checks are unnecessary anyway.
+        PRREObject3DManager::UpdateOccluderStates() is invoked periodically by renderer nowadays, because although stickedtoscreen and affectzbuffer and scaling
+        properties immediately update occluder state to false if needed, the following issues were still there:
+         I1 - blendmode change were not detected by Object3DManager, so we needed this periodic check;
+         I2 - geometry change and reupload to host memory, affecting biggestArea were not detected by Object3DManager;
+         I3 - if any property were reset and object could become occluder again, nobody set occluder state to true again automatically because for that we need
+              the overall average biggest area which is nowadays calculated by UpdateOccluderStates() only.
+        
+        In the meantime, solution was delivered to I1 by adding "utiliser" to PRREManaged and HandleManagedPropertyChanged() to Object3DManager so that is not an issue anymore.
+        
+        I2 is still there because if geometry is stored in client memory, user might change vertices by direct access, we can never
+        be notified about it. However we can update API documentation and mention that explicit call to UpdateOccluderStates() is required by user in such case, otherwise
+        rendering might be corrupted.
+
+        I3 might be solved by calling UpdateOccluderStates() from those set functions that affect scaling, stickedtoscreen, etc. properties.
+
+        We might also create an UpdateOccluderState(PRREObject3D& obj) version that updates for only the given object. In such case we still need to iterate over all
+        objects to calculcate overall average biggestareasize.
+        But as a next level, we should permanently store this value in Object3DManager and update it whenever
+        an object is removed, added, scaled, and mention required explicit call in API doc in other functions e.g. direct vertex access, and geometry upload.
+
+        After this, we can remove periodical call from renderer to UpdateOccluderStates().
+
 LOW PRIORITY
 
 
@@ -510,11 +547,6 @@ MEDIUM PRIORITY
 
  - FTR: Mesh3D getVerticesCount() and similar methods should have a form like getTotalVerticesCount() or similar because now there is
         no simple way to get the number of vertices owned by a level-1 mesh, just manually summing the number of vertices of its submeshes!!!
-
- - RFR: when creating bounding box object for a new object, AND this new object is actually a cloned object (PRREObject3DManager::createCloned()),
-        the bounding box object should be also rather cloned, this way we could get rid of the overhead of uploading geometry of bounding box to host memory,
-        for example in PR00FPS when they firing rockets, rockets also has bounding box, so it makes FPS jitter;
-        Actually it is causing FPS drops heavily in PR00FPS when snails are firing rockets now ...
 
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
         - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:
