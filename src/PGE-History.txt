@@ -473,6 +473,7 @@ MEDIUM PRIORITY
          I2 - geometry change and reupload to host memory, affecting biggestArea were not detected by Object3DManager;
          I3 - if any property were reset and object could become occluder again, nobody set occluder state to true again automatically because for that we need
               the overall average biggest area which is nowadays calculated by UpdateOccluderStates() only.
+              This is similar situation when a new object is created and engine needs to determine if can be occluder or not.
         
         In the meantime, solution was delivered to I1 by adding "utiliser" to PRREManaged and HandleManagedPropertyChanged() to Object3DManager so that is not an issue anymore.
         
