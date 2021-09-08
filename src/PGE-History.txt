@@ -511,17 +511,9 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: as described in PRRERendererHWfixedPipeImpl::Draw3DObjects(), Object3DManager should maintain different ordering of objects,
-        so the renderer can iterate over the objects in arbitrary order e.g. occluder/occludee, blending, etc.
+ - FIX: align async renderer to sync renderer, check speed;
 
- - FTR: make sure that when iterating over occluders during rendering, their blending state is also checked, and if needed, skipped in the occluder loop!
-
- - FIX: when UpdateOccluderStates() is invoked by renderer after N frames, why big occluders such as maps lose their bounding box?
-
- - RFR: simplify implementation of PRREObject3D::PRREObject3DImpl::SetOccluder().
-
- - FTR: In EV2008Release, without rendering bounding boxes, the sync renderer with early z-only pass did 400-600 fps from any camera position!
-        Only bug is that it may hide an object when we are inside in its bounding box and not a single pixel passes the query since bounding box depth is already in depth buffer.
+ - FIX: check if legacy renderer still works;
 
  - FTR: before rendering, occluders should be sorted based on distance from camera, from nearest to farest.
         This should be done also for opaque occludees.
@@ -574,6 +566,8 @@ MEDIUM PRIORITY
                indexed rendering and array locking is unable to show performance benefits!
 
  - FTR: [8] "PRREObject3DManager.cpp(1136): // todo: should call this in loop, do multiple batches based on the implementation-dependent values"
+
+ - FTR: logs should contain the name of the entity doing the logging, e.g. if Object3D then it should print name and/or filename, etc.
 
 LOW PRIORITY
 
