@@ -516,6 +516,10 @@ MEDIUM PRIORITY
 
  - FTR: make sure that when iterating over occluders during rendering, their blending state is also checked, and if needed, skipped in the occluder loop!
 
+ - FIX: when UpdateOccluderStates() is invoked by renderer after N frames, why big occluders such as maps lose their bounding box?
+
+ - RFR: simplify implementation of PRREObject3D::PRREObject3DImpl::SetOccluder().
+
  - FTR: In EV2008Release, without rendering bounding boxes, the sync renderer with early z-only pass did 400-600 fps from any camera position!
         Only bug is that it may hide an object when we are inside in its bounding box and not a single pixel passes the query since bounding box depth is already in depth buffer.
 
