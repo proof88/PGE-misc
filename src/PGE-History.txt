@@ -511,9 +511,7 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FIX: align async renderer to sync renderer, check speed;
-
- - FIX: check if legacy renderer still works;
+ - RFR: async and sync renderer code should be more shared;
 
  - FTR: before rendering, occluders should be sorted based on distance from camera, from nearest to farest.
         This should be done also for opaque occludees.
