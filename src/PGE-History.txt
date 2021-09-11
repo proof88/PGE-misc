@@ -373,17 +373,18 @@ MEDIUM PRIORITY
       - for pImpls, so that no explicit delete call is required for them in dtors;
       - for reference counting, e.g. in material the texture pointer, so when a material
         is deleted, it will automatically realize when if the texture should be also deleted or not yet;
-    - szükségtelen ctorokat nem kell privátba rakni, helyette = delete;
-    - const konténereket lehet helyben is inicializálni {}-vel (Initializer lists);
+    - unneeded ctors dont need to be declared as private, instead = delete;
+    - const containers can be initialized right away when being declared with {} (Initializer lists);
     - final keyword;
     - override keyword;
-    - megnézni h move ctor-t lehet-e alkalmazni akárhol is;
+    - check if we can use move ctor in any class (Cannibalize stuff in Mesh3D is probably good candidate);
     - std::reference_wrapper;
     - constexpr;
     - nullptr instead of NULL or ((void*)0) or 0;
     - for (int& x : my_array) style looping for easier reading (Range-based for loop);
     - enum class instead of enums;
-    - minden castolás lehetõleg static_cast vagy dynamic_cast legyen, ne c-style cast!
+    - std::to_string();
+    - change all C-style casts to either static_cast or dynamic_cast;
     - std::extent can be used to get num of elements of basic C-style arrays;
     - FIX: [1] "CConsole.cpp(27): // todo: revise these warnings"
 
@@ -513,6 +514,8 @@ MEDIUM PRIORITY
 
  - RFR: async and sync renderer code should be more shared;
 
+ - FTR: at engine shutdown, WriteList() should be invoked so state of everything is dumped to html for later check;
+
  - FTR: before rendering, occluders should be sorted based on distance from camera, from nearest to farest.
         This should be done also for opaque occludees.
         Transparent occludees should be sorted from farest to nearest.
@@ -521,6 +524,8 @@ MEDIUM PRIORITY
         PURE-Object-Distance-Sorting.xlsx
         https://community.khronos.org/t/sorting-objects-by-distance-for-correct-blending/49579
         - unit test should be also written for it!
+
+ - FTR: gfxcore should have some debug functions so legacy app like EV2008P03 could invoke it to change render mode, etc.
 
  - FTR: there should be public API to enable/disable those public static constants starting with OQ in PRRERendererHWfixedPipeImpl;
 
