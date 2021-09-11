@@ -368,7 +368,7 @@ MEDIUM PRIORITY
         In the end, no more public-facing functions with HWND, HDC, etc. in PRREWindow and PRREScreen, also win headers won't be needed to be included there.
 
  - for the new Cpp11 compiler, following changes in the code can be made:
-    - std::chrono;
+    - use std::chrono, so PFL::gettimeofday() can be removed;
     - shared ptrs, for example:
       - for pImpls, so that no explicit delete call is required for them in dtors;
       - for reference counting, e.g. in material the texture pointer, so when a material
