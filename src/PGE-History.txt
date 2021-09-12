@@ -512,10 +512,6 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - RFR: async and sync renderer code should be more shared;
-
- - FTR: at engine shutdown, WriteList() should be invoked so state of everything is dumped to html for later check;
-
  - FTR: before rendering, occluders should be sorted based on distance from camera, from nearest to farest.
         This should be done also for opaque occludees.
         Transparent occludees should be sorted from farest to nearest.
