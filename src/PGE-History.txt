@@ -459,13 +459,6 @@ MEDIUM PRIORITY
 
 - Optimizations around Occlusion Testing:
 
- - RFR: when creating bounding box object for a new object, AND this new object is actually a cloned object (PRREObject3DManager::createCloned()),
-   OPT  the bounding box object should be also rather cloned, this way we could get rid of the overhead of uploading geometry of bounding box to host memory,
-        for example in PR00FPS when they firing rockets, rockets also has bounding box, so it makes FPS jitter;
-        Actually it is causing FPS drops heavily in PR00FPS when snails are firing rockets now ...
-        I think it should be enough to NOT create bounding box when cloning an object, and in rendering a check should be added: if we are cloned, pRefersTo's pBoundingBox should be drawn.
-        Some side stuff should be also done: SetOcclusionTested() should ignore true for cloned object if pRefersTo is not occlusion tested either.
-
  - FTR: On the long run, it would be good to get rid of the need of renderer periodically calling PRREObject3DManager::UpdateOccluderStates() because when having many
    OPT  objects it can add some delay while most of the checks are unnecessary anyway.
         PRREObject3DManager::UpdateOccluderStates() is invoked periodically by renderer nowadays, because although stickedtoscreen and affectzbuffer and scaling
@@ -512,9 +505,16 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: gfxcore should have some debug functions so legacy app like EV2008P03 could invoke it to change render mode, etc.
+ - FIX: the time measurement in OC should be separately stor microseconds and seconds;
+ 
+ - RFR: when creating bounding box object for a new object, AND this new object is actually a cloned object (PRREObject3DManager::createCloned()),
+   OPT  the bounding box object should be also rather cloned, this way we could get rid of the overhead of uploading geometry of bounding box to host memory,
+        for example in PR00FPS when they firing rockets, rockets also has bounding box, so it makes FPS jitter;
+        Actually it is causing FPS drops heavily in PR00FPS when snails are firing rockets now ...
+        I think it should be enough to NOT create bounding box when cloning an object, and in rendering a check should be added: if we are cloned, pRefersTo's pBoundingBox should be drawn.
+        Some side stuff should be also done: SetOcclusionTested() should ignore true for cloned object if pRefersTo is not occlusion tested either.
 
- - FTR: rendering path executed by PRRERendererHWfixedPipeImpl::RenderScene() should be somehow selectable.
+ - FTR: debug data that can be written to console by Draw3DObjects_OcclusionQuery() should be part of engine->WriteList() (so probably object3dmanager).
 
  - FTR: Mesh3D getVerticesCount() and similar methods should have a form like getTotalVerticesCount() or similar because now there is
         no simple way to get the number of vertices owned by a level-1 mesh, just manually summing the number of vertices of its submeshes!!!
