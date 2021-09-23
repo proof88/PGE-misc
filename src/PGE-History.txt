@@ -512,23 +512,25 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: before rendering, occluders should be sorted based on distance from camera, from nearest to farest.
-        This should be done also for opaque occludees.
-        Transparent occludees should be sorted from farest to nearest.
-        This should be applied to all rendering paths: Draw3DObjects_Legacy() and Draw3DObjects_Sync_OcclusionQuery().
-        The sort algorithm should not depend on the traditional distance calculation, it should be the "DotProduct with Cam Fw" technique, see:
-        PURE-Object-Distance-Sorting.xlsx
-        https://community.khronos.org/t/sorting-objects-by-distance-for-correct-blending/49579
-        - unit test should be also written for it!
-
  - FTR: gfxcore should have some debug functions so legacy app like EV2008P03 could invoke it to change render mode, etc.
 
- - FTR: there should be public API to enable/disable those public static constants starting with OQ in PRRERendererHWfixedPipeImpl;
+ - FTR: rendering path executed by PRRERendererHWfixedPipeImpl::RenderScene() should be somehow selectable.
+
+ - FTR: Mesh3D getVerticesCount() and similar methods should have a form like getTotalVerticesCount() or similar because now there is
+        no simple way to get the number of vertices owned by a level-1 mesh, just manually summing the number of vertices of its submeshes!!!
+
+ - FTR: Object3D::Draw() should have bool return value, false would indicate some condition failed, leading to not drawing anything,
+        and this could be unit tested too.
+        Or, should it return number of drawn vertices?
+        Probably TransferVertices() should also have this feature ...
+
+ - FTR: a renderer class should sum the following values during 1 frame render:
+        - number of vertices rendered, or thrown away due to culling;
+        - number of objects renderer, or thrown away due to culling;
+        - number of texture binds;
 
  - DOC: update doc with API updates explained above!
         - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
-
- - FTR: rendering path executed by PRRERendererHWfixedPipeImpl::RenderScene() should be somehow selectable.
 
  - FTR: CHC: occlusion culling with bounding volume hierarchy
 
@@ -536,25 +538,12 @@ MEDIUM PRIORITY
         - frustum culling should be automatic but it should have on/off switch!
         - hierarchical frustum culling
 
- - FTR: Object3D::Draw() should have bool return value, false would indicate some condition failed, leading to not drawing anything,
-        and this could be unit tested too.
-        Or, should it return number of drawn vertices?
-        Probably TransferVertices() should also have this feature ...
-
- - FTR: Mesh3D getVerticesCount() and similar methods should have a form like getTotalVerticesCount() or similar because now there is
-        no simple way to get the number of vertices owned by a level-1 mesh, just manually summing the number of vertices of its submeshes!!!
-
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
         - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:
           - do not bind texture if it is already bound to TMU;
 
  - FTR: probably we should also group objects based on their texture map usage, so object with same textures should be rendered
         after each other to minimize texture binds!
-
- - FTR: a renderer class should sum the following values during 1 frame render:
-        - number of vertices rendered, or thrown away due to culling;
-        - number of objects renderer, or thrown away due to culling;
-        - number of texture binds;
 
  - FTR: maybe all managers should do dynamic cast in overridden Attach() to see if the managed to be attached has the expected type/derived level!
  - FTR: override all functions inherited from Managed or Manager base class where covariant return type could bring some advantage, for example:
@@ -565,6 +554,10 @@ MEDIUM PRIORITY
                indexed rendering and array locking is unable to show performance benefits!
 
  - FTR: [8] "PRREObject3DManager.cpp(1136): // todo: should call this in loop, do multiple batches based on the implementation-dependent values"
+
+ - FTR: in this video Brian mentioned at around 1:18:00 that stencil buffer can be used after rendering a frame and reading the stencil buffer back, to
+        find out how many times a pixel was overdrawn, so the depth complexity/overdraw can be measured with this technique well.
+        https://www.youtube.com/watch?v=TFfkX_ahl94
 
  - FTR: logs should contain the name of the entity doing the logging, e.g. if Object3D then it should print name and/or filename, etc.
 
