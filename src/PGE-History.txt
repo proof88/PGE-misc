@@ -504,8 +504,6 @@ TOP PRIORITY
  - DOC: record benchmark results in public shared google sheet
 
 MEDIUM PRIORITY
-
- - FIX: the time measurement in OC should be separately stor microseconds and seconds;
  
  - RFR: when creating bounding box object for a new object, AND this new object is actually a cloned object (PRREObject3DManager::createCloned()),
    OPT  the bounding box object should be also rather cloned, this way we could get rid of the overhead of uploading geometry of bounding box to host memory,
