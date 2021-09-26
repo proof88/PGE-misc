@@ -457,6 +457,45 @@ MEDIUM PRIORITY
         A use case for this is the Material-Texture relationship, as PRREMaterial utilizes PRRETexture, but 1 PRRETexture instance can be utilised by multiple PRREMaterial instances.
         PRREManaged::SetUtilizer() also changes, either with added bool param to add/remove, or create 2 new functions instead: AddUtiliser() and RemoveUtiliser().
 
+LOW PRIORITY
+
+
+
+###########################################################################################################################################
+0.3 - reached on Month Day, Year - target here is the performance optimisations based on view frustum culling and occlusion culling
+###########################################################################################################################################
+[finish: Apr 2021]
+
+TOP PRIORITY
+ - VERSION UPDATE:
+   - git tag!!! (CConsole, PFL, PGE, gfxcore2);
+   - PRRE_VERSION macro;
+   - DOC project version.
+ - move computers to new crib and set them up for usage
+ - DOC: update the doc with frustum culling example (calculation, etc.)
+ - DOC: update the doc with occlusion culling details
+ - DOC: record benchmark results in public shared google sheet
+
+MEDIUM PRIORITY
+
+ - FTR: debug data that can be written to console by Draw3DObjects_OcclusionQuery() should be part of engine->WriteList() (so probably object3dmanager).
+
+ - FTR: Mesh3D getVerticesCount() and similar methods should have a form like getTotalVerticesCount() or similar because now there is
+        no simple way to get the number of vertices owned by a level-1 mesh, just manually summing the number of vertices of its submeshes!!!
+
+ - FTR: Object3D::Draw() should have bool return value, false would indicate some condition failed, leading to not drawing anything,
+        and this could be unit tested too.
+        Or, should it return number of drawn vertices?
+        Probably TransferVertices() should also have this feature ...
+
+ - FTR: a renderer class should sum the following values during 1 frame render:
+        - number of vertices rendered, or thrown away due to culling;
+        - number of objects renderer, or thrown away due to culling;
+        - number of texture binds;
+
+ - DOC: update doc with API updates explained above!
+        - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
+
 - Optimizations around Occlusion Testing:
 
  - FTR: On the long run, it would be good to get rid of the need of renderer periodically calling PRREObject3DManager::UpdateOccluderStates() because when having many
@@ -483,52 +522,6 @@ MEDIUM PRIORITY
         an object is removed, added, scaled, and mention required explicit call in API doc in other functions e.g. direct vertex access, and geometry upload.
 
         After this, we can remove periodical call from renderer to UpdateOccluderStates().
-
-LOW PRIORITY
-
-
-
-###########################################################################################################################################
-0.3 - reached on Month Day, Year - target here is the performance optimisations based on view frustum culling and occlusion culling
-###########################################################################################################################################
-[finish: Apr 2021]
-
-TOP PRIORITY
- - VERSION UPDATE:
-   - git tag!!! (CConsole, PFL, PGE, gfxcore2);
-   - PRRE_VERSION macro;
-   - DOC project version.
- - move computers to new crib and set them up for usage
- - DOC: update the doc with frustum culling example (calculation, etc.)
- - DOC: update the doc with occlusion culling details
- - DOC: record benchmark results in public shared google sheet
-
-MEDIUM PRIORITY
- 
- - RFR: when creating bounding box object for a new object, AND this new object is actually a cloned object (PRREObject3DManager::createCloned()),
-   OPT  the bounding box object should be also rather cloned, this way we could get rid of the overhead of uploading geometry of bounding box to host memory,
-        for example in PR00FPS when they firing rockets, rockets also has bounding box, so it makes FPS jitter;
-        Actually it is causing FPS drops heavily in PR00FPS when snails are firing rockets now ...
-        I think it should be enough to NOT create bounding box when cloning an object, and in rendering a check should be added: if we are cloned, pRefersTo's pBoundingBox should be drawn.
-        Some side stuff should be also done: SetOcclusionTested() should ignore true for cloned object if pRefersTo is not occlusion tested either.
-
- - FTR: debug data that can be written to console by Draw3DObjects_OcclusionQuery() should be part of engine->WriteList() (so probably object3dmanager).
-
- - FTR: Mesh3D getVerticesCount() and similar methods should have a form like getTotalVerticesCount() or similar because now there is
-        no simple way to get the number of vertices owned by a level-1 mesh, just manually summing the number of vertices of its submeshes!!!
-
- - FTR: Object3D::Draw() should have bool return value, false would indicate some condition failed, leading to not drawing anything,
-        and this could be unit tested too.
-        Or, should it return number of drawn vertices?
-        Probably TransferVertices() should also have this feature ...
-
- - FTR: a renderer class should sum the following values during 1 frame render:
-        - number of vertices rendered, or thrown away due to culling;
-        - number of objects renderer, or thrown away due to culling;
-        - number of texture binds;
-
- - DOC: update doc with API updates explained above!
-        - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
 
  - FTR: CHC: occlusion culling with bounding volume hierarchy
 
