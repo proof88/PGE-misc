@@ -493,8 +493,15 @@ MEDIUM PRIORITY
         - number of objects renderer, or thrown away due to culling;
         - number of texture binds;
 
+ - FTR: there should be a value telling how much % of all 3D objects should be considered as occluder. This way, if the default value is small enough,
+        we can force EV2008P03 sample to select only the biggest object as occluder, so the maps will be also occluded for higher frame rate.
+
+ - FTR: there should be a sample program with some transparent spheres/boxes maybe, showing the difference between when objects are Z-distance ordered or not!
+
  - DOC: update doc with API updates explained above!
         - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
+
+ - DOC: add version history menu item to the doxygen documentation main menu.
 
 - Optimizations around Occlusion Testing:
 
