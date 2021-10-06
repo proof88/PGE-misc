@@ -478,11 +478,6 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: debug data that can be written to console by Draw3DObjects_OcclusionQuery() should be part of engine->WriteList() (so probably object3dmanager).
-
- - FTR: Mesh3D getVerticesCount() and similar methods should have a form like getTotalVerticesCount() or similar because now there is
-        no simple way to get the number of vertices owned by a level-1 mesh, just manually summing the number of vertices of its submeshes!!!
-
  - FTR: Object3D::Draw() should have bool return value, false would indicate some condition failed, leading to not drawing anything,
         and this could be unit tested too.
         Or, should it return number of drawn vertices?
@@ -493,6 +488,8 @@ MEDIUM PRIORITY
         - number of objects renderer, or thrown away due to culling;
         - number of texture binds;
 
+ - FTR: debug data that can be written to console by Draw3DObjects_OcclusionQuery() should be part of engine->WriteList() (so probably object3dmanager).
+
  - FTR: there should be a value telling how much % of all 3D objects should be considered as occluder. This way, if the default value is small enough,
         we can force EV2008P03 sample to select only the biggest object as occluder, so the maps will be also occluded for higher frame rate.
 
@@ -502,6 +499,8 @@ MEDIUM PRIORITY
         - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
 
  - DOC: add version history menu item to the doxygen documentation main menu.
+
+ - DOC: add page about repos, build info etc. that are referencing the txt files.
 
 - Optimizations around Occlusion Testing:
 
