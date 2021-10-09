@@ -502,6 +502,8 @@ MEDIUM PRIORITY
 
  - DOC: add page about repos, build info etc. that are referencing the txt files.
 
+ - DOC: add info on how to debug. For example the key press handling we added to the sample.
+
 - Optimizations around Occlusion Testing:
 
  - FTR: On the long run, it would be good to get rid of the need of renderer periodically calling PRREObject3DManager::UpdateOccluderStates() because when having many
