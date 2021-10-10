@@ -478,11 +478,6 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: Object3D::Draw() should have bool return value, false would indicate some condition failed, leading to not drawing anything,
-        and this could be unit tested too.
-        Or, should it return number of drawn vertices?
-        Probably TransferVertices() should also have this feature ...
-
  - FTR: a renderer class should sum the following values during 1 frame render:
         - number of vertices rendered, or thrown away due to culling;
         - number of objects renderer, or thrown away due to culling;
