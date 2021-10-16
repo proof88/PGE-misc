@@ -422,7 +422,9 @@ LOW PRIORITY
  - FTR: [2] "PRREManager.cpp(316): // TODO: dont know if the manageds should be simply attached which modify their pparent"
  - RFR: PRREManaged's getManagedConsole() should be renamed to getConsole(), however a lot of calls will be ambiguous in classes
         that are derived from both Managed and Manager ... virtual inheritance did not help for some reason either ....
-
+ - RFR: PRRERendererHWfixedPipeImpl::LastFrameStats class should be a totally independent class, a singleton, and it would be used
+        by both the renderer to display the stats, and by the Object3D instances to update the counters, and this way explicit call to lastFrameStats.Update() would NOT be needed
+        after rendering an object in PRRERendererHWfixedPipeImpl draw functions e.g. Draw3DObjects_OcclusionQuery().
 
 
 ###########################################################################################################################################
@@ -478,12 +480,7 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
- - FTR: a renderer class should sum the following values during 1 frame render:
-        - number of vertices rendered, or thrown away due to culling;
-        - number of objects renderer, or thrown away due to culling;
-        - number of texture binds;
-
- - FTR: debug data that can be written to console by Draw3DObjects_OcclusionQuery() should be part of engine->WriteList() (so probably object3dmanager).
+ - FTR: isVisible(), setVisible() stuff should be renamed to stg like isVisibilityAllowed(), etc to more reflect the purpose!
 
  - FTR: there should be a value telling how much % of all 3D objects should be considered as occluder. This way, if the default value is small enough,
         we can force EV2008P03 sample to select only the biggest object as occluder, so the maps will be also occluded for higher frame rate.
@@ -535,6 +532,7 @@ MEDIUM PRIORITY
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
         - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:
           - do not bind texture if it is already bound to TMU;
+          - a renderer class should sum the number of texture binds during 1 frame render;
 
  - FTR: probably we should also group objects based on their texture map usage, so object with same textures should be rendered
         after each other to minimize texture binds!
