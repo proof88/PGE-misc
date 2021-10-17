@@ -479,8 +479,6 @@ TOP PRIORITY
  - DOC: record benchmark results in public shared google sheet
 
 MEDIUM PRIORITY
-
- - FIX: why we have so many textures loaded with same filenames but different texture entities with different texture ids in EV2008P03 sample?
  
  - FTR:
   renderer collected stats should measure:
