@@ -479,13 +479,6 @@ TOP PRIORITY
  - DOC: record benchmark results in public shared google sheet
 
 MEDIUM PRIORITY
- 
- - FTR:
-  renderer collected stats should measure:
-   - number of rendered frames;
-   - elapsed time during all rendered frames;
-   - calculate avg frame time and fps from above 2 values;
-   - min and max frame time sohuld be also saved.
 
  - FTR: there should be a sample program with some transparent spheres/boxes maybe, showing the difference between when objects are Z-distance ordered or not!
 
