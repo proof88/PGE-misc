@@ -480,6 +480,8 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
+ - FTR: CConsole log file name should have the datetime too!
+
  - FTR: there should be a sample program with some transparent spheres/boxes maybe, showing the difference between when objects are Z-distance ordered or not!
 
  - DOC: update doc with API updates explained above!
