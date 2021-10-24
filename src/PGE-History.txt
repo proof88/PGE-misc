@@ -357,6 +357,7 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
 
+ - FTR: add forward vector calculation method to Camera class, same way as calculated in: PRRERendererHWfixedPipeImpl::OrderObjectContainersByZdistance()
  - FTR: [month] support for a format that supports model animation, like 3ds
  - FTR: [prev] modell animation: per-vertex
 
@@ -479,10 +480,6 @@ TOP PRIORITY
  - DOC: record benchmark results in public shared google sheet
 
 MEDIUM PRIORITY
-
- - FTR: CConsole log file name should have the datetime too!
-
- - FTR: there should be a sample program with some transparent spheres/boxes maybe, showing the difference between when objects are Z-distance ordered or not!
 
  - DOC: update doc with API updates explained above!
         - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
