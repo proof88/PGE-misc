@@ -429,12 +429,16 @@ LOW PRIORITY
 
 
 ###########################################################################################################################################
-0.4 - reached on Month Day, Year - target here is to be able to do multitexturing and handling lights correctly
+0.4 - reached on Month Day, Year - target here is to be able to do multitexturing and handling lights correctly, and lot leftover from v0.3
 ###########################################################################################################################################
 [2 months]
 
 TOP PRIORITY
  - DOC: update the doc with lights example
+ - DOC: update the doc with frustum culling example (calculation, etc.)
+ - DOC: Glossary should be improved:
+        - should be separated into subpages by topic or by ABC letters;
+        - should contain sections, subsections etc. so it can be properly referenced because now it is not working: jumping to headings within the page.
 
  - FIX: PRRETextureManager::setDefaultAnisoFilteringMode(): // TODO: should check for max aniso filter level same way as texture does!
 
@@ -459,36 +463,6 @@ MEDIUM PRIORITY
  - FTR: a PRREManaged instance might have multiple utiliser instances, i.e. PRREManaged::getUtiliser() should return a set of managed instances.
         A use case for this is the Material-Texture relationship, as PRREMaterial utilizes PRRETexture, but 1 PRRETexture instance can be utilised by multiple PRREMaterial instances.
         PRREManaged::SetUtilizer() also changes, either with added bool param to add/remove, or create 2 new functions instead: AddUtiliser() and RemoveUtiliser().
-
-LOW PRIORITY
-
-
-
-###########################################################################################################################################
-0.3 - reached on Month Day, Year - target here is the performance optimisations based on view frustum culling and occlusion culling
-###########################################################################################################################################
-[finish: Apr 2021]
-
-TOP PRIORITY
- - VERSION UPDATE:
-   - git tag!!! (CConsole, PFL, PGE, gfxcore2);
-   - PRRE_VERSION macro;
-   - DOC project version.
- - move computers to new crib and set them up for usage
- - DOC: update the doc with frustum culling example (calculation, etc.)
- - DOC: update the doc with occlusion culling details
- - DOC: record benchmark results in public shared google sheet
-
-MEDIUM PRIORITY
-
- - DOC: update doc with API updates explained above!
-        - it should contain link to both PURE-occluder-selection.xlsx and PURE-Object-Distance-Sorting.xlsx!
-
- - DOC: add version history menu item to the doxygen documentation main menu.
-
- - DOC: add page about repos, build info etc. that are referencing the txt files.
-
- - DOC: add info on how to debug. For example the key press handling we added to the sample.
 
 - Optimizations around Occlusion Testing:
 
@@ -519,13 +493,15 @@ MEDIUM PRIORITY
 
  - FTR: CHC: occlusion culling with bounding volume hierarchy
 
+ - FTR: since we now order objects relative to camera, the scalar projections for objects behind the camera I think is negative, so I'm thinking that
+        we can just skip the rendering of objects having scalar projection negative AND not double sided. This first needs to be verified by extending
+        the zdistance sorting unit tests by adding objects behind the camera and seeing their scalar projected values (which is not stored now btw).
+ 
  - FTR: [month]frustum calculating based on matrices. Is a 3D point within the view frustum?
         - frustum culling should be automatic but it should have on/off switch!
         - hierarchical frustum culling
 
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
-        - make sure we also have same or similar logic as we used to have in legacy PR00FPS engine:
-          - do not bind texture if it is already bound to TMU;
           - a renderer class should sum the number of texture binds during 1 frame render;
 
  - FTR: probably we should also group objects based on their texture map usage, so object with same textures should be rendered
@@ -549,8 +525,20 @@ MEDIUM PRIORITY
 
 LOW PRIORITY
 
- 
 
+
+###########################################################################################################################################
+0.3 - reached on Month Day, Year - target here is the performance optimisations based on view frustum culling and occlusion culling
+###########################################################################################################################################
+[finish: Apr 2021]
+
+TOP PRIORITY
+ - VERSION UPDATE:
+   - git tag!!! (CConsole, PFL, PGE, gfxcore2, see if their README needs update about version requirements);
+   - PRRE_VERSION macro;
+   - DOC project version;
+   - regenerate updated doc to proof88.github.io repo and upload it.
+ - DOC: record benchmark results in public shared google sheet
 
 ###########################################################################################################################################
 0.2 - reached on March 31, 2021 - refactor, hardening, bug fixes, documentation, 1st performance demo
