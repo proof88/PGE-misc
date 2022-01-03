@@ -278,18 +278,6 @@ TOP PRIORITY
 
 MEDIUM PRIORITY
  - FTR: [month] bsptree, quadtree
- - FTR: [24] port the texture quality control from PNG/JointFuture which can resize textures
- - FTR: [8] Doom3 sets pixel alignment per texture:
-        // make sure the pixel store alignment is correct so that lower mips get created
-		// properly for odd shaped textures - this fixes the mip mapping issues with
-		// fonts
-		int unpackAlignment = width * BitsForFormat( (textureFormat_t)opts.format ) / 8;
-		if ( ( unpackAlignment & 3 ) == 0 ) {
-			qglPixelStorei( GL_UNPACK_ALIGNMENT, 4 );
-		} else {
-			qglPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-		}
- - FTR: [2] Doom3 sets aniso filtering for mipmapped textures only ... do we do this the same way?
  - FTR: [prev] precalculated sin/cos tables
  - FTR: [prev] SSE use
  - FTR: [prev] performance demo 2
@@ -370,7 +358,7 @@ MEDIUM PRIORITY
 
  - for the new Cpp11 compiler, following changes in the code can be made:
     - use std::chrono, so PFL::gettimeofday() can be removed;
-    - shared ptrs, for example:
+    - unique/shared ptrs, for example:
       - for pImpls, so that no explicit delete call is required for them in dtors;
       - for reference counting, e.g. in material the texture pointer, so when a material
         is deleted, it will automatically realize when if the texture should be also deleted or not yet;
@@ -385,7 +373,7 @@ MEDIUM PRIORITY
     - for (int& x : my_array) style looping for easier reading (Range-based for loop);
     - enum class instead of enums;
     - std::to_string();
-    - change all C-style casts to either static_cast or dynamic_cast;
+    - change all C-style casts to either static_cast or dynamic_cast (ok this is not Cpp11 feature but I will do that here anyway);
     - std::extent can be used to get num of elements of basic C-style arrays;
     - FIX: [1] "CConsole.cpp(27): // todo: revise these warnings"
 
@@ -408,11 +396,6 @@ MEDIUM PRIORITY
 
 LOW PRIORITY
 
- - FTR: [4] PRREObject3DManager::SetMinimalIndexStorageEnabled(true) should work, currently unimplemented:
-        - PRREObject3D::PRREObject3DImpl::getSizeofIndexType() should be instance member, not static;
-        - PRREObject3D::PRREObject3DImpl::getSizeofIndexType() should always ret sizeof(TPRREuint) if PRREObject3DManager::isMinimalIndexStorageEnabled() is false;
-        - setting subobject->p->nIndicesType in createBox(), createPlane() and loadOBJ() should be to GL_UNSIGNED_INT if PRREObject3DManager::isMinimalIndexStorageEnabled() is false;
-
  - FTR: [2] FiledManager: add a mode which spececifies how to treat files to be loaded:
         load only once and return it always (like textures), load always (like objects in proofps engine), load only once and make a copy if already loaded (this just saves file reading).
  - FTR: [1] modify PRREFiledManager to allow file formats to be registered (like extensions w/ description).
@@ -429,26 +412,23 @@ LOW PRIORITY
 
 
 ###########################################################################################################################################
-0.4 - reached on Month Day, Year - target here is to be able to do multitexturing and handling lights correctly, and lot leftover from v0.3
+x.x - reached on Month Day, Year - target here is to be able to do multitexturing and handling lights correctly, and lot leftover from v0.3
 ###########################################################################################################################################
 [2 months]
 
-TOP PRIORITY
+DONT FORGET
  - VERSION UPDATE:
    - git tag!!! (CConsole, PFL, PGE, gfxcore2, see if their README needs update about version requirements);
    - PRRE_VERSION macro;
-   - DOC project version;
-   - regenerate updated doc to proof88.github.io repo and upload it.
+   - PGE and PURE DOC project version;
+ - regenerate updated doc to proof88.github.io repo and upload it.
+
+TOP PRIORITY
  - DOC: update the doc with lights example
  - DOC: update the doc with frustum culling example (calculation, etc.)
  - DOC: Glossary should be improved:
         - should be separated into subpages by topic or by ABC letters;
         - should contain sections, subsections etc. so it can be properly referenced because now it is not working: jumping to headings within the page.
-
- - FIX: PRRETextureManager::setDefaultAnisoFilteringMode(): // TODO: should check for max aniso filter level same way as texture does!
-
- - FTR: [2] HardwareInfo, TextureManager: add checks of NPOT texture support and texture rectangle support into HWInfo.
-        Add error to TexMgr when trying to create textures when src image is NPOT or non-square if relevant extension is not supported.
 
 MEDIUM PRIORITY
     Note: multitexturing & lights: texturing/multitexturing; LightRenderer; Tutorials/tutor; nehe lessons: 7, 8, 20, 22, 32,
@@ -465,36 +445,14 @@ MEDIUM PRIORITY
 
  - FTR: [prev]timer and benchmark classes
 
+ - FTR: do not update the projection matrix at the beginning of every frame, do it only when there is attribute change in Camera!
+   OPT
+
  - FTR: a PRREManaged instance might have multiple utiliser instances, i.e. PRREManaged::getUtiliser() should return a set of managed instances.
         A use case for this is the Material-Texture relationship, as PRREMaterial utilizes PRRETexture, but 1 PRRETexture instance can be utilised by multiple PRREMaterial instances.
         PRREManaged::SetUtilizer() also changes, either with added bool param to add/remove, or create 2 new functions instead: AddUtiliser() and RemoveUtiliser().
 
 - Optimizations around Occlusion Testing:
-
- - FTR: On the long run, it would be good to get rid of the need of renderer periodically calling PRREObject3DManager::UpdateOccluderStates() because when having many
-   OPT  objects it can add some delay while most of the checks are unnecessary anyway.
-        PRREObject3DManager::UpdateOccluderStates() is invoked periodically by renderer nowadays, because although stickedtoscreen and affectzbuffer and scaling
-        properties immediately update occluder state to false if needed, the following issues were still there:
-         I1 - blendmode change were not detected by Object3DManager, so we needed this periodic check;
-         I2 - geometry change and reupload to host memory, affecting biggestArea were not detected by Object3DManager;
-         I3 - if any property were reset and object could become occluder again, nobody set occluder state to true again automatically because for that we need
-              the overall average biggest area which is nowadays calculated by UpdateOccluderStates() only.
-              This is similar situation when a new object is created and engine needs to determine if can be occluder or not.
-        
-        In the meantime, solution was delivered to I1 by adding "utiliser" to PRREManaged and HandleManagedPropertyChanged() to Object3DManager so that is not an issue anymore.
-        
-        I2 is still there because if geometry is stored in client memory, user might change vertices by direct access, we can never
-        be notified about it. However we can update API documentation and mention that explicit call to UpdateOccluderStates() is required by user in such case, otherwise
-        rendering might be corrupted.
-
-        I3 might be solved by calling UpdateOccluderStates() from those set functions that affect scaling, stickedtoscreen, etc. properties.
-
-        We might also create an UpdateOccluderState(PRREObject3D& obj) version that updates for only the given object. In such case we still need to iterate over all
-        objects to calculcate overall average biggestareasize.
-        But as a next level, we should permanently store this value in Object3DManager and update it whenever
-        an object is removed, added, scaled, and mention required explicit call in API doc in other functions e.g. direct vertex access, and geometry upload.
-
-        After this, we can remove periodical call from renderer to UpdateOccluderStates().
 
  - FTR: CHC: occlusion culling with bounding volume hierarchy
 
@@ -507,6 +465,7 @@ MEDIUM PRIORITY
         - hierarchical frustum culling
 
  - FTR: [2x40] state optimiser: dont do unnecessary/redundant state changes to GL, only if it is actually needed
+          - maybe use a lib for this?
           - a renderer class should sum the number of texture binds during 1 frame render;
 
  - FTR: probably we should also group objects based on their texture map usage, so object with same textures should be rendered
@@ -522,14 +481,164 @@ MEDIUM PRIORITY
 
  - FTR: [8] "PRREObject3DManager.cpp(1136): // todo: should call this in loop, do multiple batches based on the implementation-dependent values"
 
- - FTR: in this video Brian mentioned at around 1:18:00 that stencil buffer can be used after rendering a frame and reading the stencil buffer back, to
-        find out how many times a pixel was overdrawn, so the depth complexity/overdraw can be measured with this technique well.
-        https://www.youtube.com/watch?v=TFfkX_ahl94
-
  - FTR: logs should contain the name of the entity doing the logging, e.g. if Object3D then it should print name and/or filename, etc.
 
 LOW PRIORITY
 
+
+###########################################################################################################################################
+0.4 - reached on ???, 2022 - 
+###########################################################################################################################################
+
+DONT FORGET
+ - VERSION UPDATE:
+   - git tag!!! (CConsole, PFL, PGE, gfxcore2, see if their README needs update about version requirements);
+   - PRRE_VERSION macro;
+   - PGE and PURE DOC project version;
+ - regenerate docs to proof88.github.io repo and upload them.
+ - Use GPU profiler: gDEBugger as general, Nsight for Nvidia, Radeon GPU profiler for AMD, etc.
+   Especially on other test machines where strange framerate issues might be visible.
+
+TOP PRIO
+
+ - FTR: User Value: high; Dev Value: 0.
+   OPT  Port the texture quality control from PNG/JointFuture which can resize textures.
+        RN:
+        Rendering Pipeline - Rasterization Stage - Texturing
+        The engine is now able to decrease the resolution of loaded textures so they take less space and bandwidth
+        of host/video memory. This is a very basic feature which can bring a lot of speedup, especially on old integrated
+        graphics cards.
+
+ - FTR: User Value: high; Dev Value: 0.
+   OPT  Utilize vertex cache effectively.
+        Indexed vertex specification could bring a lot of speed if we use repeating vertex indices due to post-TnL cache hit.
+        Currently we dont use repeating vertex indices neither for internally created nor externally loaded objects.
+        This is a big feature and should be solved in 2 phases:
+         - phase 1: repeating indices for internal objects;
+         - phase 2: repeating indices for external objects. Vertex reordering implementation might be also needed. Or tool?
+        Details are in Glossary part of documentation around explaining vertex cache.
+        RN:
+        Rendering Pipeline - Geometry Stage - Vertex Specification and Processing - Mesh3D & VertexTransfer classes
+        TODO
+        
+MED PRIO
+
+ - FTR: User Value: high; Dev Value: 0.
+   OPT  Allow single draw call per object having multiple subobjects.
+        This would lead to a lot of win since not only the number of draw calls but also the number of texture binds
+        would be decreased!
+        However, this would need the textures of the object to be put into 1 single texture also, since 1 draw call can use only
+        1 texture considering no multitexturing. Creating such texture and doing the proper mapping is task of external tool.
+        The biggest challenge here is to store the subobject geometry in 1 single vertex stream - it would be nice to store it in
+        the level-0 parent object, but today the rule is that level-0 parent has no geometry at all, and there are lots of things
+        depending on this.
+        RN:
+        Rendering Pipeline - Geometry Stage - Vertex Specification and Processing - Mesh3D & VertexTransfer classes
+        TODO
+
+ - FTR: User Value: med; Dev Value: 0.
+   OPT  get rid of the need of renderer periodically calling PRREObject3DManager::UpdateOccluderStates()
+        in every 100th frame, because when having many objects it can add some delay while most of the checks have become unnecessary anyway.
+        This introduces framerate jittering because we lose CPU time in every 100th frame.
+        There are 2 possible solutions to this:
+         - evenly spread this work across all frames, by updating only a limited number of objects per frame;
+           this would remove framerate jittering.
+         - the function itself could be removed, with some work on other parts of the code, to ensure occluder
+           states are always correctly updated as soon as any relevant attribute is updated.
+        The latter option would be better since it would not only remove framerate jittering but
+        would save CPU time by removing the need of UpdateOccluderStates() eventually.
+        
+        UpdateOccluderStates() is invoked periodically by renderer because change to any of lot of attributes must trigger occluder/occludee
+        state change to the object:
+         I0 - affectzbuffer, stickedtoscreen;
+         I1 - inability of blendmode change by Object3DManager in Material;
+         I2 - Mesh3D geometry change, reupload to host memory at VertexTransfer level, affecting biggestArea change undetected by Object3DManager;
+         I3 - scaling change;
+         I4 - if any property were reset and object could become occluder again, nobody set occluder state to true again automatically because for that we need
+              the overall average biggest area which is nowadays calculated by UpdateOccluderStates() only.
+              This is similar situation when a new object is created and engine needs to determine if can be occluder or not.
+        
+        Solutions to above items:
+        I0 - in the meantime, got already solved by simply invoking SetOccluder() with proper parameter from relevant functions;
+        I1 - solution was delivered to I1 by adding "utiliser" to PRREManaged and HandleManagedPropertyChanged() to Object3DManager.
+
+        Proposed solutions to rest of the items:
+        I2 - if geometry is stored in client memory, user might change vertices by direct access, we can never
+             be notified about it. However we can update API documentation and mention that explicit call to UpdateOccluderStates() is required by user in such case, otherwise
+             rendering might be "corrupted".
+        I3 - call UpdateOccluderStates() when scaling changes.
+        I4 - create an UpdateOccluderState(PRREObject3D& obj) version that updates for only the given object. In such case we would still need to iterate over all
+        objects to calculcate overall average biggestareasize. To get rid of this, we should permanently store this value in Object3DManager and update it whenever
+        an object is removed, added, scaled, and mention required explicit call in API doc in other functions e.g. direct vertex access, and geometry upload.
+
+        RN:
+        Rendering - decrease CPU workload and framerate jittering
+        UpdateOccluderStates()
+        Due to historical reasons, PURE 0.3 introduced PRREObject3DManager::UpdateOccluderStates() that
+        was periodically called by the renderer (in every 100th frame) to make sure any undetected on-the-fly attribute
+        change of Object3D also updated the occluder state of the object as needed, to ensure correct rendering.
+        The need of the periodic call has been removed by working on different parts of the code and this
+        function is not called anymore by the renderer.
+
+
+LOW PRIO
+
+ - FIX: User Value: low; Dev Value: low.
+        PRRETextureManager::setDefaultAnisoFilteringMode(): // TODO: should check for max aniso filter level same way as texture does!
+        RN:
+        Rendering Pipeline - Rasterization Stage - Texturing
+        TODO
+
+ - FIX: User Value: low; Dev Value: low.
+        HardwareInfo, TextureManager: add checks of NPOT texture support and texture rectangle support into HWInfo.
+        Add error to TexMgr when trying to create textures when src image is NPOT or non-square if relevant extension is not supported.
+        RN:
+        Texture Loader Hardening
+        TODO
+
+ - FTR: User Value: ???; Dev Value: 0.
+        This needs investigation, probably it brings speedup?
+        Doom3 sets pixel alignment per texture:
+            // make sure the pixel store alignment is correct so that lower mips get created
+		    // properly for odd shaped textures - this fixes the mip mapping issues with
+		    // fonts
+		    int unpackAlignment = width * BitsForFormat( (textureFormat_t)opts.format ) / 8;
+		    if ( ( unpackAlignment & 3 ) == 0 ) {
+			    qglPixelStorei( GL_UNPACK_ALIGNMENT, 4 );
+		    } else {
+			    qglPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
+		    }
+        RN:
+        Rendering Pipeline - Rasterization Stage - Texturing
+        TODO
+
+ - FTR: User Value: ???; Dev Value: 0.
+        Doom3 sets aniso filtering for mipmapped textures only ... do we do this the same way?
+        RN:
+        Rendering Pipeline - Rasterization Stage - Texturing
+        TODO
+
+ - FTR: User Value: 0; Dev Value: low.
+        PRREObject3DManager::SetMinimalIndexStorageEnabled() should work, currently unimplemented:
+        - PRREObject3D::PRREObject3DImpl::getSizeofIndexType() should be instance member, not static;
+        - PRREObject3D::PRREObject3DImpl::getSizeofIndexType() should always ret sizeof(TPRREuint) if PRREObject3DManager::isMinimalIndexStorageEnabled() is false;
+        - setting subobject->p->nIndicesType in createBox(), createPlane() and loadOBJ() should be to GL_UNSIGNED_INT if PRREObject3DManager::isMinimalIndexStorageEnabled() is false;
+        RN:
+        Rendering Pipeline - Geometry Stage - Vertex Specification and Processing - Mesh3D & VertexTransfer classes
+        SetMinimalIndexStorageEnabled()
+        This actually works now.
+        PURE 0.3 already uses the minimum needed storage size for indices per object.
+        However, SetMinimalIndexStorageEnabled(false) had no effect.
+        Now we can set it to false, allowing us to see the speed difference real-time by turning it on/off.
+        This feature was not implemented in legacy PR00FPS engine, and I'm interested in the amount
+        of win by PURE engine by turning this on/off, especially on older HW.
+
+ - FTR: User Value: 0; Dev Value: high
+        in this video Brian mentioned at around 1:18:00 that stencil buffer can be used after rendering a frame and reading the stencil buffer back, to
+        find out how many times a pixel was overdrawn, so the depth complexity/overdraw can be measured with this technique well.
+        https://www.youtube.com/watch?v=TFfkX_ahl94
+        https://excamera.com/articles/2/index.html
+        https://russellday.wordpress.com/2012/01/26/calculating-overdraw-with-the-stencil-buffer-in-opengl/
 
 
 ###########################################################################################################################################
