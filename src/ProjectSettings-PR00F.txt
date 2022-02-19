@@ -96,6 +96,11 @@ LINKER (in case of exe/dll output)   | DEBUG                                    
     - Additional Library Directories | ..\Debug;%(AdditionalLibraryDirectories)         | ..\Release;%(AdditionalLibraryDirectories)
   ----------------------------------------------------------------------------------------------------------------------
   Input
+    - General                        | kernel32.lib;user32.lib;gdi32.lib;winspool.lib;  | <Same>
+      add all libraries that contain | comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib; |
+      referenced symbols, example    | oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;   |
+      given from PRooFPS-dd:         | opengl32.lib;glu32.lib;dwmapi.lib;CConsole.lib;  |
+                                     | PFL.lib;PGE.lib;%(AdditionalDependencies)        |
     - Module Definition File:        |                                                  |
       in case of .dll output, put    | gfxcore2.def                                     | <Same>
       here the .def file containing  |                                                  |
