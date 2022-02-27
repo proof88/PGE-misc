@@ -19,10 +19,11 @@ Project dependency tree:
   - PFL (.lib)
     - CConsole (.lib)
       - PGE (.lib)
-        - gfxcore2  (.dll) (notice multiple runnables explained later in 1))
-        - GGame     (.exe) (not published on GitHub so it might be absent)
-        - ELTE-FAIL (.exe)
-        - UnitTests (.exe)
+        - gfxcore2   (.dll) (notice multiple runnables explained later in 1))
+        - GGame      (.exe) (not published on GitHub so it might be absent)
+        - ELTE-FAIL  (.exe)
+        - PRooFPS-dd (.exe)
+        - UnitTests  (.exe)
 
 Build order is from top left to bottom right.
 So CConsole depends on PFL, PGE depends on CConsole and PFL, etc.
@@ -37,9 +38,14 @@ We have the following repos:
 - ELTE-FAIL
 - PGE-misc (for solution and other textfiles like this txt)
 - PR00FPS (legacy Delphi project from 2007, not part of the solution)
+- PRooFPS-dd (new project being worked on in 2022)
 - proof88.github.io - online form of documentation
 
 So as seen above, almost every project has its own repository. Exception is the UnitTests project, it lies in the same repo as PGE.
+
+DebugTest_PRooFPS-dd configuration is for running unit tests for PRooFPS-dd: it defines the TESTING macro used by PRooFPS-dd project to decide which
+WinMain() to be used: either the one in PRooFPS-dd.cpp or the other in PRooFPS-dd-Tests.cpp.
+Unit tests for PFL and PGE use the basic Debug or Release configuration shared with other projects.
 
 
 ---
