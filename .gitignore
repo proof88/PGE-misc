@@ -343,3 +343,5 @@ src/PGE.v11.suo
 src/PGE.v11.suo
 src/DebugTest_PRooFPS-dd/PRooFPS-dd.exe
 src/DebugTest_PRooFPS-dd/PRooFPS-dd.bsc
+*.bsc
+src/DebugTest_PRooFPS-dd/PRooFPS-dd.exe
