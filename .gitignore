@@ -343,3 +343,5 @@ ASALocalRun/
 
 *.suo
 
+*.bsc
+*.lib
