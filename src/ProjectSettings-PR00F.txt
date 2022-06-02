@@ -61,7 +61,7 @@ C/C++                                | DEBUG                                    
   Code generation
     - Smaller type check             | Yes (/RTCc)                                      | No
     - Runtime Library                | Multi-threaded Debug (/MTd)                      | Multi-threaded (/MT)
-    - Enable Function-Level Linking  | -                                                | Yes (/Gy)
+    - Enable Function-Level Linking  | Yes (/Gy)                                        | -
   ----------------------------------------------------------------------------------------------------------------------
   Language                           | Yes (/GR)                                        | Yes (/GR)
     - Enable Run-Time Type           |                                                  |
