@@ -29,11 +29,22 @@ Build order is from top left to bottom right.
 So CConsole depends on PFL, PGE depends on CConsole and PFL, etc.
 ELTE-FAIL, gfxcore2 and UnitTests can be built in parallel since they have the same dependencies.
 
+What is not visible above is that in order to build PGE library, you also need the following libraries available:
+  - GameNetworkingSockets.lib - this can be built as described in Network\GameNetworkingSockets-1.4.0\BUILDING.md
+  - soloud_static_x86.lib - this can be built by using SoloudStatic.vcxproj in Audio\soloud-RELEASE_20200207\build\vs2017
+
+GameNetworkingSockets is linked dynamically, which means that in order to run PGE-based applications, you need:
+ - GameNetworkingSockets.dll
+ - libcrypto-3.dll
+ - libprotobufd.dll
+These are also built as described above.
+
+SoLoud is linked statically.
 
 We have the following repos:
 - PFL
 - Console
-- PGE
+- PGE (this includes copied source code of both GameNetworkingSockets and SoLoud libraries)
 - gfxcore2
 - ELTE-FAIL
 - PGE-misc (for solution and other textfiles like this txt)

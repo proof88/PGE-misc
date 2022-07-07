@@ -84,9 +84,12 @@ C/C++                                | DEBUG                                    
 LIBRARIAN (in case of .lib output)   | DEBUG                                            | RELEASE
 ========================================================================================================================
   General
+    - Additional Dependencies        | soloud_static_x86.lib;GameNetworkingSockets.lib  | <Same>
+      (if using any custom lib,      |                                                  |
+       example:)                     |                                                  |
     - Additional Library Directories | ..\Debug;%(AdditionalLibraryDirectories)         | ..\Release;%(AdditionalLibraryDirectories)
       (if using any custom lib       |                                                  |
-       built by me, example:         |                                                  |
+       example:)                     |                                                  |
 ########################################################################################################################
                                      |                                                  |
 LINKER (in case of exe/dll output)   | DEBUG                                            | RELEASE
@@ -94,6 +97,7 @@ LINKER (in case of exe/dll output)   | DEBUG                                    
   General
     - Enable Incremental Linking     | Yes (/INCREMENTAL)                               | No (/INCREMENTAL:NO)
     - Additional Library Directories | ..\Debug;%(AdditionalLibraryDirectories)         | ..\Release;%(AdditionalLibraryDirectories)
+      (similar as with Librarian)    |                                                  |
   ----------------------------------------------------------------------------------------------------------------------
   Input
     - General                        | kernel32.lib;user32.lib;gdi32.lib;winspool.lib;  | <Same>
