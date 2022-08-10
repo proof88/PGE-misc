@@ -419,6 +419,8 @@ x.x - reached on Month Day, Year - target here is to be able to do multitexturin
 DONT FORGET
  - VERSION UPDATE:
    - git tag!!! (CConsole, PFL, PGE, gfxcore2, see if their README needs update about version requirements);
+   - CCONSOLE_VERSION macro;
+   - PGE_VERSION macro;
    - PRRE_VERSION macro;
    - PGE and PURE DOC project version;
  - regenerate updated doc to proof88.github.io repo and upload it.
@@ -493,6 +495,8 @@ LOW PRIORITY
 DONT FORGET
  - VERSION UPDATE:
    - git tag!!! (CConsole, PFL, PGE, gfxcore2, see if their README needs update about version requirements);
+   - CCONSOLE_VERSION macro;
+   - PGE_VERSION macro;
    - PRRE_VERSION macro;
    - PGE and PURE DOC project version;
  - regenerate docs to proof88.github.io repo and upload them.
