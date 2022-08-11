@@ -69,6 +69,9 @@ C/C++                                | DEBUG                                    
       Although it is on by default,  |                                                  |
       I set it explicitly enabled    |                                                  |
       since dynamic_cast needs it!   |                                                  |
+    - C++ Language Standard          | ISO C++17 Standard (/std:c++17)                  | <Same>
+      Cpp14 would be enough but      |                                                  |
+      Cpp17 offers std::filesystem   |                                                  |
   ----------------------------------------------------------------------------------------------------------------------
   Precompiled header (optional)
     - Precompiled Header             | Use (/Yu)                                        | <Same>
@@ -76,9 +79,13 @@ C/C++                                | DEBUG                                    
             A separate .cpp file should be created including the header.                |
             This option should be set to "Create (/Yc)" for that single .cpp file.      |
     - Precompiled Header File        | <name of header in the project to be used as PCH>| <Same>
-  ------------------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------------------------------------------------
   Browse Information
     - Enable Browse Information      | Yes (/FR)                                        | No
+  ----------------------------------------------------------------------------------------------------------------------
+  Command Line
+    - specify the following extra    | /Zc:__cplusplus                                  | <Same>
+      argument(s) for the compiler   | (reason: https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/)
 ########################################################################################################################
                                      |                                                  |
 LIBRARIAN (in case of .lib output)   | DEBUG                                            | RELEASE
