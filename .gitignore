@@ -15,15 +15,13 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPR00FPS/
+[Dd]ebugPublic/
 [Dd]ebugTest_PRooFPS-dd/
 src/[Dd]ebugTest_PRooFPS-dd/
-[Dd]ebugPublic/
 EV2008P03Debug/
 [Rr]elease/
 [Rr]eleases/
 [Rr]eleasePR00FPS/
-[Rr]eleaseTest_PRooFPS-dd/
-src/[Dd]ebugTest_PRooFPS-dd/
 EV2008P03Release/
 x64/
 x86/
@@ -345,3 +343,4 @@ ASALocalRun/
 
 *.bsc
 *.lib
+*.bsc
