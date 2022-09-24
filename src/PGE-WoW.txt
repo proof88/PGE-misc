@@ -29,18 +29,6 @@ Build order is from top left to bottom right.
 So CConsole depends on PFL, PGE depends on CConsole and PFL, etc.
 ELTE-FAIL, gfxcore2 and UnitTests can be built in parallel since they have the same dependencies.
 
-What is not visible above is that in order to build PGE library, you also need the following libraries available:
-  - GameNetworkingSockets.lib - this can be built as described in Network\GameNetworkingSockets-1.4.0\BUILDING.md
-  - soloud_static_x86.lib - this can be built by using SoloudStatic.vcxproj in Audio\soloud-RELEASE_20200207\build\vs2017
-
-GameNetworkingSockets is linked dynamically, which means that in order to run PGE-based applications, you need:
- - GameNetworkingSockets.dll
- - libcrypto-3.dll
- - libprotobufd.dll
-These are also built as described above.
-
-SoLoud is linked statically.
-
 We have the following repos:
 - PFL
 - Console
@@ -58,11 +46,54 @@ DebugTest_PRooFPS-dd configuration is for running unit tests for PRooFPS-dd: it 
 WinMain() to be used: either the one in PRooFPS-dd.cpp or the other in PRooFPS-dd-Tests.cpp.
 Unit tests for PFL and PGE use the basic Debug or Release configuration shared with other projects.
 
+What is not visible above is that in order to build PGE library, you also need the following libraries available:
+  - GameNetworkingSockets.lib - this can be built as described in Network\GameNetworkingSockets-1.4.0\BUILDING.md
+  - soloud_static_x86.lib - this can be built by using SoloudStatic.vcxproj in Audio\soloud-RELEASE_20200207\build\vs2017
+
+SoLoud is linked statically, so it is enough to build PGE, SoLoud will be built inside it.
+Building GameNetworkingSockets is in next section.
+
 
 ---
 
 
-1) Different Runnables
+1)
+Building GameNetworkingSockets
+
+Some addition to BUILDING.md.
+By default Debug build is built.
+You can override it with defining CMAKE_BUILD_TYPE, example below.
+
+Basically if you have a computer that once already built GameNetworkingSockets successfully, meaning you have vcpkg stuff
+already set up, the way you build GameNetworkingSockets is this:
+ - start VS Command Prompt from VS Tools menu;
+ - go to GameNetworkingSockets directory;
+ - cmake -S . -B build -G Ninja [-DCMAKE_BUILD_TYPE=RelWithDebInfo]
+ - cd build
+ - ninja
+
+Note that "NAT traversal through google WebRTC's ICE implementation" is working only if USE_STEAMWEBRTC=ON is also defined, e.g.:
+  cmake -S . -B build -G Ninja -DBUILD_EXAMPLES=ON -DBUILD_TESTS=ON -DUSE_STEAMWEBRTC=ON
+
+This didn't work for me because I failed to update some submodules with "git submodule update" command, so manual cloning of
+some subrepos may help, but then I had wrong paths in webrtc stuff, probably I cloned webrtc from wrong place or wrong version ...
+Anyway including WebRTC would take an evening for sure.
+
+GameNetworkingSockets is linked dynamically, which means that in order to run PGE-based applications, you need:
+ - GameNetworkingSockets.dll
+ - libcrypto-3.dll
+ - libprotobuf[d].dll (you will have the 'd' at the end in case of debug build only)
+These are also built as described above.
+
+Important: GameNetworkingSockets is configured to be built with external linkage to MSVC runtime lib, so if we want to run it
+on a machine not having VS installed, we need to provide the MSVC runtime as well. Recommendation is to handle the
+MSVC 2022 Runtime Installer to the user.
+
+
+---
+
+
+2) Different Runnables
 
 A project may have multiple configurations, that could mean not only Release and Debug outputs but also executing different runnables.
 Currently the only project having multible runnables is gfxcore2:
@@ -79,7 +110,7 @@ act like the project's simple Debug or Release configuration: build&run the give
 ---
 
 
-2) Documentation
+3) Documentation
 
 Documentation can be generated with Doxygen (https://www.doxygen.nl/index.html).
 There are multiple project files that can be used with Doxygen in PGE\PGE\Docs\ directory:
@@ -106,19 +137,19 @@ The content is updated at every major PGE or PRRE version release and available 
 ---
 
 
-3) PRREallHeaders.h and PGEallHeaders.h should be included in EVERY SINGLE PRRE header file
+4) PRREallHeaders.h and PGEallHeaders.h should be included in EVERY SINGLE PRRE header file
 
-4) PRREallHeaders.h and PGEallHeaders.h MUSTN'T include anything
+5) PRREallHeaders.h and PGEallHeaders.h MUSTN'T include anything
 
-5) include/internal/PRREpragmas.h and PGEpragmas.h MUSTN'T be included in any header files.
+6) include/internal/PRREpragmas.h and PGEpragmas.h MUSTN'T be included in any header files.
    They should be included in cpp files only.
 
-6) We have EXTERNAL and INTERNAL header files.
+7) We have EXTERNAL and INTERNAL header files.
    EXTERNAL headers are public, meaning that they will be delivered
 	to API-users as well, so they should contain as minimal info about internals as they can.
    INTERNAL headers are private headers, used for compiling the library, etc. They MUSTN'T be included in EXTERNAL headers.
 
-7) PGEconsts.h and PRREconsts.h are INTERNAL headers thus MUSTN'T be included in EXTERNAL headers.
+8) PGEconsts.h and PRREconsts.h are INTERNAL headers thus MUSTN'T be included in EXTERNAL headers.
 
 
 ---
