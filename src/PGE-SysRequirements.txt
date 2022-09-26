@@ -1,0 +1,12 @@
+/*
+    ###################################################################################
+    PGE-SysRequirements.txt
+    System Requirements of PGE
+    EMAIL : PR0o0o0o0o0o0o0o0o0o0oF88@gmail.com
+    ###################################################################################
+*/
+
+
+Due to using GSN (GameNetworkingSockets), SSE2 support is mandatory.
+On the long run, I want the ability to skip linking to GSN if I choose not to use networking, because
+it would be nice to run the graphics engine part of PGE on older machines not supporting SSE2 such as Pentium III.
