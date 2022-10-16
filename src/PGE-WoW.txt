@@ -46,6 +46,9 @@ DebugTest_PRooFPS-dd configuration is for running unit tests for PRooFPS-dd: it 
 WinMain() to be used: either the one in PRooFPS-dd.cpp or the other in PRooFPS-dd-Tests.cpp.
 Unit tests for PFL and PGE use the basic Debug or Release configuration shared with other projects.
 
+PRooFPS-dd uses Debug, Release and DebugTest_PRooFPS-dd configurations.
+DebugPR00FPS and ReleasePR00FPS configurations are for the legacy PR00FPS, please do not mix them up with PRooFPS-dd stuff!
+
 What is not visible above is that in order to build PGE library, you also need the following libraries available:
   - GameNetworkingSockets.lib - this can be built as described in Network\GameNetworkingSockets-1.4.0\BUILDING.md
   - soloud_static_x86.lib - this can be built by using SoloudStatic.vcxproj in Audio\soloud-RELEASE_20200207\build\vs2017
