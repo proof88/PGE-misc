@@ -400,7 +400,7 @@ LOW PRIORITY
         load only once and return it always (like textures), load always (like objects in proofps engine), load only once and make a copy if already loaded (this just saves file reading).
  - FTR: [1] modify PRREFiledManager to allow file formats to be registered (like extensions w/ description).
         A given filename may be checked against the registered extensions prior loading it. This allows less code if many file formats are supported.
- - RFR: [1] PGESysCFG: use vectors instead of malloc-realloc/new-delete
+ - RFR: [1] PGEcfgProfiles: use vectors instead of malloc-realloc/new-delete
  - RFR: [1] PFL/PGESysCfg: create alternative to strClr() and the other 2 funcs which do not modify the source but malloc new destination. getDir() and getFilename() can use these
  - RFR: [2] PRREVector, PRREColor, etc ... after writing operator<<(), why can't it be used for assertEquals()?!
  - FTR: [2] "PRREManager.cpp(316): // TODO: dont know if the manageds should be simply attached which modify their pparent"
