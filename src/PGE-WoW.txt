@@ -134,17 +134,17 @@ we don't want to hide any internal stuff.
 As you can see, all stuff required to generate either internal or external documentation is in PGE directory.
 
 However, there is a separate repo called proof88.github.io, which contains generated internal documentation.
-The content is updated at every major PGE or PRRE version release and available online at: https://proof88.github.io/pure-doc/index.html .
+The content is updated at every major PGE or Pure version release and available online at: https://proof88.github.io/pure-doc/index.html .
 
 
 ---
 
 
-4) PRREallHeaders.h and PGEallHeaders.h should be included in EVERY SINGLE PRRE header file
+4) PureAllHeaders.h and PGEallHeaders.h should be included in EVERY SINGLE Pure header file
 
-5) PRREallHeaders.h and PGEallHeaders.h MUSTN'T include anything
+5) PureAllHeaders.h and PGEallHeaders.h MUSTN'T include anything
 
-6) include/internal/PRREpragmas.h and PGEpragmas.h MUSTN'T be included in any header files.
+6) include/internal/Purepragmas.h and PGEpragmas.h MUSTN'T be included in any header files.
    They should be included in cpp files only.
 
 7) We have EXTERNAL and INTERNAL header files.
@@ -152,20 +152,20 @@ The content is updated at every major PGE or PRRE version release and available 
 	to API-users as well, so they should contain as minimal info about internals as they can.
    INTERNAL headers are private headers, used for compiling the library, etc. They MUSTN'T be included in EXTERNAL headers.
 
-8) PGEconsts.h and PRREconsts.h are INTERNAL headers thus MUSTN'T be included in EXTERNAL headers.
+8) PGEconsts.h and Pureconsts.h are INTERNAL headers thus MUSTN'T be included in EXTERNAL headers.
 
 
 ---
    
 
-I) adding support for a new TC (texture compression) in PRRE
-	1. - new enum(s) should be added to both TPRRE_TEX_COMPRESSION_MODE and TPRRE_TEX_FORMAT
-	2. - texture format enum(s) should be handled in both PRRETexture::DescribeTexFormatAndSize() and PRRETexture::getTargetInternalFormat()
-	3. - PRREhwVideoDiscoverOpenGL_1_3::DiscoverTextureCompressionAvailability() should be also updated with checking for the new TC
-	4. - creating textures in unit tests with the new TC is not neccessarily needed but testGetInternalFormat() should handle them when PRRE_TC_AUTO is used:
+I) adding support for a new TC (texture compression) in Pure
+	1. - new enum(s) should be added to both TPure_TEX_COMPRESSION_MODE and TPure_TEX_FORMAT
+	2. - texture format enum(s) should be handled in both PureTexture::DescribeTexFormatAndSize() and PureTexture::getTargetInternalFormat()
+	3. - PureHwVideoDiscoverOpenGL_1_3::DiscoverTextureCompressionAvailability() should be also updated with checking for the new TC
+	4. - creating textures in unit tests with the new TC is not neccessarily needed but testGetInternalFormat() should handle them when Pure_TC_AUTO is used:
 		 tex128x128x24_cmpAUTO and tex128x128x32_cmpAUTO cases.
 		 testGetUsedTextureMemory() should be also updated when the compression ratio is different than the already checked ratios (1:4, 1:8) for the cmpAUTO cases
 		 mentioned above.
-	5. - update relevant comments regarding to the TC. For example, if borders are supported by the TC or not: PRRETextureManager::setDefaultCompressionMode().
+	5. - update relevant comments regarding to the TC. For example, if borders are supported by the TC or not: PureTextureManager::setDefaultCompressionMode().
 
 II) ...

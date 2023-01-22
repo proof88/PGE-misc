@@ -45,9 +45,9 @@ tmcsRender()
 ==============================================================================================
 
 
-PRRE 2014. 02. 08.:
+Pure 2014. 02. 08.:
 
-PRREReducedRenderingEngine
+PureReducedRenderingEngine
 	Renderer
 		RendererSWincremental
 		RendererHWfixedPipe
