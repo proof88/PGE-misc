@@ -421,7 +421,7 @@ DONT FORGET
    - git tag!!! (CConsole, PFL, PGE, gfxcore2, see if their README needs update about version requirements);
    - CCONSOLE_VERSION macro;
    - PGE_VERSION macro;
-   - Pure_VERSION macro;
+   - PURE_VERSION macro;
    - PGE and PURE DOC project version;
  - regenerate updated doc to proof88.github.io repo and upload it.
 
@@ -497,7 +497,7 @@ DONT FORGET
    - git tag!!! (CConsole, PFL, PGE, gfxcore2, see if their README needs update about version requirements);
    - CCONSOLE_VERSION macro;
    - PGE_VERSION macro;
-   - Pure_VERSION macro;
+   - PURE_VERSION macro;
    - PGE and PURE DOC project version;
  - regenerate docs to proof88.github.io repo and upload them.
  - Use GPU profiler: gDEBugger as general, Nsight for Nvidia, Radeon GPU profiler for AMD, etc.
@@ -625,7 +625,7 @@ LOW PRIO
  - FTR: User Value: 0; Dev Value: low.
         PureObject3DManager::SetMinimalIndexStorageEnabled() should work, currently unimplemented:
         - PureObject3D::PureObject3DImpl::getSizeofIndexType() should be instance member, not static;
-        - PureObject3D::PureObject3DImpl::getSizeofIndexType() should always ret sizeof(TPureuint) if PureObject3DManager::isMinimalIndexStorageEnabled() is false;
+        - PureObject3D::PureObject3DImpl::getSizeofIndexType() should always ret sizeof(TPureUInt) if PureObject3DManager::isMinimalIndexStorageEnabled() is false;
         - setting subobject->p->nIndicesType in createBox(), createPlane() and loadOBJ() should be to GL_UNSIGNED_INT if PureObject3DManager::isMinimalIndexStorageEnabled() is false;
         RN:
         Rendering Pipeline - Geometry Stage - Vertex Specification and Processing - Mesh3D & VertexTransfer classes
