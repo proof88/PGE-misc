@@ -152,7 +152,7 @@ The content is updated at every major PGE or Pure version release and available 
 	to API-users as well, so they should contain as minimal info about internals as they can.
    INTERNAL headers are private headers, used for compiling the library, etc. They MUSTN'T be included in EXTERNAL headers.
 
-8) PGEconsts.h and Pureconsts.h are INTERNAL headers thus MUSTN'T be included in EXTERNAL headers.
+8) PGEconsts.h and PureConsts.h are INTERNAL headers thus MUSTN'T be included in EXTERNAL headers.
 
 
 ---
