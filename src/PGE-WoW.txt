@@ -144,7 +144,7 @@ The content is updated at every major PGE or Pure version release and available 
 
 5) PureAllHeaders.h and PGEallHeaders.h MUSTN'T include anything
 
-6) include/internal/Purepragmas.h and PGEpragmas.h MUSTN'T be included in any header files.
+6) include/internal/PurePragmas.h and PGEpragmas.h MUSTN'T be included in any header files.
    They should be included in cpp files only.
 
 7) We have EXTERNAL and INTERNAL header files.
