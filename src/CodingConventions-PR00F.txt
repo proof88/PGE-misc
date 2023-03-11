@@ -388,6 +388,7 @@
      the error indicates that something in the code has to be fixed. It doesn't represent a condition that the program has to recover from at run time. (...)
      Use exceptions to check error conditions that might occur at run time even if your code is correct, for example, "file not found" or "out of memory."
      Exceptions can handle these conditions, even if the recovery just outputs a message to a log and ends the program." (https://docs.microsoft.com/en-us/cpp/cpp/errors-and-exception-handling-modern-cpp?view=msvc-160)
+     Since Cpp11 static_assert() also exists, use that whenever possible instead of the assert macro.
 
  F - Misc:
      "Throw exceptions by value, catch them by reference. Don’t catch what you can't handle." (https://docs.microsoft.com/en-us/cpp/cpp/errors-and-exception-handling-modern-cpp?view=msvc-160)
