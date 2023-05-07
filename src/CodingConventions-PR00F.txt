@@ -217,15 +217,32 @@
  A - structs should be used as simple data containers without own functionality, so put only data members into them.
      Exception: simple ctors can be allowed just to initialize the members with PREDEFINED values (no dynamic memory allocation, etc...).
 
- B - don't forget to make private the copy ctor and assignment operators of classes which don't support copying / assigning yet.
+ B - before C++11, don't forget to make private the copy ctor and assignment operators of classes which don't support copying / assigning yet.
      Ctor and dtor should be also private in case of singletons.
      
-     private:
-         ClassXYZ(const ClassXYZ&) {}; 
-         ClassXYZ& operator=(const ClassXYZ&) { return *this; };
+     Example:
+        private:
+            ClassXYZ(const ClassXYZ&) {}; 
+            ClassXYZ& operator=(const ClassXYZ&) { return *this; };
      
      Since C++11, these can be also deleted with " = delete".
      Since C++11, move ctor and move assignment operator can be also deleted if not needed.
+
+     Example:
+        InputHandling(const InputHandling&) = delete;
+        InputHandling& operator=(const InputHandling&) = delete;
+        InputHandling(InputHandling&&) = delete;
+        InputHandling&& operator=(InputHandling&&) = delete;
+
+     Please respect the following rules (copied from Zoltán Porkoláb's C++ lecture slide):
+        1. The two copy operations (copy constructor and copy assignment) are independent.
+           Declaring copy constructor does not prevent compiler to generate copy assignment (and vice versa) (same as in C++98).
+        2. Move operations are not independent. Declare either prevents the compiler to generate the other.
+        3. If any of the copy operation is declared, then none of the move operation will be generated.
+        4. If any of the move operation is declared, then none of the copy operation will be generated. This is the opposite rule of (3).
+        5. If a destructor is declared, than none of the move operation will be generated.
+           Copy operations are still generated for reverse compatibility with C++98.
+        6. Default constructor is generated only if no constructor is declared (same as in C++98).
 
  C - use the "explicit" keyword for 1-param non-copy ctors, for example:
      class XYZ
