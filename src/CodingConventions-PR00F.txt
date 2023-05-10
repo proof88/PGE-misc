@@ -244,6 +244,8 @@
            Copy operations are still generated for reverse compatibility with C++98.
         6. Default constructor is generated only if no constructor is declared (same as in C++98).
 
+     Rule of zero, Rule of three, Rule of five: https://en.cppreference.com/w/cpp/language/rule_of_three
+
  C - use the "explicit" keyword for 1-param non-copy ctors, for example:
      class XYZ
      {
