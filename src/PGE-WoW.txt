@@ -8,14 +8,15 @@
 
 
 0)
-This is a multi-project solution.
-All projects are in 1 solution: PGE.
-The reason why the whole solution is called PGE is that the main project here is PGE and the other
-projects are side projects needed to be created for PGE during development. They are different projects
-so can be built separately but dependencies should be considered.
-Example: if someone wants to build CConsole, it has to get or build PFL.lib prior to building CConsole.
+Projects and Dependencies
 
-Project dependency tree:
+This is a multi-project solution.
+All projects are in 1 solution: PGE-misc.
+The reason why the whole solution is called PGE-misc is that the main project here is PGE and the other
+projects are side projects needed to be created for PGE during development.
+Update in 2023: the primary project now is PRooFPS-dd, a game using PGE.
+
+Project dependency tree (with the build output formats):
   - SoLoud (.lib)
   - PFL (.lib)
     - CConsole (.lib)
@@ -46,26 +47,27 @@ Exceptions:
  - SoLoud project, it lies in the same repo as PGE.
  - UnitTests project, it lies in the same repo as PGE.
 
-DebugTest_PRooFPS-dd configuration is for running unit tests for PRooFPS-dd: it defines the TESTING macro used by PRooFPS-dd project to decide which
-WinMain() to be used: either the one in PRooFPS-dd.cpp or the other in PRooFPS-dd-Tests.cpp.
-Unit tests for PFL and PGE use the basic Debug or Release configuration shared with other projects.
-
-PRooFPS-dd uses Debug, Release and DebugTest_PRooFPS-dd configurations.
-DebugPR00FPS and ReleasePR00FPS configurations are for the legacy PR00FPS, please do not mix them up with PRooFPS-dd stuff!
-
-The SoLoud audio library has multiple Visual Studio Projects under PGE/Audio/soloud-RELEASE_20200207/build/vs2017, however the only relevant project file is SoloudStatic.vcxproj and that is added to this PGE-misc solution with proper dependency setting, which means that the required soloud_static_x86.lib (or soloud_static_x86_d.lib for debug build) is automatically built before PGE project is being built.
-
-What is not visible above is that in order to build PGE library, you also need the following library available:
-  - GameNetworkingSockets.lib - this can be built as described in Network/GameNetworkingSockets-1.4.0/BUILDING.md
-
-Building GameNetworkingSockets is in next section.
-
 
 ---
 
 
 1)
-Building GameNetworkingSockets
+Build
+
+Since the project dependencies are correctly set (except for GameNetworkingSockets which needs to be built separately for first time), building all projects is very easy:
+one click in Visual Studio, and all projects will be built in the required order considering their dependencies.
+
+PRooFPS-dd uses Debug, Release and DebugTest_PRooFPS-dd configurations.
+DebugPR00FPS and ReleasePR00FPS configurations are for the legacy PR00FPS, please do not mix them up with PRooFPS-dd stuff!
+
+DebugTest_PRooFPS-dd configuration is for running unit tests for PRooFPS-dd: it defines the TESTING macro used by PRooFPS-dd project to decide which
+WinMain() to be used: either the one in PRooFPS-dd.cpp or the other in PRooFPS-dd-Tests.cpp.
+Unit tests for PFL and PGE use the basic Debug or Release configuration shared with other projects.
+
+The SoLoud audio library has multiple Visual Studio Projects under PGE/Audio/soloud-RELEASE_20200207/build/vs2017, however the only relevant project file is SoloudStatic.vcxproj and that is added to this PGE-misc solution with proper dependency setting, which means that the required soloud_static_x86.lib (or soloud_static_x86_d.lib for debug build) is automatically built before PGE project is being built.
+
+In order to build PGE library, you also need the following library available:
+  - GameNetworkingSockets.lib - this can be built as described in Network/GameNetworkingSockets-1.4.0/BUILDING.md
 
 Some addition to BUILDING.md.
 By default Debug build is built.
