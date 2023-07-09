@@ -47,6 +47,8 @@ Exceptions:
  - SoLoud project, it lies in the same repo as PGE.
  - UnitTests project, it lies in the same repo as PGE.
 
+I highly recommend cloning them separately into the same directory!
+
 
 ---
 
@@ -54,10 +56,14 @@ Exceptions:
 1)
 Build
 
+As described in section 0 above, all relevant Visual Studio projects are tied together in PGE-misc solution.
+Due to dependencies, it is highly recommended to load the PGE-misc solution in Visual Studio and initiate any build from that condition!
+For that you need to clone most of the repositories described in section 0 above, the better if you clone all of them before doing anything!
+
 Since the project dependencies are correctly set (except for GameNetworkingSockets which needs to be built separately for first time), building all projects is very easy:
 one click in Visual Studio, and all projects will be built in the required order considering their dependencies.
 
-If you freshly cloned the repo and want to build the PGE library from first clean state, you also need the following library available:
+If you have just freshly cloned the repositories and want to build the PGE library from first clean state, you also need the following library available:
   - GameNetworkingSockets.lib - this can be built as described in Network/GameNetworkingSockets-1.4.0/BUILDING.md
 
 GameNetworkingSockets is linked dynamically, which means that in order to run PGE-based applications, you need:
