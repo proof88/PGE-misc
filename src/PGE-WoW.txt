@@ -7,8 +7,7 @@
 */
 
 
-0)
-Projects and Dependencies
+0) Projects and Dependencies
 
 This is a multi-project solution.
 All projects are in 1 solution: PGE-misc.
@@ -53,8 +52,7 @@ I highly recommend cloning them separately into the same directory!
 ---
 
 
-1)
-Build
+1) Build
 
 As described in section 0 above, all relevant Visual Studio projects are tied together in PGE-misc solution.
 Due to dependencies, it is highly recommended to load the PGE-misc solution in Visual Studio and initiate any build from that condition!
