@@ -16,6 +16,7 @@ so can be built separately but dependencies should be considered.
 Example: if someone wants to build CConsole, it has to get or build PFL.lib prior to building CConsole.
 
 Project dependency tree:
+  - SoLoud (.lib)
   - PFL (.lib)
     - CConsole (.lib)
       - PGE (.lib)
@@ -26,8 +27,8 @@ Project dependency tree:
         - UnitTests  (.exe)
 
 Build order is from top left to bottom right.
-So CConsole depends on PFL, PGE depends on CConsole and PFL, etc.
-ELTE-FAIL, gfxcore2 and UnitTests can be built in parallel since they have the same dependencies.
+So CConsole depends on PFL, PGE depends on SoLoud, CConsole and PFL, etc.
+ELTE-FAIL, gfxcore2, PRooFPS-dd and UnitTests can be built in parallel since they have the same dependencies.
 
 We have the following repos:
 - PFL
@@ -40,7 +41,10 @@ We have the following repos:
 - PRooFPS-dd (new project being worked on in 2022)
 - proof88.github.io - online form of documentation
 
-So as seen above, almost every project has its own repository. Exception is the UnitTests project, it lies in the same repo as PGE.
+So as seen above, almost every project has its own repository.
+Exceptions:
+ - SoLoud project, it lies in the same repo as PGE.
+ - UnitTests project, it lies in the same repo as PGE.
 
 DebugTest_PRooFPS-dd configuration is for running unit tests for PRooFPS-dd: it defines the TESTING macro used by PRooFPS-dd project to decide which
 WinMain() to be used: either the one in PRooFPS-dd.cpp or the other in PRooFPS-dd-Tests.cpp.
@@ -49,11 +53,11 @@ Unit tests for PFL and PGE use the basic Debug or Release configuration shared w
 PRooFPS-dd uses Debug, Release and DebugTest_PRooFPS-dd configurations.
 DebugPR00FPS and ReleasePR00FPS configurations are for the legacy PR00FPS, please do not mix them up with PRooFPS-dd stuff!
 
-What is not visible above is that in order to build PGE library, you also need the following libraries available:
-  - GameNetworkingSockets.lib - this can be built as described in Network\GameNetworkingSockets-1.4.0\BUILDING.md
-  - soloud_static_x86.lib - this can be built by using SoloudStatic.vcxproj in Audio\soloud-RELEASE_20200207\build\vs2017
+The SoLoud audio library has multiple Visual Studio Projects under PGE/Audio/soloud-RELEASE_20200207/build/vs2017, however the only relevant project file is SoloudStatic.vcxproj and that is added to this PGE-misc solution with proper dependency setting, which means that the required soloud_static_x86.lib (or soloud_static_x86_d.lib for debug build) is automatically built before PGE project is being built.
 
-SoLoud is linked statically, so it is enough to build PGE, SoLoud will be built inside it.
+What is not visible above is that in order to build PGE library, you also need the following library available:
+  - GameNetworkingSockets.lib - this can be built as described in Network/GameNetworkingSockets-1.4.0/BUILDING.md
+
 Building GameNetworkingSockets is in next section.
 
 
