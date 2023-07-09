@@ -54,7 +54,12 @@ I highly recommend cloning them separately into the same directory!
 
 1) Build
 
-As described in section 0 above, all relevant Visual Studio projects are tied together in PGE-misc solution.
+Currently supported under Windows.
+
+Note that due to the different compiler and linker settings used across projects, it might happen that you either cannot build everything properly with a different version of Visual Studio, or you experience unexpected exception raised during running the debug build of any of the projects. I can successfully build all my projects with this exact version:
+Visual Studio 2022 Community Edition (64-bit) Version 17.5.5.
+
+As described in section 0 above, all relevant Visual Studio projects are tied together in a single solution called: PGE-misc.
 Due to dependencies, it is highly recommended to load the PGE-misc solution in Visual Studio and initiate any build from that condition!
 For that you need to clone most of the repositories described in section 0 above, the better if you clone all of them before doing anything!
 
@@ -62,34 +67,41 @@ Since the project dependencies are correctly set (except for GameNetworkingSocke
 one click in Visual Studio, and all projects will be built in the required order considering their dependencies.
 
 If you have just freshly cloned the repositories and want to build the PGE library from first clean state, you also need the following library available:
-  - GameNetworkingSockets.lib - this can be built as described in Network/GameNetworkingSockets-1.4.0/BUILDING.md
+  - GameNetworkingSockets.lib - you can build it as described below.
 
 GameNetworkingSockets is linked dynamically, which means that in order to run PGE-based applications, you need:
  - GameNetworkingSockets.dll
  - libcrypto-3.dll
  - libprotobuf[d].dll (you will have the 'd' at the end in case of debug build only)
-These are also built as described in BUILDING.md.
-Please consider the following addition to BUILDING.md below.
+These are also built as described below.
 
-By default Debug build is built.
-You can override it with defining CMAKE_BUILD_TYPE, example below.
+GameNetworkingSockets building is officially explained in Network/GameNetworkingSockets-1.4.0/BUILDING.md.  
+If you want to skip reading BUILDING.md, here is how I do the first time I build GameNetworkingSockets:
 
-Basically if you have a computer that once already built GameNetworkingSockets successfully, meaning you have vcpkg stuff
-already set up, the way you build GameNetworkingSockets is this:
- - start VS Command Prompt from VS Tools menu;
- - go to GameNetworkingSockets directory;
- - cmake -S . -B build -G Ninja [-DCMAKE_BUILD_TYPE=RelWithDebInfo]
- - cd build
- - ninja
+First the VCPKG-related stuff needs to be set up:
+ - enter the main directory of GameNetworkingSockets, e.g.: "cd PGE/Network/GameNetworkingSockets-1.4.0";
+ - execute: "git clone https://github.com/microsoft/vcpkg";
+ - execute: ".\vcpkg\bootstrap-vcpkg.bat";
+ - start Visual Studio;
+ - start Visual Studio Command Prompt from Visual Studio's Tools menu;
+ - in Visual Studio Command Prompt, go to main directory of GameNetworkingSockets, e.g.: "cd PGE/Network/GameNetworkingSockets-1.4.0";
+ - execute: ".\vcpkg\vcpkg install --triplet=x64-windows" (this will take a while, this is the longest step, ~10-20 minutes);
 
-Now you have successfully built GameNetworkingSockets, you don't need to do this steps again!
+Now you have all VCPKG-stuff set-up, you dont need to do this again on your computer.
+Next step is to actually build GameNetworkingSockets:
+ - still in Visual Studio Command Prompt, execute: "cmake -S . -B build -G Ninja [-DCMAKE_BUILD_TYPE=RelWithDebInfo]";
+ - by default Debug build is built, but you can override it with defining CMAKE_BUILD_TYPE as shown above, for Release build I recommend using RelWithDebInfo;
+ - then execute: "cd build";
+ - then execute: "ninja".
+
+Now you have successfully built GameNetworkingSockets, you don't need to do this steps again on this computer!
 
 Note that "NAT traversal through google WebRTC's ICE implementation" is working only if USE_STEAMWEBRTC=ON is also defined, e.g.:
-  cmake -S . -B build -G Ninja -DBUILD_EXAMPLES=ON -DBUILD_TESTS=ON -DUSE_STEAMWEBRTC=ON
+  "cmake -S . -B build -G Ninja -DBUILD_EXAMPLES=ON -DBUILD_TESTS=ON -DUSE_STEAMWEBRTC=ON"
 
 This didn't work for me because I failed to update some submodules with "git submodule update" command, so manual cloning of
 some subrepos may help, but then I had wrong paths in webrtc stuff, probably I cloned webrtc from wrong place or wrong version ...
-Anyway including WebRTC would take an evening for sure.
+Anyway including WebRTC would take an evening for sure, so I postponed it for the future.
 
 Important: GameNetworkingSockets is configured to be built with external linkage to MSVC runtime lib, so if we want to run it
 on a machine not having VS installed, we need to provide the MSVC runtime as well. Recommendation is to handle the
