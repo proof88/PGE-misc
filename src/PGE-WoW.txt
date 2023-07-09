@@ -105,6 +105,8 @@ Next step is to actually build GameNetworkingSockets (only once on your computer
  - then execute: "ninja".
 
 Now you have successfully built GameNetworkingSockets, you don't need to do this steps again on this computer!
+The required DLL files are placed in PGE/Network/GameNetworkingSockets-1.4.0/build/bin directory.
+Please copy them to any project directory that needs it (e.g. for PRooFPS-dd, copy it into: PRooFPS-dd/PRooFPS-dd directory).
 
 Note that "NAT traversal through google WebRTC's ICE implementation" is working only if USE_STEAMWEBRTC=ON is also defined, e.g.:
   "cmake -S . -B build -G Ninja -DBUILD_EXAMPLES=ON -DBUILD_TESTS=ON -DUSE_STEAMWEBRTC=ON"
