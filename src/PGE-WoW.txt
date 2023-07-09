@@ -56,40 +56,50 @@ I highly recommend cloning them separately into the same directory!
 
 Currently supported under Windows.
 
-Note that due to the different compiler and linker settings used across projects, it might happen that you either cannot build everything properly with a different version of Visual Studio, or you experience unexpected exception raised during running the debug build of any of the projects. I can successfully build all my projects with this exact version:
+My projects are written in C++.
+I try to stick to ISO-C++ and avoid any MSVC-specific stuff.
+Some of my projects require C++17 compiler, some required older. You don't need to configure anything! You just need Visual Studio installed and it can
+handkle all my debug and release mode project settings.
+
+Note that due to the different compiler and linker settings used across projects, it might happen that you either cannot build everything properly with
+a different version of Visual Studio, or you experience unexpected exception raised during running the debug build of any of the projects.
+I can successfully build all my projects with this exact version, so this is what I recommend:
 Visual Studio 2022 Community Edition (64-bit) Version 17.5.5.
 
+Sometimes I upgrade VS and verify everything is working. If not, I fix the issues so all my projects could be built with the latest version if Visual Studio.
+
 As described in section 0 above, all relevant Visual Studio projects are tied together in a single solution called: PGE-misc.
-Due to dependencies, it is highly recommended to load the PGE-misc solution in Visual Studio and initiate any build from that condition!
-For that you need to clone most of the repositories described in section 0 above, the better if you clone all of them before doing anything!
+Due to dependencies, it is highly recommended to load the PGE-misc solution in Visual Studio and initiate any build from that point!
+For that you need to clone most of the repositories as described in section 0 above, the better if you clone all of them before doing anything!
 
 Since the project dependencies are correctly set (except for GameNetworkingSockets which needs to be built separately for first time), building all projects is very easy:
 one click in Visual Studio, and all projects will be built in the required order considering their dependencies.
 
-If you have just freshly cloned the repositories and want to build the PGE library from first clean state, you also need the following library available:
-  - GameNetworkingSockets.lib - you can build it as described below.
+If you have just freshly cloned the repositories and want to build the PGE library from first clean state, you need the following library available:
+  - GameNetworkingSockets.lib - you can build it as described below. This need to be built only once on your computer.
 
 GameNetworkingSockets is linked dynamically, which means that in order to run PGE-based applications, you need:
  - GameNetworkingSockets.dll
  - libcrypto-3.dll
  - libprotobuf[d].dll (you will have the 'd' at the end in case of debug build only)
-These are also built as described below.
+These are also built as described below, need to build only once on your computer.
 
 GameNetworkingSockets building is officially explained in Network/GameNetworkingSockets-1.4.0/BUILDING.md.  
 If you want to skip reading BUILDING.md, here is how I do the first time I build GameNetworkingSockets:
 
-First the VCPKG-related stuff needs to be set up:
+First the VCPKG-related stuff needs to be set up (only once on your computer):
  - enter the main directory of GameNetworkingSockets, e.g.: "cd PGE/Network/GameNetworkingSockets-1.4.0";
  - execute: "git clone https://github.com/microsoft/vcpkg";
  - execute: ".\vcpkg\bootstrap-vcpkg.bat";
  - start Visual Studio;
  - start Visual Studio Command Prompt from Visual Studio's Tools menu;
  - in Visual Studio Command Prompt, go to main directory of GameNetworkingSockets, e.g.: "cd PGE/Network/GameNetworkingSockets-1.4.0";
- - execute: ".\vcpkg\vcpkg install --triplet=x64-windows" (this will take a while, this is the longest step, ~10-20 minutes);
+ - execute: ".\vcpkg\vcpkg install --triplet=x64-windows" (this will take a while, this is the longest step, ~15-20 minutes);
 
 Now you have all VCPKG-stuff set-up, you dont need to do this again on your computer.
-Next step is to actually build GameNetworkingSockets:
- - still in Visual Studio Command Prompt, execute: "cmake -S . -B build -G Ninja [-DCMAKE_BUILD_TYPE=RelWithDebInfo]";
+Next step is to actually build GameNetworkingSockets (only once on your computer):
+ - still in Visual Studio Command Prompt, execute: "cmake -S . -B build -G Ninja [-DCMAKE_BUILD_TYPE=RelWithDebInfo]"
+   (this will take a while, this is the longest step, ~10 minutes);
  - by default Debug build is built, but you can override it with defining CMAKE_BUILD_TYPE as shown above, for Release build I recommend using RelWithDebInfo;
  - then execute: "cd build";
  - then execute: "ninja".
