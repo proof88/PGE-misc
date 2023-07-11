@@ -72,6 +72,9 @@ As described in section 0 above, all relevant Visual Studio projects are tied to
 Due to dependencies, it is highly recommended to load the PGE-misc solution in Visual Studio and initiate any build from that point!
 For that you need to clone most of the repositories as described in section 0 above, the better if you clone all of them before doing anything!
 
+When you load up the PGE-misc solution in Visual Studio, you might see error messages about the missing GGame project. You can ignore it, nothing depends on it.
+I never published GGame on Github, it is just an old project of mine.
+
 Since the project dependencies are correctly set (except for GameNetworkingSockets which needs to be built separately for first time), building all projects is very easy:
 one click in Visual Studio, and all projects will be built in the required order considering their dependencies.
 
@@ -135,6 +138,10 @@ Unit tests for PFL and PGE use the basic Debug or Release configuration shared w
 
 The SoLoud audio library has multiple Visual Studio Projects under PGE/Audio/soloud-RELEASE_20200207/build/vs2017, however the only relevant project file is SoloudStatic.vcxproj and that is added to this PGE-misc solution with proper dependency setting, which means that the required soloud_static_x86.lib (or soloud_static_x86_d.lib for debug build) is automatically built before PGE project is being built.
 
+Build time measurements of PRooFPS-dd from clean state (including building the other projects on which PRooFPS-dd depends, Debug configuration):
+Machine 1: 55 sec (Core i5 4570 3.2 GHz, 2x 8 GB 1833 MHz CL10 DDR3, Crucial MX500 500GB SSD)
+Machine 2:  (C2D E7300 2.66 GHz, 2x 1 GB 800 MHz DDR2 CL6, Kingston KC600 256GB SSD)
+Machine 3:  (Core i5 8250U 1.6 GHz, 2x 4 GB 2666 MHz DDR4, Adata XPG SX6000 Pro 256GB SSD M.2 2280 PCIe NVMe)
 
 ---
 
