@@ -97,7 +97,7 @@ First the VCPKG-related stuff needs to be set up (only once on your computer):
      https://stackoverflow.com/questions/4492979/error-git-is-not-recognized-as-an-internal-or-external-command
      You can specify Visual Studio's git directory,
      e.g.: "c:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\"
-     Note: you need to restart the computer or log out and log in again for the new environment variable setting to take effect!
+     Note: you need to log out and log in again for the new environment variable setting to take effect!
  - after successful cloning, execute: ".\vcpkg\bootstrap-vcpkg.bat";
  - execute: ".\vcpkg\vcpkg install --triplet=x64-windows" (this will take a while, this is the longest step, ~15-20 minutes);
 
