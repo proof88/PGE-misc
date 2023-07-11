@@ -88,12 +88,16 @@ GameNetworkingSockets building is officially explained in Network/GameNetworking
 If you want to skip reading BUILDING.md, here is how I do the first time I build GameNetworkingSockets:
 
 First the VCPKG-related stuff needs to be set up (only once on your computer):
- - enter the main directory of GameNetworkingSockets, e.g.: "cd PGE/Network/GameNetworkingSockets-1.4.0";
- - execute: "git clone https://github.com/microsoft/vcpkg";
- - execute: ".\vcpkg\bootstrap-vcpkg.bat";
  - start Visual Studio;
  - start Visual Studio Command Prompt from Visual Studio's Tools menu;
  - in Visual Studio Command Prompt, go to main directory of GameNetworkingSockets, e.g.: "cd PGE/Network/GameNetworkingSockets-1.4.0";
+ - execute: "git clone https://github.com/microsoft/vcpkg"
+   If git is not known, you should set your PATH environment variable properly to contain path to your installed git:
+     this is how to change your PATH environment variable:
+     https://stackoverflow.com/questions/4492979/error-git-is-not-recognized-as-an-internal-or-external-command
+     You can specify Visual Studio's git directory,
+     e.g.: "c:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Git\mingw64\bin\"
+ - after successful cloning, execute: ".\vcpkg\bootstrap-vcpkg.bat";
  - execute: ".\vcpkg\vcpkg install --triplet=x64-windows" (this will take a while, this is the longest step, ~15-20 minutes);
 
 Now you have all VCPKG-stuff set-up, you dont need to do this again on your computer.
