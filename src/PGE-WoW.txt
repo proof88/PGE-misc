@@ -106,7 +106,7 @@ First the VCPKG-related stuff needs to be set up (only once on your computer):
 
 Now you have all VCPKG-stuff set-up, you dont need to do this again on your computer.
 Next step is to actually build GameNetworkingSockets (only once on your computer):
- - still in Visual Studio Command Prompt, execute: "cmake -S . -B build -G Ninja [-DCMAKE_BUILD_TYPE=RelWithDebInfo]"
+ - still in Visual Studio Command Prompt, execute: "cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo"
    (this will take a while, this is the longest step, ~10 minutes);
  - by default Debug build is built, but you can override it with defining CMAKE_BUILD_TYPE as shown above, for Release build I recommend using RelWithDebInfo;
  - then execute: "cd build";
