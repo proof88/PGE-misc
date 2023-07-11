@@ -139,9 +139,9 @@ Unit tests for PFL and PGE use the basic Debug or Release configuration shared w
 The SoLoud audio library has multiple Visual Studio Projects under PGE/Audio/soloud-RELEASE_20200207/build/vs2017, however the only relevant project file is SoloudStatic.vcxproj and that is added to this PGE-misc solution with proper dependency setting, which means that the required soloud_static_x86.lib (or soloud_static_x86_d.lib for debug build) is automatically built before PGE project is being built.
 
 Build time measurements of PRooFPS-dd from clean state (including building the other projects on which PRooFPS-dd depends, Debug configuration):
-Machine 1: 55 sec (Core i5 4570 3.2 GHz (turbo 3.6 GHz), 2x 8 GB 1833 MHz CL10 DDR3, Crucial MX500 500GB SSD SATA)
-Machine 2:  (C2D E7300 2.66 GHz, 2x 1 GB 800 MHz DDR2 CL6, Kingston KC600 256GB SSD SATA)
-Machine 3: 50 sec (Core i5 8250U HT 1.6 GHz (turbo 3.4 GHz), 2x 4 GB 2666 MHz DDR4, Adata XPG SX6000 Pro 256GB SSD M.2 2280 PCIe NVMe)
+Machine 1:  55 sec (Core i5 4570 3.2 GHz (turbo 3.6 GHz), 2x 8 GB 1833 MHz CL10 DDR3, Crucial MX500 500GB SSD SATA)
+Machine 2: 120 sec (C2D E7300 2.66 GHz, 2x 1 GB 800 MHz DDR2 CL6, Kingston KC600 256GB SSD SATA)
+Machine 3:  50 sec (Core i5 8250U HT 1.6 GHz (turbo 3.4 GHz), 2x 4 GB 2666 MHz DDR4, Adata XPG SX6000 Pro 256GB SSD M.2 2280 PCIe NVMe)
 
 ---
 
