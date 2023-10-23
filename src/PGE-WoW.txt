@@ -58,15 +58,16 @@ Currently supported under Windows.
 
 My projects are written in C++.
 I try to stick to ISO-C++ and avoid any MSVC-specific stuff.
-Some of my projects require C++17 compiler, some required older. You don't need to configure anything! You just need Visual Studio installed and it can
-handkle all my debug and release mode project settings.
+Some of my projects require C++17 compiler, some require older. You don't need to configure anything! You just need Visual Studio installed and it can
+handle all my debug and release mode project settings.
 
 Note that due to the different compiler and linker settings used across projects, it might happen that you either cannot build everything properly with
 a different version of Visual Studio, or you experience unexpected exception raised during running the debug build of any of the projects.
 I can successfully build all my projects with this exact version, so this is what I recommend:
+
 Visual Studio 2022 Community Edition (64-bit) Version 17.5.5.
 
-Sometimes I upgrade VS and verify everything is working. If not, I fix the issues so all my projects could be built with the latest version if Visual Studio.
+Sometimes I upgrade VS and verify everything is working. If not, I fix the issues so all my projects could be built with the latest version of Visual Studio.
 
 As described in section 0 above, all relevant Visual Studio projects are tied together in a single solution called: PGE-misc.
 Due to dependencies, it is highly recommended to load the PGE-misc solution in Visual Studio and initiate any build from that point!
