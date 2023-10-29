@@ -6,6 +6,7 @@
     ###################################################################################
 */
 
+Note: for configuring WSL and CMake stuff, see: https://github.com/proof88/PRooFPS-dd/issues/9
 
 0) Projects and Dependencies
 

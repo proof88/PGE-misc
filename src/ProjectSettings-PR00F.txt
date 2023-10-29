@@ -1,10 +1,12 @@
 /*
     ###################################################################################
     ProjectSettings-PR00F.txt
-    PR00F's Project Settings to apply in any Visual Studio 2012 C++ project
+    PR00F's Project Settings to apply in any Visual Studio 2022 C++ project
     EMAIL : PR0o0o0o0o0o0o0o0o0o0oF88@gmail.com
     ###################################################################################
 */
+
+Note: for configuring WSL and CMake stuff, see: https://github.com/proof88/PRooFPS-dd/issues/9
 
 ########################################################################################################################
                                      | CONFIGURATION
