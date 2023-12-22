@@ -59,6 +59,7 @@ C/C++                                | DEBUG                                    
     - Preprocessor definition        |                                                  |
       in case of .lib output         | WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)     | WIN32;_NDEBUG;_LIB;%(PreprocessorDefinitions)
       in case of .exe output         | WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions) | WIN32;_NDEBUG;_WINDOWS;%(PreprocessorDefinitions)
+                                     | And always also add NOMINMAX, reason is explained in winproof88.h.
   ----------------------------------------------------------------------------------------------------------------------
   Code generation
     - Smaller type check             | Yes (/RTCc)                                      | No
