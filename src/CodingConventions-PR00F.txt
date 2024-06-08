@@ -5,6 +5,14 @@
     ###################################################################################
 */
 
+0. Marking Code as "Bad Design"
+===============================
+
+Started with PRooFPS-dd, if I realize a bad design choice, I mark that implementation with this comment:
+BADDESIGN
+So later in the future I know which parts of the code could be improved, refactored.
+It is not necessarily optimization but also code redundancy or silly dependencies between modules as workaround, etc.
+
 
 1. Naming conventions
 =====================
