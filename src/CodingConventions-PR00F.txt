@@ -13,6 +13,11 @@ BADDESIGN
 So later in the future I know which parts of the code could be improved, refactored.
 It is not necessarily optimization but also code redundancy or silly dependencies between modules as workaround, etc.
 
+Another markable comment is:
+BESTPRACTICE
+If there are multiple ways of implement something and I found the best possible choice, I use this so that I can
+find it again in the future.
+
 
 1. Naming conventions
 =====================
