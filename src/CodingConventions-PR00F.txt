@@ -439,3 +439,18 @@ find it again in the future.
    See further:
     - https://stackoverflow.com/questions/8819095/concurrency-atomic-and-volatile-in-c11-memory-model
     - https://stackoverflow.com/questions/28738028/can-mutex-replace-memory-barriers
+
+
+9. Container Performance
+========================
+
+ A - Before opting for an std container for a specific use case, consult multiple sources of information:
+   official docs and articles about real-world performance:
+   1. - https://en.cppreference.com/w/cpp/container
+   2. - https://cplusplus.com/reference/stl/
+   3. - https://baptiste-wicht.com/posts/2012/12/cpp-benchmark-vector-list-deque.html
+   4. - https://stackoverflow.com/questions/12065774/why-does-cache-locality-matter-for-array-performance
+
+   This is important because it might happen that an std container that might look good from the perspective of use case-specific operation's complexity, might
+   perform worse in reality than some other std container due to cache locality.
+   You can see that std::deque has a pretty good real-world performance in different use-cases, compared to std::list and std::vector!
