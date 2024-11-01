@@ -30,7 +30,11 @@ Build order is from top left to bottom right.
 So CConsole depends on PFL, PGE depends on SoLoud, CConsole and PFL, etc.
 ELTE-FAIL, gfxcore2, PRooFPS-dd and UnitTests can be built in parallel since they have the same dependencies.
 
+I intentionally not listed "455-355-7357-88" project above because that project includes only header-only classes, so
+even though PFL and other projects depend on those included headers, neither project dependency nor build order is affected!
+
 We have the following repos:
+- 455-355-7357-88
 - PFL
 - Console
 - PGE (this includes copied source code of both GameNetworkingSockets and SoLoud libraries)
@@ -38,7 +42,7 @@ We have the following repos:
 - ELTE-FAIL
 - PGE-misc (for solution and other textfiles like this txt)
 - PR00FPS (legacy Delphi project from 2007, not part of the solution)
-- PRooFPS-dd (new project being worked on in 2022)
+- PRooFPS-dd (new project being worked on since 2022)
 - proof88.github.io - online form of documentation
 
 So as seen above, almost every project has its own repository.
@@ -46,7 +50,7 @@ Exceptions:
  - SoLoud project, it lies in the same repo as PGE.
  - UnitTests project, it lies in the same repo as PGE.
 
-I highly recommend cloning them separately into the same directory!
+I highly recommend cloning them separately into the same root directory!
 
 
 ---
@@ -130,16 +134,17 @@ MSVC 2022 Runtime Installer to the user.
 
 Other notes irrelevant to GameNetworkingSockets below.
 
-PRooFPS-dd uses Debug, Release and DebugTest_PRooFPS-dd configurations.
+PRooFPS-dd uses Debug, Release, DebugTest_PRooFPS-dd and ReleaseTest_PRooFPS-dd configurations.
 DebugPR00FPS and ReleasePR00FPS configurations are for the legacy PR00FPS, please do not mix them up with PRooFPS-dd stuff!
 
-DebugTest_PRooFPS-dd configuration is for running unit tests for PRooFPS-dd: it defines the TESTING macro used by PRooFPS-dd project to decide which
+DebugTest_PRooFPS-dd and ReleaseTest_PRooFPS-dd configurations are for running unit tests for PRooFPS-dd: they define the TESTING macro used by PRooFPS-dd project to decide which
 WinMain() to be used: either the one in PRooFPS-dd.cpp or the other in PRooFPS-dd-Tests.cpp.
-Unit tests for PFL and PGE use the basic Debug or Release configuration shared with other projects.
+Unit tests for PFL and PGE use the basic Debug or Release configurations shared with other projects.
 
 The SoLoud audio library has multiple Visual Studio Projects under PGE/Audio/soloud-RELEASE_20200207/build/vs2017, however the only relevant project file is SoloudStatic.vcxproj and that is added to this PGE-misc solution with proper dependency setting, which means that the required soloud_static_x86.lib (or soloud_static_x86_d.lib for debug build) is automatically built before PGE project is being built.
 
 Build time measurements of PRooFPS-dd from clean state (including building the other projects on which PRooFPS-dd depends, Debug configuration):
+as of July 11, 2023:
 Machine 1:  55 sec (Core i5 4570 3.2 GHz (turbo 3.6 GHz), 2x 8 GB 1833 MHz CL10 DDR3, Crucial MX500 500GB SSD SATA)
 Machine 2: 120 sec (C2D E7300 2.66 GHz, 2x 1 GB 800 MHz DDR2 CL6, Kingston KC600 256GB SSD SATA)
 Machine 3:  50 sec (Core i5 8250U HT 1.6 GHz (turbo 3.4 GHz), 2x 4 GB 2666 MHz DDR4, Adata XPG SX6000 Pro 256GB SSD M.2 2280 PCIe NVMe)
@@ -185,7 +190,7 @@ we don't want to hide any internal stuff.
 As you can see, all stuff required to generate either internal or external documentation is in PGE directory.
 
 However, there is a separate repo called proof88.github.io, which contains generated internal documentation.
-The content is updated at every major PGE or Pure version release and available online at: https://proof88.github.io/pure-doc/index.html .
+The content is updated at every major PGE or Pure version release and available online at: https://proof88.github.io/ .
 
 
 ---
