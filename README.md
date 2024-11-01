@@ -8,5 +8,5 @@ Repo containing PGE solution keeping together the following projects:
  - [ELTE-FAIL](https://github.com/proof88/ELTE-FAIL)
  - [PRooFPS-dd](https://github.com/proof88/PRooFPS-dd)
  
-The reason for the name "PGE-misc" and why to keep together these projects is also written in PGE-WoW.txt:<br/>
+The reason for the name "PGE-misc" and why to keep together these projects is also written in [PGE-WoW.txt](https://github.com/proof88/PGE-misc/blob/master/src/PGE-WoW.txt):<br/>
 "the main project here is PGE and the other projects are side projects needed to be created for PGE during development".
