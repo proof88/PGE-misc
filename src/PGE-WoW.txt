@@ -19,6 +19,7 @@ Project dependency tree (with the build output formats):
   - SoLoud (.lib)
   - PFL (.lib)
     - CConsole (.lib)
+      - 455-355-7357-88 (.exe, only if you want to build the example code)
       - PGE (.lib)
         - gfxcore2   (.dll) (notice multiple runnables explained later in 1))
         - GGame      (.exe) (not published on GitHub so it might be absent)
@@ -27,23 +28,23 @@ Project dependency tree (with the build output formats):
         - UnitTests  (.exe)
 
 Build order is from top left to bottom right.
-So CConsole depends on PFL, PGE depends on SoLoud, CConsole and PFL, etc.
+So CConsole depends on PFL; 455-355-7357-88 and PGE depend on SoLoud, CConsole and PFL, etc.
 ELTE-FAIL, gfxcore2, PRooFPS-dd and UnitTests can be built in parallel since they have the same dependencies.
 
-I intentionally not listed "455-355-7357-88" project above because that project includes only header-only classes, so
-even though PFL and other projects depend on those included headers, neither project dependency nor build order is affected!
+Note that "455-355-7357-88" project is to store header-only classes, but it also has .cpp file with .exe output, if you
+want to build and run the example there. In that case, project really depends on PFL.lib and CConsole.lib.
 
 We have the following repos:
-- 455-355-7357-88
-- PFL
-- Console
+- 455-355-7357-88 (my custom text framework I use to write unit- and performance tests)
+- PFL (collection of various useful functions)
+- Console (for logging)
 - PGE (this includes copied source code of both GameNetworkingSockets and SoLoud libraries)
-- gfxcore2
-- ELTE-FAIL
+- gfxcore2 (replacement of the original Delphi-based gfxcore2 lib used by the legacy PR00FPS from 2007)
+- ELTE-FAIL (sandbox project trying out random things with my game engine PGE)
 - PGE-misc (for solution and other textfiles like this txt)
 - PR00FPS (legacy Delphi project from 2007, not part of the solution)
 - PRooFPS-dd (new project being worked on since 2022)
-- proof88.github.io - online form of documentation
+- proof88.github.io (online form of documentation)
 
 So as seen above, almost every project has its own repository.
 Exceptions:
