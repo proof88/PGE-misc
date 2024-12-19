@@ -5,7 +5,13 @@
     ###################################################################################
 */
 
+ - OS: at least Windows 7.
+As of Dec 2024, my builds require the MSVC++ 2015-2022 redistributable package, and its installer
+requires Windows 7 as minimum. Therefore, neither XP or Vista systems are supported.
+In the future I want to investigate this because I might want to run my graphics engine for benchmarking
+purpose on older XP systems if I cannot get any of my 3dfx cards work with Windows 7.
 
+ - CPU: at least SSE2.
 Due to using GNS (GameNetworkingSockets), SSE2 support is mandatory.
 On the long run, I want the ability to skip linking to GNS if I choose not to use networking, because
 it would be nice to run the graphics engine part of PGE on older machines not supporting SSE2 such as Pentium III.
