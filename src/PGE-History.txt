@@ -1,10 +1,14 @@
 /*
   ###################################################################################
   PGE-History.txt
-  What has changed from version to version, ordered by priority
+  Legacy version to version changes, ordered by priority
   EMAIL : PR0o0o0o0o0o0o0o0o0o0oF88@gmail.com
   ###################################################################################
 */
+
+This History file is deprecated.
+Check https://github.com/proof88/PGE for version history!
+Here you can only find planned/future stuff.
 
 
 Abbreviations:
@@ -489,7 +493,7 @@ LOW PRIORITY
 
 
 ###########################################################################################################################################
-0.4 - reached on ???, 2022 - 
+x.x - reached on ???, 202? - 
 ###########################################################################################################################################
 
 DONT FORGET
@@ -645,18 +649,9 @@ LOW PRIO
         https://russellday.wordpress.com/2012/01/26/calculating-overdraw-with-the-stencil-buffer-in-opengl/
 
 
-###########################################################################################################################################
-0.3 - reached on November 1, 2021 - occlusion culling, depth sorting, current- and last frame-statistics
-###########################################################################################################################################
-
-###########################################################################################################################################
-0.2 - reached on March 31, 2021 - refactor, hardening, bug fixes, documentation, 1st performance demo
-###########################################################################################################################################
-
-###########################################################################################################################################
-0.1 - reached on April 20, 2019 - main target here is to be able to run PR00FPS and GGame with this new engine
-###########################################################################################################################################
-
+This History file is deprecated.
+Check https://github.com/proof88/PGE for version history!
+Here you can only find planned/future stuff.
 
 
 D:\__PR00F__\___developing___\projects\Delphi\PR00FPS\PR00FPS.exe
