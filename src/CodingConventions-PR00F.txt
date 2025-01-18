@@ -454,3 +454,21 @@ find it again in the future.
    This is important because it might happen that an std container that might look good from the perspective of use case-specific operation's complexity, might
    perform worse in reality than some other std container due to cache locality.
    You can see that std::deque has a pretty good real-world performance in different use-cases, compared to std::list and std::vector!
+
+
+10. Smart Pointers
+==================
+
+ A - it is clear that unique_ptr is used if there is only 1 entity storing pointer to an object and responsible for managing its lifetime.
+     It is also clear that shared_ptr shall be used there is multiple entities storing pointers to the same object, and we want to use reference counting to keep
+     the object instance in memory until all entities refer to that instance, together responsible for the lifetime of the instance.
+     
+     But, what if I want to pass such pointer to a function that does not mess with lifetime at all?
+     Answer:
+     "std::unique_ptr provides unique ownership semantics safely. However that doesn't rule out the need for non-owning pointers.
+      std::shared_ptr has a non-owning counterpart, std::weak_ptr. Raw pointers operate as std::unique_ptr's non-owning counterpart."
+
+     "The rule I tend to follow is this: if the callee isn't mucking with lifetime/ownership, do not pass it a smart pointer; rather, pass in a
+      raw C++ reference (preferred) or raw pointer. I find it far cleaner and more flexible to separate the concern of ownership from usage."
+
+     (https://stackoverflow.com/questions/10802046/whats-the-point-of-stdunique-ptrget)
