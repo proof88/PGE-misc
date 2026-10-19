@@ -136,7 +136,7 @@ MSVC 2022 Runtime Installer to the user.
 Other notes irrelevant to GameNetworkingSockets below.
 
 PRooFPS-dd uses Debug, Release, DebugTest_PRooFPS-dd and ReleaseTest_PRooFPS-dd configurations.
-DebugPR00FPS and ReleasePR00FPS configurations are for the legacy PR00FPS, please do not mix them up with PRooFPS-dd stuff!
+DebugPR00FPS and ReleasePR00FPS configurations were for the legacy PR00FPS, and not existing anymore since Oct 2026.
 
 DebugTest_PRooFPS-dd and ReleaseTest_PRooFPS-dd configurations are for running unit tests for PRooFPS-dd: they define the TESTING macro used by PRooFPS-dd project to decide which
 WinMain() to be used: either the one in PRooFPS-dd.cpp or the other in PRooFPS-dd-Tests.cpp.
@@ -156,15 +156,18 @@ Machine 3:  50 sec (Core i5 8250U HT 1.6 GHz (turbo 3.4 GHz), 2x 4 GB 2666 MHz D
 2) Different Runnables
 
 A project may have multiple configurations, that could mean not only Release and Debug outputs but also executing different runnables.
-Currently the only project having multible runnables is gfxcore2:
- - configurations with name EV2008P03* will build gfxcore2.dll, copy it to EV2008P03 sample directory and run EV2008P03 sample;
-   - both Debug and Release versions of this configuration will do these same actions, but obviously compiler and linker settings are different according to name;
- - configurations DebugPR00FPS and ReleasePR00FPS will build gfxcore2.dll, copy it to PR00FPS directory and run PR00FPS;
+Currently no project has multible runnables.
+Until Oct 2026 gfxcore2 had multiple runnables:
+ - configurations with name EV2008P03* built gfxcore2.dll, copied it to EV2008P03 sample directory and ran EV2008P03 sample;
+   - both Debug and Release versions of this configuration do these same actions, but obviously compiler and linker settings are different according to name;
+ - configurations DebugPR00FPS and ReleasePR00FPS built gfxcore2.dll, copied it to PR00FPS directory and ran PR00FPS;
    - Debug and Release settings for compiler and linker obviously don't affect the existing legacy PR00FPS build since that is a Delphi project, we leave it untouched,
      so if you want Debug or Release build of the legacy PR00FPS, you need to solve that from Delphi.
 
-Even though EV2008P03Debug, EV2008P03Release, DebugPR00FPS and ReleasePR00FPS are valid project configurations for other projects such as UnitTests, there they
-act like the project's simple Debug or Release configuration: build&run the given project, not a sample runnable or PR00FPS.
+EV2008P03Debug, EV2008P03Release, DebugPR00FPS and ReleasePR00FPS project configurations DO NOT EXIST since Oct 2026.
+To run EV2008P03 example, or the old Delphi-based PR00FPS with either release- or debug-build of gfxcore2.dll, you need to
+build either a release- or debug-version of gfxcore2.dll accordingly, then manually copy the dll file to the proper directory,
+and then manually run either EV2008P03 example or the old Delphi-based PR00FPS with the new gfxcore2.dll file.
 
 
 ---
