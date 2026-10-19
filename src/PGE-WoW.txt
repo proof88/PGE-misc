@@ -70,7 +70,7 @@ Note that due to the different compiler and linker settings used across projects
 a different version of Visual Studio, or you experience unexpected exception raised during running the debug build of any of the projects.
 I can successfully build all my projects with this exact version, so this is what I recommend:
 
-Visual Studio 2022 Community Edition (64-bit) Version 17.5.5.
+Visual Studio 2026 Community Edition (64-bit) Version 18.11.0 (October 2026 Feature update).
 
 Sometimes I upgrade VS and verify everything is working. If not, I fix the issues so all my projects could be built with the latest version of Visual Studio.
 

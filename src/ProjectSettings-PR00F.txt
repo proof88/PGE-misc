@@ -15,7 +15,7 @@ GENERAL                              | DEBUG (and any debug-like, e.g. DebugPR00
 ========================================================================================================================
   Character Set                      | Use Multi-Byte Character Set                     | <Same>
   ----------------------------------------------------------------------------------------------------------------------
-  Whole Program Optimization         | No Whole Program Optimization                    | Use Link Time Code Generation
+  Whole Program Optimization         | No Whole Program Optimization                    | No Whole Program Optimization
 ########################################################################################################################
                                      |                                                  |
 DEBUGGING                            | DEBUG                                            | RELEASE
@@ -61,7 +61,8 @@ C/C++                                | DEBUG                                    
                                      | And always also add NOMINMAX, reason is explained in winproof88.h.
   ----------------------------------------------------------------------------------------------------------------------
   Code generation
-    - Smaller type check             | Yes (/RTCc)                                      | No
+    - Smaller type check             | No (/RTCc)                                       | No
+      Cannot use anymore with recent MSVC implementations even if _ALLOW_RTCc_IN_STL is defined.
     - Runtime Library                | Multi-threaded Debug (/MTd)                      | Multi-threaded (/MT)
     - Enable Function-Level Linking  | Yes (/Gy)                                        | -
   ----------------------------------------------------------------------------------------------------------------------
@@ -83,7 +84,8 @@ C/C++                                | DEBUG                                    
     - Precompiled Header File        | <name of header in the project to be used as PCH>| <Same>
   ----------------------------------------------------------------------------------------------------------------------
   Browse Information
-    - Enable Browse Information      | Yes (/FR)                                        | No
+    - Enable Browse Information      | No                                               | No
+      Not used by MSVC debugger at all, legacy thing, keep it disabled.
   ----------------------------------------------------------------------------------------------------------------------
   Command Line
     - specify the following extra    | /Zc:__cplusplus                                  | <Same>
